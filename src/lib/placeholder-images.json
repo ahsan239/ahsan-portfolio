@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-portrait",
+      "description": "Professional headshot of an AI Engineer",
+      "imageUrl": "https://picsum.photos/seed/hero/600/800",
+      "imageHint": "professional portrait"
+    },
+    {
+      "id": "project-support-bot",
+      "description": "AI Customer Support Interface",
+      "imageUrl": "https://picsum.photos/seed/support/800/600",
+      "imageHint": "ai chatbot interface"
+    },
+    {
+      "id": "project-doc-processor",
+      "description": "Automated Document Processing Dashboard",
+      "imageUrl": "https://picsum.photos/seed/doc/800/600",
+      "imageHint": "document data extraction"
+    },
+    {
+      "id": "project-sales-analytics",
+      "description": "Predictive Sales Analytics Charts",
+      "imageUrl": "https://picsum.photos/seed/sales/800/600",
+      "imageHint": "data visualization dashboard"
+    }
+  ]
 }
