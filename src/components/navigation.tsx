@@ -3,14 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { BrainCircuit, Menu, X } from "lucide-react";
+import { Plus, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Projects", href: "/#projects" },
+  { name: "Work", href: "/#projects" },
   { name: "Services", href: "/hire" },
-  { name: "Process", href: "/#process" },
+  { name: "Contact", href: "mailto:hello@aisolutions.me" },
 ];
 
 export function Navigation() {
@@ -19,7 +18,7 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -27,73 +26,68 @@ export function Navigation() {
   return (
     <header 
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled ? "py-4" : "py-8"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-700",
+        scrolled ? "bg-background/80 backdrop-blur-md border-b" : "bg-transparent"
       )}
     >
-      <div className="container mx-auto px-4">
-        <div 
-          className={cn(
-            "flex h-16 items-center justify-between px-6 rounded-2xl transition-all duration-500 border border-white/5",
-            scrolled ? "bg-background/80 backdrop-blur-2xl shadow-2xl" : "bg-transparent"
-          )}
-        >
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="p-2 rounded-xl bg-primary/20 group-hover:bg-primary transition-all duration-500">
-              <BrainCircuit className="h-6 w-6 text-accent" />
-            </div>
-            <span className="font-headline font-black text-2xl tracking-tighter hidden sm:block">
-              AI<span className="text-accent">S</span>
-            </span>
-          </Link>
+      <div className="container mx-auto px-6 h-24 flex items-center justify-between">
+        <Link href="/" className="group relative flex items-center gap-2">
+          <span className="text-2xl font-black tracking-tighter leading-none">
+            AI<span className="text-muted-foreground">S.</span>
+          </span>
+          <div className="h-1.5 w-1.5 rounded-full bg-accent absolute -right-3 top-1 animate-pulse" />
+        </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "text-xs font-black uppercase tracking-[0.2em] transition-all hover:text-accent",
-                  pathname === link.href ? "text-accent" : "text-muted-foreground"
-                )}
-              >
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-12">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={cn(
+                "text-[11px] font-bold uppercase tracking-[0.3em] transition-all hover:text-accent relative overflow-hidden group",
+                pathname === link.href ? "text-accent" : "text-muted-foreground"
+              )}
+            >
+              <span className="block group-hover:-translate-y-full transition-transform duration-300">
                 {link.name}
-              </Link>
-            ))}
-            <div className="h-4 w-px bg-white/10" />
-            <Button asChild className="bg-white text-black hover:bg-white/90 font-black rounded-full px-8 h-10 transition-transform hover:scale-105">
-              <Link href="/hire">Contact</Link>
-            </Button>
-          </nav>
-
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
+              </span>
+              <span className="absolute top-full left-0 block text-accent transition-transform duration-300 group-hover:-translate-y-full">
+                {link.name}
+              </span>
+            </Link>
+          ))}
+          <Link 
+            href="/hire" 
+            className="group flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-accent hover:text-black transition-colors"
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
+            Start Project <Plus className="h-3 w-3 transition-transform group-hover:rotate-90" />
+          </Link>
+        </nav>
+
+        {/* Mobile menu button */}
+        <button
+          className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-[100px] z-50 bg-background/95 backdrop-blur-3xl p-8 animate-in slide-in-from-top duration-500">
-          <nav className="flex flex-col gap-8">
+        <div className="md:hidden fixed inset-0 z-40 bg-background flex flex-col items-center justify-center p-8 animate-in fade-in duration-500">
+          <nav className="flex flex-col gap-10 text-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-4xl font-black tracking-tighter border-b border-white/5 pb-4"
+                className="text-5xl font-black tracking-tighter hover:text-accent transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <Button asChild size="lg" className="bg-primary text-white mt-4 font-black rounded-full">
-              <Link href="/hire" onClick={() => setIsOpen(false)}>Discovery Call</Link>
-            </Button>
           </nav>
         </div>
       )}

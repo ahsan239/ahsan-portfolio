@@ -1,28 +1,28 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-portrait",
-      "description": "Professional headshot of an AI Engineer",
-      "imageUrl": "https://picsum.photos/seed/hero/600/800",
-      "imageHint": "professional portrait"
+      "id": "hero-main",
+      "description": "Abstract AI Neural Network Visualization",
+      "imageUrl": "https://picsum.photos/seed/ai-core/1200/800",
+      "imageHint": "abstract technology"
     },
     {
-      "id": "project-support-bot",
-      "description": "AI Customer Support Interface",
-      "imageUrl": "https://picsum.photos/seed/support/800/600",
-      "imageHint": "ai chatbot interface"
+      "id": "project-support",
+      "description": "Minimalist Support Automation UI",
+      "imageUrl": "https://picsum.photos/seed/support-99/1000/1000",
+      "imageHint": "minimalist interface"
     },
     {
-      "id": "project-doc-processor",
-      "description": "Automated Document Processing Dashboard",
-      "imageUrl": "https://picsum.photos/seed/doc/800/600",
-      "imageHint": "document data extraction"
+      "id": "project-doc",
+      "description": "Clean Data Extraction Visualization",
+      "imageUrl": "https://picsum.photos/seed/doc-88/1000/1000",
+      "imageHint": "data structures"
     },
     {
-      "id": "project-sales-analytics",
-      "description": "Predictive Sales Analytics Charts",
-      "imageUrl": "https://picsum.photos/seed/sales/800/600",
-      "imageHint": "data visualization dashboard"
+      "id": "project-sales",
+      "description": "Sleek Predictive Chart Design",
+      "imageUrl": "https://picsum.photos/seed/sales-77/1000/1000",
+      "imageHint": "geometric patterns"
     }
   ]
 }
