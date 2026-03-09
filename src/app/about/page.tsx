@@ -73,6 +73,14 @@ export default function AboutPage() {
       score: "PERCENTAGE: 71%",
       desc: "Completed higher secondary education with focus on core academic subjects while developing strong analytical and problem-solving skills.",
       icon: <School size={24} className="text-primary" />
+    },
+    {
+      degree: "High School (Class X)",
+      institution: "St. Mary Public Inter College",
+      period: "2018",
+      score: "PERCENTAGE: 74%",
+      desc: "Successfully completed secondary education with a focus on science and mathematics, fostering early analytical and problem-solving skills.",
+      icon: <School size={24} className="text-primary" />
     }
   ];
 
@@ -155,6 +163,11 @@ export default function AboutPage() {
             </div>
 
             <div className="space-y-16">
+              <div className="space-y-8">
+                <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
+                  The Journey
+                </Badge>
+              </div>
               <div className="space-y-8 max-w-5xl">
                 <Card className="glass-card p-12 rounded-[4rem] border-white/5 relative overflow-hidden group">
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
