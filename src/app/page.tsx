@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase";
 import { collection, query, orderBy, doc } from "firebase/firestore";
+import { cn } from "@/lib/utils";
 
 const OWNER_ID = "alex-rivera";
 
@@ -29,18 +30,18 @@ export default function Home() {
   const { data: experiences, isLoading: experiencesLoading } = useCollection(experiencesQuery);
 
   const techArsenal = [
-    { name: "Next.js 15", category: "FRONTEND", icon: <Zap size={18} />, color: "text-blue-400", desc: "App Router, RSC, Server Actions" },
-    { name: "React 19", category: "FRONTEND", icon: <Code2 size={18} />, color: "text-cyan-400", desc: "Concurrent rendering, Hooks" },
-    { name: "TypeScript", category: "LANGUAGE", icon: <ShieldCheck size={18} />, color: "text-blue-500", desc: "Type-safe development" },
-    { name: "JavaScript", category: "LANGUAGE", icon: <Globe size={18} />, color: "text-yellow-400", desc: "Modern web standard" },
-    { name: "Node.js", category: "BACKEND", icon: <Cpu size={18} />, color: "text-green-500", desc: "Scalable server environments" },
-    { name: "Express.js", category: "BACKEND", icon: <Database size={18} />, color: "text-emerald-400", desc: "Minimalist web framework" },
-    { name: "Firebase", category: "CLOUD/DB", icon: <Flame size={18} />, color: "text-orange-500", desc: "Real-time apps & Auth" },
-    { name: "MongoDB", category: "DATABASE", icon: <Layers size={18} />, color: "text-green-600", desc: "NoSQL document storage" },
-    { name: "GraphQL", category: "API", icon: <Share2 size={18} />, color: "text-pink-500", desc: "Flexible data fetching" },
-    { name: "Google Apps Script", category: "AUTOMATION", icon: <Terminal size={18} />, color: "text-blue-600", desc: "Productivity workflows" },
-    { name: "Tailwind CSS", category: "STYLING", icon: <Palette size={18} />, color: "text-sky-400", desc: "Utility-first CSS framework" },
-    { name: "Generative AI", category: "AI", icon: <Sparkles size={18} />, color: "text-purple-400", desc: "LLM & GenAI integration" },
+    { name: "Next.js 15", category: "FRONTEND", icon: <Zap size={24} />, color: "text-blue-400", glow: "hover:shadow-blue-500/20", desc: "App Router, RSC, Server Actions" },
+    { name: "React 19", category: "FRONTEND", icon: <Code2 size={24} />, color: "text-cyan-400", glow: "hover:shadow-cyan-400/20", desc: "Concurrent rendering, Hooks" },
+    { name: "TypeScript", category: "LANGUAGE", icon: <ShieldCheck size={24} />, color: "text-blue-500", glow: "hover:shadow-blue-500/20", desc: "Type-safe development" },
+    { name: "JavaScript", category: "LANGUAGE", icon: <Globe size={24} />, color: "text-yellow-400", glow: "hover:shadow-yellow-400/20", desc: "Modern web standard" },
+    { name: "Node.js", category: "BACKEND", icon: <Cpu size={24} />, color: "text-green-500", glow: "hover:shadow-green-500/20", desc: "Scalable server environments" },
+    { name: "Express.js", category: "BACKEND", icon: <Database size={24} />, color: "text-emerald-400", glow: "hover:shadow-emerald-400/20", desc: "Minimalist web framework" },
+    { name: "Firebase", category: "CLOUD/DB", icon: <Flame size={24} />, color: "text-orange-500", glow: "hover:shadow-orange-500/20", desc: "Real-time apps & Auth" },
+    { name: "MongoDB", category: "DATABASE", icon: <Layers size={24} />, color: "text-green-600", glow: "hover:shadow-green-600/20", desc: "NoSQL document storage" },
+    { name: "GraphQL", category: "API", icon: <Share2 size={24} />, color: "text-pink-500", glow: "hover:shadow-pink-500/20", desc: "Flexible data fetching" },
+    { name: "Google Apps Script", category: "AUTOMATION", icon: <Terminal size={24} />, color: "text-blue-600", glow: "hover:shadow-blue-600/20", desc: "Productivity workflows" },
+    { name: "Tailwind CSS", category: "STYLING", icon: <Palette size={24} />, color: "text-sky-400", glow: "hover:shadow-sky-400/20", desc: "Utility-first CSS framework" },
+    { name: "Generative AI", category: "AI", icon: <Sparkles size={24} />, color: "text-purple-400", glow: "hover:shadow-purple-400/20", desc: "LLM & GenAI integration" },
   ];
 
   return (
@@ -57,7 +58,7 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-5xl font-bold tracking-tighter mb-10 max-w-4xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+          <h1 className="text-5xl font-bold tracking-tighter mb-10 max-w-4xl mx-auto leading-[0.9] animate-fade-in-up uppercase" style={{ fontSize: '3rem' }}>
             Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
@@ -83,16 +84,14 @@ export default function Home() {
       </section>
 
       {/* The Philosophy Section */}
-      <section id="philosophy" className="py-40 relative">
+      <section id="philosophy" className="py-40 relative border-t border-white/5 bg-white/[0.01]">
         <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             <div className="lg:col-span-7 space-y-16">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <Badge variant="outline" className="text-primary border-primary/20 py-1 px-4 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] bg-primary/5">
-                    Engineering Creed
-                  </Badge>
-                </div>
+              <div className="space-y-8">
+                <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
+                  Engineering Creed
+                </Badge>
                 <h3 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] uppercase">
                   Efficiency Through <br />
                   <span className="text-primary italic">Intelligence,</span> <br />
@@ -100,30 +99,29 @@ export default function Home() {
                 </h3>
               </div>
 
-              <div className="space-y-10 max-w-2xl">
-                <div className="space-y-4">
+              <div className="space-y-12 max-w-3xl">
+                <div className="space-y-6">
                   <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-foreground flex items-center gap-2">
                     <Target size={14} className="text-primary" />
                     The Automation Mindset
                   </h4>
-                  <p className="text-xl text-muted-foreground leading-relaxed font-light">
-                    I architect high-performance web applications using React and Next.js, while simultaneously leveraging <strong className="text-foreground font-bold underline decoration-primary/30">Google Apps Script</strong> to bridge the gap between engineering and operational excellence.
-                  </p>
+                  <div className="space-y-6 text-xl md:text-2xl text-muted-foreground leading-relaxed font-light">
+                    <p>
+                      Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes.
+                    </p>
+                    <p>
+                      I build scalable, high-performance applications and automation solutions that improve workflows, enhance productivity, and deliver seamless user experiences.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-12 pt-6 border-t border-white/5">
+                <div className="grid grid-cols-2 gap-12 pt-12 border-t border-white/5">
                   <div className="space-y-2">
-                    <div className="flex items-baseline gap-2">
-                      <p className="text-4xl font-bold tracking-tighter">02+</p>
-                      <User size={16} className="text-primary/50" />
-                    </div>
+                    <p className="text-5xl font-bold tracking-tighter">02+</p>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Professional <br />Years Experience</p>
                   </div>
                   <div className="space-y-2">
-                    <div className="flex items-baseline gap-2">
-                      <p className="text-4xl font-bold tracking-tighter">10+</p>
-                      <Rocket size={16} className="text-accent/50" />
-                    </div>
+                    <p className="text-5xl font-bold tracking-tighter">10+</p>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Enterprise <br />Automations Deployed</p>
                   </div>
                 </div>
@@ -131,16 +129,16 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-5 space-y-8 sticky top-32">
-              <Card className="glass-card border-white/5 rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] dark:shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]">
+              <Card className="glass-card border-white/5 rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-2xl">
                 <CardContent className="p-8 lg:p-12 space-y-12">
-                  <div className="space-y-8">
+                  <div className="space-y-10">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                          <Terminal size={18} />
+                        <div className="h-12 w-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                          <Terminal size={20} />
                         </div>
                         <div className="space-y-0.5">
-                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
+                          <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
                           <p className="text-[9px] font-bold text-muted-foreground/60 uppercase">System Integration</p>
                         </div>
                       </div>
@@ -150,20 +148,20 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {[
-                        { name: "Next.js 15", icon: <Zap size={12} /> },
-                        { name: "React 19", icon: <Code2 size={12} /> },
-                        { name: "Apps Script", icon: <Terminal size={12} /> },
-                        { name: "Firebase", icon: <Flame size={12} /> },
-                        { name: "TypeScript", icon: <ShieldCheck size={12} /> },
-                        { name: "Tailwind", icon: <Palette size={12} /> }
+                        { name: "Next.js 15", icon: <Zap size={14} /> },
+                        { name: "React 19", icon: <Code2 size={14} /> },
+                        { name: "Apps Script", icon: <Terminal size={14} /> },
+                        { name: "Firebase", icon: <Flame size={14} /> },
+                        { name: "TypeScript", icon: <ShieldCheck size={14} /> },
+                        { name: "Tailwind", icon: <Palette size={14} /> }
                       ].map((tech) => (
-                        <div key={tech.name} className="flex items-center gap-3 p-3 rounded-xl bg-muted/20 border border-transparent hover:bg-muted/40 hover:border-primary/20 transition-all cursor-default group/item">
+                        <div key={tech.name} className="flex items-center gap-3 p-4 rounded-2xl bg-muted/20 border border-transparent hover:bg-muted/30 hover:border-primary/20 transition-all cursor-default group/item">
                           <div className="text-primary group-hover/item:scale-110 transition-transform">
                             {tech.icon}
                           </div>
-                          <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover/item:text-foreground transition-colors">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover/item:text-foreground transition-colors">
                             {tech.name}
                           </span>
                         </div>
@@ -171,23 +169,23 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="space-y-8 pt-10 border-t border-white/5">
+                  <div className="space-y-10 pt-10 border-t border-white/5">
                     <div className="flex gap-6 group/benefit">
-                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-muted/20 border border-transparent flex items-center justify-center text-primary group-hover/benefit:scale-110 group-hover/benefit:bg-primary/5 group-hover/benefit:border-primary/20 transition-all duration-500">
-                        <Activity size={24} />
+                      <div className="h-16 w-16 shrink-0 rounded-[1.5rem] bg-muted/20 border border-transparent flex items-center justify-center text-primary group-hover/benefit:scale-110 group-hover/benefit:bg-primary/5 group-hover/benefit:border-primary/20 transition-all duration-500">
+                        <Activity size={28} />
                       </div>
                       <div className="space-y-2">
-                        <h5 className="font-bold uppercase tracking-widest text-xs text-foreground group-hover/benefit:text-primary transition-colors">Zero Latency</h5>
-                        <p className="text-[11px] text-muted-foreground leading-relaxed font-light">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
+                        <h5 className="font-bold uppercase tracking-widest text-sm text-foreground group-hover/benefit:text-primary transition-colors">Zero Latency</h5>
+                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
                       </div>
                     </div>
                     <div className="flex gap-6 group/benefit">
-                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-muted/20 border border-transparent flex items-center justify-center text-accent group-hover/benefit:scale-110 group-hover/benefit:bg-accent/5 group-hover/benefit:border-accent/20 transition-all duration-500">
-                        <ShieldCheck size={24} />
+                      <div className="h-16 w-16 shrink-0 rounded-[1.5rem] bg-muted/20 border border-transparent flex items-center justify-center text-accent group-hover/benefit:scale-110 group-hover/benefit:bg-accent/5 group-hover/benefit:border-accent/20 transition-all duration-500">
+                        <ShieldCheck size={28} />
                       </div>
                       <div className="space-y-2">
-                        <h5 className="font-bold uppercase tracking-widest text-xs text-foreground group-hover/benefit:text-accent transition-colors">Bulletproof Logic</h5>
-                        <p className="text-[11px] text-muted-foreground leading-relaxed font-light">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
+                        <h5 className="font-bold uppercase tracking-widest text-sm text-foreground group-hover/benefit:text-accent transition-colors">Bulletproof Logic</h5>
+                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
                       </div>
                     </div>
                   </div>
@@ -201,7 +199,7 @@ export default function Home() {
       {/* Technical Arsenal */}
       <section id="arsenal" className="py-40 relative">
         <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-16">
+          <div className="mb-20">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Technical Arsenal
             </Badge>
@@ -213,27 +211,33 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {techArsenal.map((tech) => (
-              <Card key={tech.name} className="glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2">
+              <Card key={tech.name} className={cn(
+                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:-translate-y-2 shadow-xl",
+                tech.glow
+              )}>
                 <CardContent className="p-8 flex flex-col h-full relative z-10">
-                  <div className="flex justify-between items-start mb-10">
-                    <div className={`h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center ${tech.color} group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-xl`}>
+                  <div className="flex justify-between items-start mb-12">
+                    <div className={cn(
+                      "h-14 w-14 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:bg-white/10",
+                      tech.color
+                    )}>
                       {tech.icon}
                     </div>
-                    <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/50 bg-white/5 px-3 py-1 rounded-full border border-white/5 group-hover:border-primary/20 group-hover:text-primary/70 transition-colors">
+                    <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/40 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 group-hover:border-primary/30 group-hover:text-primary transition-colors">
                       {tech.category}
                     </span>
                   </div>
                   
-                  <div className="mt-auto">
-                    <h4 className="text-xl font-semibold uppercase tracking-tighter mb-1 group-hover:text-primary transition-colors">
+                  <div className="mt-auto space-y-2">
+                    <h4 className="text-xl font-semibold uppercase tracking-tighter group-hover:text-primary transition-colors">
                       {tech.name}
                     </h4>
-                    <p className="text-xs text-muted-foreground font-light leading-relaxed">
+                    <p className="text-[11px] text-muted-foreground font-light leading-relaxed tracking-tight">
                       {tech.desc}
                     </p>
                   </div>
                   
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 </CardContent>
               </Card>
             ))}

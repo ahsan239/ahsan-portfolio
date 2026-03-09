@@ -40,7 +40,7 @@ export default function AboutPage() {
       <Navigation />
       
       <main className="pt-48 pb-32">
-        <div className="container mx-auto px-6 max-w-6xl">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
           {/* Header */}
           <header className="space-y-10 mb-32 animate-fade-in-up">
             <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm">
@@ -52,9 +52,14 @@ export default function AboutPage() {
             <h1 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] uppercase italic">
               Solving with <br /> <span className="text-gradient">precision.</span>
             </h1>
-            <p className="text-xl md:text-3xl text-muted-foreground leading-relaxed max-w-4xl font-light">
-              {profile?.bio || "I develop modern web applications using React, Next.js, Node.js, and Firebase while also building automation solutions with Google Apps Script to streamline business processes and improve productivity."}
-            </p>
+            <div className="space-y-6 max-w-4xl animate-fade-in-up [animation-delay:200ms]">
+              <p className="text-xl md:text-3xl text-muted-foreground leading-relaxed font-light">
+                {profile?.bio || "Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes."}
+              </p>
+              <p className="text-xl md:text-3xl text-muted-foreground leading-relaxed font-light">
+                I build scalable, high-performance applications and automation solutions that improve workflows, enhance productivity, and deliver seamless user experiences.
+              </p>
+            </div>
           </header>
 
           {/* Value Cards */}
@@ -75,7 +80,6 @@ export default function AboutPage() {
             <div className="lg:col-span-7 space-y-20">
               <div className="space-y-10">
                 <div className="flex items-center gap-4">
-                  <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">01</span>
                   <div className="h-[1px] flex-1 bg-white/5" />
                   <h2 className="text-2xl font-black uppercase tracking-tighter">My Journey</h2>
                 </div>
@@ -91,7 +95,6 @@ export default function AboutPage() {
 
               <div className="space-y-10">
                 <div className="flex items-center gap-4">
-                  <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">02</span>
                   <div className="h-[1px] flex-1 bg-white/5" />
                   <h2 className="text-2xl font-black uppercase tracking-tighter">Stack</h2>
                 </div>
