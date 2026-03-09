@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -96,7 +95,7 @@ export default function AboutPage() {
 
           {/* Detailed Narrative & Journey */}
           <section className="grid lg:grid-cols-12 gap-24 items-start mb-40">
-            <div className="lg:col-span-7 space-y-32">
+            <div className="lg:col-span-12 space-y-32">
               
               {/* The Narrative Section */}
               <div className="space-y-10">
@@ -108,7 +107,7 @@ export default function AboutPage() {
                   <h3 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-gradient leading-tight">
                     The Story Behind <br /> the Code
                   </h3>
-                  <div className="space-y-8 text-xl text-muted-foreground leading-relaxed font-light">
+                  <div className="space-y-8 text-xl text-muted-foreground leading-relaxed font-light max-w-5xl">
                     <p>
                       My journey into technology began with <strong className="text-foreground font-bold">full-stack web development</strong>, where I focused on building complete web applications—from intuitive frontend interfaces to reliable backend systems. Using modern technologies, I created responsive user experiences, managed databases, and developed scalable APIs that support real-world products.
                     </p>
@@ -135,7 +134,7 @@ export default function AboutPage() {
                     <div className="h-[1px] flex-1 bg-white/5" />
                     <h2 className="text-2xl font-black uppercase tracking-tighter">My Journey</h2>
                   </div>
-                  <div className="space-y-8 text-xl text-muted-foreground leading-relaxed font-light">
+                  <div className="space-y-8 text-xl text-muted-foreground leading-relaxed font-light max-w-5xl">
                     <p>
                       I started my career building small-scale web applications, but my passion for performance and scalability quickly led me to enterprise-level architecture.
                     </p>
@@ -145,30 +144,50 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* Beyond the Desk integrated with Journey */}
-                <Card className="glass-card p-12 rounded-[4rem] border-white/5 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <Heart size={160} />
-                  </div>
-                  <h3 className="text-3xl font-black mb-10 relative z-10 uppercase tracking-tighter">Beyond <br />the Desk</h3>
-                  <ul className="grid md:grid-cols-2 gap-10 relative z-10">
-                    {[
-                      { icon: <Globe />, title: "Digital Nomad", desc: "Passionate about working from diverse environments." },
-                      { icon: <Coffee />, title: "Coffee Enthusiast", desc: "Always hunting for the perfect specialty roast." },
-                      { icon: <Rocket />, title: "Tech Mentor", desc: "Helping the next generation of engineers grow." }
-                    ].map((item, i) => (
-                      <li key={i} className="flex gap-6 group/item">
-                        <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover/item:scale-110 transition-transform">
-                          {item.icon}
+                <div className="grid lg:grid-cols-2 gap-8 max-w-5xl">
+                  {/* Beyond the Desk */}
+                  <Card className="glass-card p-12 rounded-[4rem] border-white/5 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                      <Heart size={160} />
+                    </div>
+                    <h3 className="text-3xl font-black mb-10 relative z-10 uppercase tracking-tighter">Beyond <br />the Desk</h3>
+                    <ul className="space-y-10 relative z-10">
+                      {[
+                        { icon: <Globe />, title: "Digital Nomad", desc: "Passionate about working from diverse environments." },
+                        { icon: <Coffee />, title: "Coffee Enthusiast", desc: "Always hunting for the perfect specialty roast." },
+                        { icon: <Rocket />, title: "Tech Mentor", desc: "Helping the next generation of engineers grow." }
+                      ].map((item, i) => (
+                        <li key={i} className="flex gap-6 group/item">
+                          <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover/item:scale-110 transition-transform">
+                            {item.icon}
+                          </div>
+                          <div>
+                            <p className="font-black text-foreground uppercase tracking-widest text-xs">{item.title}</p>
+                            <p className="text-sm text-muted-foreground font-light mt-1">{item.desc}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+
+                  {/* Inquiries */}
+                  <div className="flex flex-col gap-6">
+                    <div className="flex-1 flex items-center justify-between p-10 rounded-[3rem] bg-primary text-white shadow-2xl shadow-primary/20">
+                      <div className="flex items-center gap-6">
+                        <div className="h-12 w-12 rounded-full bg-white/20 flex items-center justify-center">
+                          <Mail size={20} />
                         </div>
                         <div>
-                          <p className="font-black text-foreground uppercase tracking-widest text-xs">{item.title}</p>
-                          <p className="text-sm text-muted-foreground font-light mt-1">{item.desc}</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Inquiries</p>
+                          <p className="font-black text-lg">{profile?.contactEmail || "hello@alexrivera.dev"}</p>
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
+                      </div>
+                    </div>
+                    <div className="p-10 rounded-[3rem] border border-white/5 bg-white/5 flex items-center justify-center group hover:bg-primary transition-all">
+                       <p className="text-xs font-black uppercase tracking-[0.3em] group-hover:text-white">Let's build together.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Technical Arsenal Integrated in About Page */}
@@ -177,7 +196,7 @@ export default function AboutPage() {
                   <div className="h-[1px] flex-1 bg-white/5" />
                   <h2 className="text-2xl font-black uppercase tracking-tighter">Technical Arsenal</h2>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {techArsenal.map((tech) => (
                     <Card key={tech.name} className={cn(
                       "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:-translate-y-2 shadow-xl",
@@ -212,20 +231,6 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-
-            <aside className="lg:col-span-5 space-y-8 sticky top-32">
-              <div className="flex items-center justify-between p-10 rounded-[3rem] bg-primary text-white shadow-2xl shadow-primary/20">
-                <div className="flex items-center gap-6">
-                  <div className="h-12 w-12 rounded-full bg-white/20 flex items-center justify-center">
-                    <Mail size={20} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Inquiries</p>
-                    <p className="font-black text-lg">{profile?.contactEmail || "hello@alexrivera.dev"}</p>
-                  </div>
-                </div>
-              </div>
-            </aside>
           </section>
         </div>
       </main>
