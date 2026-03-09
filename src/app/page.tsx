@@ -46,7 +46,7 @@ export default function Home() {
           </Badge>
           
           <h1 className="text-4xl md:text-7xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
-            Building digital <span className="text-gradient italic">products</span> that matter.
+            Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
