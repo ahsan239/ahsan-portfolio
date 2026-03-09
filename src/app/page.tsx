@@ -337,22 +337,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="py-12 md:py-20 border-t border-white/5">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-              <Code2 size={18} className="h-4 w-4 md:h-5 md:w-5" />
-            </div>
-            <span className="font-bold tracking-tighter uppercase text-lg md:text-xl">ALEX.DEV</span>
-          </div>
-          <p className="text-[8px] md:text-[10px] text-muted-foreground font-mono uppercase tracking-[0.5em] opacity-40 text-center">Engineering with precision since 2014</p>
-          <div className="flex gap-6 md:gap-10">
-            <Link href="/cms" className="text-[8px] md:text-[10px] text-primary hover:underline transition-all uppercase tracking-[0.3em] font-bold">Dashboard</Link>
-            <Link href="https://github.com/alexrivera" target="_blank" className="text-[8px] md:text-[10px] text-muted-foreground hover:text-primary transition-all uppercase tracking-[0.3em] font-bold">GitHub</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

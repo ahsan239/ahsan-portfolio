@@ -1,4 +1,3 @@
-
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import {
   Sparkles, ShieldCheck, Zap
 } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function HirePage() {
   const services = [
@@ -145,20 +145,6 @@ export default function HirePage() {
           </section>
         </div>
       </main>
-
-      <footer className="py-12 border-t border-white/5 text-center">
-         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/30 mb-8">Engineering excellence across the stack.</p>
-         <div className="flex gap-4 justify-center">
-            <Link href="/" className="text-xs text-muted-foreground hover:text-primary transition-colors">Home</Link>
-            <Link href="/#projects" className="text-xs text-muted-foreground hover:text-primary transition-colors">Portfolio</Link>
-            <Link href="mailto:hello@alexrivera.dev" className="text-xs text-muted-foreground hover:text-primary transition-colors">Email</Link>
-         </div>
-      </footer>
     </div>
   );
-}
-
-// Helper function since I'm editing multiple files
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(" ");
 }

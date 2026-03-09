@@ -408,12 +408,6 @@ export default function AboutPage() {
           </section>
         </div>
       </main>
-
-      <footer className="py-12 md:py-20 border-t border-white/5 text-center">
-        <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-[0.5em] opacity-30">
-          Engineering with empathy & performance.
-        </p>
-      </footer>
     </div>
   );
 }
