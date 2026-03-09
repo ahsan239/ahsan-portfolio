@@ -1,20 +1,45 @@
+
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { PROJECTS } from "@/app/lib/projects";
-import { ArrowRight, Code2, Cpu, Globe, Sparkles, Terminal, Database, Layers, Mail } from "lucide-react";
+import { 
+  ArrowRight, Code2, Cpu, Globe, Sparkles, Terminal, Database, 
+  Layers, Mail, Github, Linkedin, Briefcase, GraduationCap, 
+  User, CheckCircle2, Star 
+} from "lucide-react";
 import Link from "next/link";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Home() {
   const techStack = [
-    { name: "Next.js", icon: <Layers size={16} /> },
-    { name: "TypeScript", icon: <Code2 size={16} /> },
-    { name: "Firebase", icon: <Database size={16} /> },
-    { name: "GenAI", icon: <Sparkles size={16} /> },
-    { name: "Tailwind", icon: <Globe size={16} /> },
-    { name: "Python", icon: <Terminal size={16} /> },
+    { name: "Frontend", skills: ["Next.js", "React", "TypeScript", "Tailwind CSS"], icon: <Layers size={18} /> },
+    { name: "Backend", skills: ["Node.js", "Python", "PostgreSQL", "Redis"], icon: <Database size={18} /> },
+    { name: "AI/ML", skills: ["Genkit", "LLMs", "RAG Pipelines", "Vector DBs"], icon: <Sparkles size={18} /> },
+    { name: "DevOps", skills: ["GCP", "Docker", "CI/CD", "Terraform"], icon: <Terminal size={18} /> },
+  ];
+
+  const experience = [
+    {
+      company: "TechNova Solutions",
+      role: "Lead Software Architect",
+      period: "2021 — Present",
+      desc: "Leading a team of 12 engineers in building enterprise-scale AI solutions and cloud infrastructure."
+    },
+    {
+      company: "Streamline Devs",
+      role: "Senior Full-Stack Engineer",
+      period: "2018 — 2021",
+      desc: "Architected the core SaaS platform that scaled to 500k monthly active users."
+    },
+    {
+      company: "OpenSource Contributor",
+      role: "Maintainer",
+      period: "2016 — 2018",
+      desc: "Active contributor to several React and Node.js core libraries."
+    }
   ];
 
   return (
@@ -24,60 +49,100 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative pt-48 pb-32">
         <div className="container mx-auto px-6 flex flex-col items-center text-center">
-          <Badge variant="secondary" className="mb-8 py-1.5 px-4 rounded-full border-white/10 bg-white/5 backdrop-blur-sm animate-fade-in-up">
+          <Badge variant="secondary" className="mb-8 py-1.5 px-4 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-              Available for new projects
+              Available for strategic engineering roles
             </span>
           </Badge>
           
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 max-w-5xl leading-[0.9] animate-fade-in-up">
-            Building the next generation of <span className="text-gradient">AI-First</span> software.
+            Shipping code that <span className="text-gradient">scales</span> with impact.
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed animate-fade-in-up [animation-delay:200ms]">
-            Senior Full-Stack Engineer specializing in LLM orchestration, 
-            production-grade RAG pipelines, and high-performance web architecture.
+            Senior Software Engineer & AI Architect. I build robust digital products 
+            using modern web technologies and intelligent automation systems.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-20 animate-fade-in-up [animation-delay:400ms]">
-            <Link 
-              href="/#projects" 
-              className="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:scale-105 transition-all shadow-xl shadow-primary/20"
-            >
-              View My Work <ArrowRight size={20} />
-            </Link>
-            <Link 
-              href="/hire" 
-              className="glass-card px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all"
-            >
-              Consulting Services
-            </Link>
+          <div className="flex flex-wrap justify-center gap-4 mb-24 animate-fade-in-up [animation-delay:400ms]">
+            <Button asChild size="lg" className="rounded-xl px-8 h-14 font-bold shadow-xl shadow-primary/20">
+              <Link href="/#projects">View Projects <ArrowRight size={18} className="ml-2" /></Link>
+            </Button>
+            <Button variant="outline" asChild size="lg" className="glass-card rounded-xl px-8 h-14 font-bold border-white/10">
+              <Link href="/hire">Work with Me</Link>
+            </Button>
           </div>
 
-          {/* Tech Stack Pills */}
-          <div className="flex flex-wrap justify-center gap-3 max-w-3xl animate-fade-in-up [animation-delay:600ms]">
-            {techStack.map((tech) => (
-              <div key={tech.name} className="flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium">
-                <span className="text-primary">{tech.icon}</span>
-                {tech.name}
-              </div>
-            ))}
+          {/* Featured Logos / Socials */}
+          <div className="flex items-center gap-8 opacity-40 animate-fade-in-up [animation-delay:600ms]">
+            <Link href="https://github.com" className="hover:text-primary transition-colors"><Github size={24} /></Link>
+            <Link href="https://linkedin.com" className="hover:text-primary transition-colors"><Linkedin size={24} /></Link>
+            <Link href="mailto:hello@alexrivera.dev" className="hover:text-primary transition-colors"><Mail size={24} /></Link>
           </div>
         </div>
       </section>
 
-      {/* Featured Projects */}
-      <section id="projects" className="py-24 relative">
+      {/* About & Expertise */}
+      <section id="about" className="py-24 relative bg-white/[0.01]">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-xs">
+                <User size={14} /> About Me
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Full-Stack Craftsmanship <br />meets <span className="text-primary">AI Innovation.</span></h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                I'm Alex, a software engineer obsessed with the intersection of elegant UI and powerful, 
+                scalable backends. With a decade of experience in the industry, I help companies 
+                modernize their stack and implement practical AI solutions that drive real results.
+              </p>
+              <div className="grid grid-cols-2 gap-6 pt-4">
+                 <div className="p-4 rounded-2xl glass-card border-white/5">
+                    <p className="text-2xl font-bold">10+</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Years Experience</p>
+                 </div>
+                 <div className="p-4 rounded-2xl glass-card border-white/5">
+                    <p className="text-2xl font-bold">50+</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Projects Shipped</p>
+                 </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {techStack.map((category) => (
+                <Card key={category.name} className="glass-card border-white/10 hover:border-primary/30 transition-all group">
+                  <CardContent className="p-6 space-y-4">
+                    <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                      {category.icon}
+                    </div>
+                    <h3 className="font-bold text-lg">{category.name}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {category.skills.map(skill => (
+                        <span key={skill} className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 py-1 bg-white/5 rounded border border-white/5">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Showcase */}
+      <section id="projects" className="py-24">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div className="space-y-4">
-              <h2 className="text-4xl font-bold tracking-tight">Featured Projects</h2>
-              <p className="text-muted-foreground">A selection of my latest work in AI and Web Engineering.</p>
+              <div className="inline-flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-xs">
+                <Briefcase size={14} /> Projects
+              </div>
+              <h2 className="text-4xl font-bold tracking-tight">Proof of <span className="text-primary">Engineering</span></h2>
+              <p className="text-muted-foreground max-w-xl">A curated selection of complex systems I've architected and deployed recently.</p>
             </div>
-            <Link href="#" className="text-primary font-bold flex items-center gap-2 hover:underline">
-              Browse all projects <ArrowRight size={16} />
-            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -88,75 +153,81 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience / Approach */}
-      <section className="py-24 bg-white/[0.02]">
+      {/* Professional Journey */}
+      <section className="py-24 bg-white/[0.01]">
         <div className="container mx-auto px-6">
-          <div className="glass-card rounded-[2.5rem] p-12 md:p-20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-            
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
-                <h3 className="text-3xl md:text-5xl font-bold tracking-tight">Engineering with <br /><span className="text-primary">Business Value</span> in mind.</h3>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  I don't just write code. I architect solutions that solve real-world operational 
-                  challenges. Whether it's reducing churn with AI agents or optimizing legacy 
-                  pipelines, my focus is on measurable ROI.
-                </p>
-                <div className="grid grid-cols-2 gap-8">
-                  <div>
-                    <p className="text-3xl font-bold text-white">40%+</p>
-                    <p className="text-sm text-muted-foreground">Avg. Operational Savings</p>
+          <div className="max-w-4xl mx-auto space-y-16">
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-xs">
+                <GraduationCap size={14} /> Career Path
+              </div>
+              <h2 className="text-4xl font-bold">The Professional <span className="text-primary">Journey</span></h2>
+            </div>
+
+            <div className="space-y-8">
+              {experience.map((exp, idx) => (
+                <div key={idx} className="relative pl-12 before:absolute before:left-[11px] before:top-2 before:bottom-0 before:w-[1px] before:bg-white/10 last:before:hidden">
+                  <div className="absolute left-0 top-2 h-6 w-6 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                    <div className="h-2 w-2 rounded-full bg-primary" />
                   </div>
-                  <div>
-                    <p className="text-3xl font-bold text-white">100+</p>
-                    <p className="text-sm text-muted-foreground">Production Deploys</p>
+                  <div className="glass-card p-8 rounded-3xl border-white/5 hover:border-white/10 transition-all">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                      <div>
+                        <h4 className="text-xl font-bold text-white">{exp.role}</h4>
+                        <p className="text-primary font-medium">{exp.company}</p>
+                      </div>
+                      <Badge variant="outline" className="w-fit h-7 border-white/10 text-muted-foreground">{exp.period}</Badge>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed italic">{exp.desc}</p>
                   </div>
                 </div>
-              </div>
-              
-              <div className="grid grid-cols-1 gap-4">
-                {[
-                  { title: "RAG Specialization", desc: "Expert at building context-aware retrieval systems with Vector DBs.", icon: <Sparkles className="text-primary" /> },
-                  { title: "Cloud Native", desc: "Scaling serverless architecture on GCP, AWS, and Azure.", icon: <Globe className="text-blue-400" /> },
-                  { title: "Full Stack Mastery", desc: "Crafting pixel-perfect UIs and robust distributed backends.", icon: <Cpu className="text-purple-400" /> }
-                ].map((item, idx) => (
-                  <div key={idx} className="p-6 rounded-2xl bg-white/5 border border-white/10 flex gap-6 items-start">
-                    <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-bold mb-1">{item.title}</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-32">
+      {/* Testimonials */}
+      <section className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8">
+             {[
+               { name: "Sarah Chen", role: "CTO @ Nexus", content: "Alex is a rare talent who deeply understands both the business requirements and the technical complexity of modern apps." },
+               { name: "John Miller", role: "Product Manager @ Streamline", content: "The level of engineering polish Alex brings to every project is unmatched. He doesn't just ship; he crafts." },
+               { name: "Elena Rodriguez", role: "Founder @ AI Labs", content: "Our RAG implementation went from a prototype to a production-ready system in weeks thanks to Alex's expertise." }
+             ].map((t, idx) => (
+               <div key={idx} className="p-8 rounded-3xl glass-card border-white/5 space-y-6">
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map(s => <Star key={s} size={14} className="fill-primary text-primary" />)}
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed italic">"{t.content}"</p>
+                  <div className="pt-6 border-t border-white/5">
+                    <p className="font-bold">{t.name}</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-widest">{t.role}</p>
+                  </div>
+               </div>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final Call to Action */}
+      <section id="contact" className="py-32 relative">
         <div className="container mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight italic">Ready to build something <span className="text-primary">extraordinary</span>?</h2>
-            <p className="text-muted-foreground text-lg">
-              Let's discuss how AI and modern web technologies can transform your project.
+          <div className="max-w-4xl mx-auto space-y-12">
+            <h2 className="text-4xl md:text-7xl font-black tracking-tight leading-[1] italic">
+              Let's engineer the <span className="text-primary">future</span> together.
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Currently accepting select consulting engagements and full-time leadership opportunities.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link 
-                href="/hire" 
-                className="bg-white text-black px-10 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all"
-              >
-                Let's Talk
-              </Link>
-              <Link 
-                href="mailto:hello@dev.io" 
-                className="glass-card px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all flex items-center gap-2"
-              >
-                <Mail size={20} /> Email Me
-              </Link>
+              <Button asChild size="lg" className="rounded-xl px-10 h-16 font-bold text-lg">
+                <Link href="mailto:hello@alexrivera.dev">Send an Email <Mail size={20} className="ml-2" /></Link>
+              </Button>
+              <Button variant="outline" asChild size="lg" className="glass-card rounded-xl px-10 h-16 font-bold text-lg border-white/10">
+                <Link href="/hire">View Services</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -164,16 +235,17 @@ export default function Home() {
 
       <footer className="py-12 border-t border-white/5">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded bg-primary flex items-center justify-center text-[10px] font-bold text-white">
-              <Code2 size={12} />
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold">
+              <Code2 size={16} />
             </div>
-            <span className="font-bold text-sm">DevPort // 2024</span>
+            <span className="font-bold tracking-tight">ALEX // DEV</span>
           </div>
-          <div className="flex gap-8 text-sm text-muted-foreground">
-            <Link href="#" className="hover:text-primary transition-colors">GitHub</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Twitter</Link>
-            <Link href="#" className="hover:text-primary transition-colors">LinkedIn</Link>
+          <p className="text-xs text-muted-foreground font-mono">© 2024 Built with Next.js 15, Genkit & Passion.</p>
+          <div className="flex gap-8">
+            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">GitHub</Link>
+            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">LinkedIn</Link>
+            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Twitter</Link>
           </div>
         </div>
       </footer>

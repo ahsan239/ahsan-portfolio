@@ -18,51 +18,51 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    slug: "ai-customer-support-automator",
-    title: "AI Customer Support Automator",
-    shortDescription: "End-to-end support pipeline using RAG and LLMs to handle complex queries.",
-    businessImpact: "Reduced Support Tickets by 40%",
-    roiMetric: "Saved $50k/year in operational costs",
-    problem: "The support team was overwhelmed by repetitive manual queries, leading to slow response times and high churn.",
-    solution: "Built a RAG-based support agent using GPT-4 and Vector databases that provides instant, accurate answers from documentation.",
-    techStack: ["OpenAI", "Pinecone", "Next.js", "LangChain"],
-    imageUrl: "https://picsum.photos/seed/support/800/600",
+    slug: "nexus-saas-platform",
+    title: "Nexus SaaS Platform",
+    shortDescription: "A high-performance enterprise resource planning tool for distributed teams.",
+    businessImpact: "Increased operational efficiency by 35%",
+    roiMetric: "Scale to 10k+ concurrent users",
+    problem: "Existing ERP tools were bloated, slow, and lacked real-time collaborative features required by modern remote-first companies.",
+    solution: "Developed a distributed system using Next.js 15 and a serverless architecture, incorporating real-time state sync via WebSockets.",
+    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Redis", "Tailwind"],
+    imageUrl: "https://picsum.photos/seed/nexus/1000/1000",
     technicalDeepDive: {
-      architecture: "The system uses a retrieval-augmented generation (RAG) architecture. Documentation is chunked and stored in Pinecone. Queries are embedded and retrieved via cosine similarity before being passed to GPT-4.",
-      challenges: "Handling hallucination was a major challenge. We implemented a multi-stage verification step where the LLM cross-references the retrieved context for factual consistency.",
-      codeSnippet: "const response = await chain.call({ query: userPrompt });"
+      architecture: "Micro-frontend architecture using Next.js Zones to allow independent team deployments without compromising bundle size.",
+      challenges: "Ensuring consistent latency across global regions. Solved by implementing edge-side caching and a global Redis backplane.",
+      codeSnippet: "export const config = { runtime: 'edge' };"
     }
   },
   {
-    slug: "intelligent-doc-processor",
-    title: "Intelligent Document Processor",
-    shortDescription: "Automated data extraction from legacy PDF formats using computer vision.",
-    businessImpact: "Increased Processing Speed by 300%",
-    roiMetric: "Reclaimed 120 manual hours/month",
-    problem: "Marketing teams spent 10+ hours per week manually summarizing and extracting data from inconsistent legacy PDF reports.",
-    solution: "Developed a vision-augmented pipeline that extracts structured JSON from unstructured documents using specialized OCR and LLMs.",
-    techStack: ["Python", "FastAPI", "Google Vision", "Mistral AI"],
-    imageUrl: "https://picsum.photos/seed/doc/800/600",
+    slug: "ai-content-engine",
+    title: "AI Semantic Engine",
+    shortDescription: "RAG-based documentation search providing instant, contextual technical support.",
+    businessImpact: "Reduced support ticket volume by 55%",
+    roiMetric: "Avg. response time: <200ms",
+    problem: "Developers struggled to find specific technical answers in massive legacy documentation sets.",
+    solution: "Engineered a vector-search pipeline that indexes technical docs and provides natural language answers using Gemini 1.5 Flash.",
+    techStack: ["Genkit", "Firebase", "Pinecone", "Python", "Mistral"],
+    imageUrl: "https://picsum.photos/seed/ai-engine/1000/1000",
     technicalDeepDive: {
-      architecture: "Python backend using FastAPI to process PDF uploads. It utilizes custom vision models to locate fields and Mistral for context-aware text normalization.",
-      challenges: "Low-quality scans caused OCR failures. We solved this by implementing an image preprocessing step with noise reduction and contrast enhancement.",
-      codeSnippet: "def process_document(pdf_bytes):\n  # OCR + LLM logic\n  return structured_data"
+      architecture: "A Genkit-powered flow that handles document embedding on-the-fly and uses a RAG pattern with semantic reranking.",
+      challenges: "Managing token costs while maintaining high accuracy. Implemented a tiered embedding strategy to prune irrelevant context.",
+      codeSnippet: "const { output } = await ai.generate({ prompt: contextPrompt });"
     }
   },
   {
-    slug: "predictive-sales-engine",
-    title: "Predictive Sales Engine",
-    shortDescription: "Predictive lead scoring model integrated into CRM for sales optimization.",
-    businessImpact: "Improved Lead Conversion by 15%",
-    roiMetric: "Generated $200k in additional pipeline",
-    problem: "Sales reps had no way to prioritize leads, wasting 60% of their time on cold prospects that never converted.",
-    solution: "Engineered a predictive scoring model that ranks leads based on behavioral data, firmographics, and historical patterns.",
-    techStack: ["PyTorch", "AWS SageMaker", "Salesforce API", "React"],
-    imageUrl: "https://picsum.photos/seed/sales/800/600",
+    slug: "crypto-portfolio-tracker",
+    title: "Vantage Crypto Tracker",
+    shortDescription: "Real-time asset monitoring with automated tax reporting and risk analysis.",
+    businessImpact: "Processed $2M in transaction volume",
+    roiMetric: "Zero-latency price updates",
+    problem: "Users lacked a unified dashboard to track cross-chain assets with professional-grade risk metrics.",
+    solution: "Built a robust data aggregator that interfaces with multiple CEX and DEX APIs to provide a consolidated financial view.",
+    techStack: ["React", "D3.js", "Web3.js", "FastAPI", "AWS"],
+    imageUrl: "https://picsum.photos/seed/crypto/1000/1000",
     technicalDeepDive: {
-      architecture: "A custom ensemble model running on AWS. It ingests real-time CRM events and calculates scores every 15 minutes.",
-      challenges: "Data drift was the primary issue. We implemented an automated retraining pipeline that triggers when model performance drops below a threshold.",
-      codeSnippet: "model.predict(lead_features)"
+      architecture: "Event-driven architecture using AWS Lambda and SQS to process thousands of price updates per second.",
+      challenges: "Handling rate-limiting from public blockchain nodes. Implemented a custom retry-proxy with exponential backoff.",
+      codeSnippet: "const provider = new ethers.providers.JsonRpcProvider(URL);"
     }
   }
 ];
