@@ -128,25 +128,8 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* My Journey Section */}
+            {/* Personal Section (Integrated) */}
             <div className="space-y-16">
-              <div className="space-y-10">
-                <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit">
-                  <span className="flex items-center gap-3">
-                    <Map size={14} className="text-primary" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">My Journey</span>
-                  </span>
-                </Badge>
-                <div className="space-y-8 text-xl text-muted-foreground leading-relaxed font-light max-w-5xl">
-                  <p>
-                    I started my career building small-scale web applications, but my passion for performance and scalability quickly led me to enterprise-level architecture.
-                  </p>
-                  <p>
-                    Today, my focus is at the intersection of <strong className="text-foreground font-bold underline decoration-primary/30">Full-Stack Development</strong> and <strong className="text-foreground font-bold underline decoration-primary/30">Operational Intelligence</strong>. I believe the most successful products are those that leverage intelligent automation to augment human capacity.
-                  </p>
-                </div>
-              </div>
-
               <div className="space-y-8 max-w-5xl">
                 {/* Beyond the Desk */}
                 <Card className="glass-card p-12 rounded-[4rem] border-white/5 relative overflow-hidden group">
