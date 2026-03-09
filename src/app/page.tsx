@@ -1,45 +1,41 @@
 
-import Image from "next/image";
+'use client';
+
+import { useMemo } from "react";
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
-import { PROJECTS } from "@/app/lib/projects";
 import { 
-  ArrowRight, Code2, Cpu, Globe, Sparkles, Terminal, Database, 
-  Layers, Mail, Github, Linkedin, Briefcase, GraduationCap, 
-  User, CheckCircle2, Star 
+  ArrowRight, Code2, Database, Layers, Mail, Github, 
+  Linkedin, Briefcase, GraduationCap, User, Star, Terminal, Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
+import { collection, query, orderBy } from "firebase/firestore";
+
+const OWNER_ID = "alex-rivera"; // Fixed ID for the portfolio owner
 
 export default function Home() {
+  const db = useFirestore();
+
+  const projectsQuery = useMemoFirebase(() => {
+    return query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc'));
+  }, [db]);
+
+  const experiencesQuery = useMemoFirebase(() => {
+    return query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc'));
+  }, [db]);
+
+  const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
+  const { data: experiences, isLoading: experiencesLoading } = useCollection(experiencesQuery);
+
   const techStack = [
     { name: "Frontend", skills: ["Next.js", "React", "TypeScript", "Tailwind CSS"], icon: <Layers size={18} /> },
     { name: "Backend", skills: ["Node.js", "Python", "PostgreSQL", "Redis"], icon: <Database size={18} /> },
     { name: "AI/ML", skills: ["Genkit", "LLMs", "RAG Pipelines", "Vector DBs"], icon: <Sparkles size={18} /> },
     { name: "DevOps", skills: ["GCP", "Docker", "CI/CD", "Terraform"], icon: <Terminal size={18} /> },
-  ];
-
-  const experience = [
-    {
-      company: "TechNova Solutions",
-      role: "Lead Software Architect",
-      period: "2021 — Present",
-      desc: "Leading a team of 12 engineers in building enterprise-scale AI solutions and cloud infrastructure."
-    },
-    {
-      company: "Streamline Devs",
-      role: "Senior Full-Stack Engineer",
-      period: "2018 — 2021",
-      desc: "Architected the core SaaS platform that scaled to 500k monthly active users."
-    },
-    {
-      company: "OpenSource Contributor",
-      role: "Maintainer",
-      period: "2016 — 2018",
-      desc: "Active contributor to several React and Node.js core libraries."
-    }
   ];
 
   return (
@@ -74,7 +70,6 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* Featured Logos / Socials */}
           <div className="flex items-center gap-8 opacity-40 animate-fade-in-up [animation-delay:600ms]">
             <Link href="https://github.com" className="hover:text-primary transition-colors"><Github size={24} /></Link>
             <Link href="https://linkedin.com" className="hover:text-primary transition-colors"><Linkedin size={24} /></Link>
@@ -146,14 +141,20 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {PROJECTS.map((project, idx) => (
-              <ProjectCard key={project.slug} project={project} index={idx} />
-            ))}
+            {projectsLoading ? (
+               <p className="text-muted-foreground italic">Initializing project gallery...</p>
+            ) : projects && projects.length > 0 ? (
+              projects.map((project, idx) => (
+                <ProjectCard key={project.id} project={project as any} index={idx} />
+              ))
+            ) : (
+              <p className="text-muted-foreground italic">No projects found. Add them in the CMS.</p>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Professional Journey */}
+      {/* Career Path */}
       <section className="py-24 bg-white/[0.01]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto space-y-16">
@@ -165,23 +166,29 @@ export default function Home() {
             </div>
 
             <div className="space-y-8">
-              {experience.map((exp, idx) => (
-                <div key={idx} className="relative pl-12 before:absolute before:left-[11px] before:top-2 before:bottom-0 before:w-[1px] before:bg-white/10 last:before:hidden">
-                  <div className="absolute left-0 top-2 h-6 w-6 rounded-full bg-background border-2 border-primary flex items-center justify-center">
-                    <div className="h-2 w-2 rounded-full bg-primary" />
-                  </div>
-                  <div className="glass-card p-8 rounded-3xl border-white/5 hover:border-white/10 transition-all">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                      <div>
-                        <h4 className="text-xl font-bold text-white">{exp.role}</h4>
-                        <p className="text-primary font-medium">{exp.company}</p>
-                      </div>
-                      <Badge variant="outline" className="w-fit h-7 border-white/10 text-muted-foreground">{exp.period}</Badge>
+              {experiencesLoading ? (
+                <p className="text-center text-muted-foreground">Loading experience timeline...</p>
+              ) : experiences && experiences.length > 0 ? (
+                experiences.map((exp, idx) => (
+                  <div key={exp.id} className="relative pl-12 before:absolute before:left-[11px] before:top-2 before:bottom-0 before:w-[1px] before:bg-white/10 last:before:hidden">
+                    <div className="absolute left-0 top-2 h-6 w-6 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-primary" />
                     </div>
-                    <p className="text-muted-foreground leading-relaxed italic">{exp.desc}</p>
+                    <div className="glass-card p-8 rounded-3xl border-white/5 hover:border-white/10 transition-all">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div>
+                          <h4 className="text-xl font-bold text-white">{exp.role}</h4>
+                          <p className="text-primary font-medium">{exp.company}</p>
+                        </div>
+                        <Badge variant="outline" className="w-fit h-7 border-white/10 text-muted-foreground">{exp.period}</Badge>
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed italic">{exp.desc}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p className="text-center text-muted-foreground italic">No career entries yet.</p>
+              )}
             </div>
           </div>
         </div>
@@ -211,7 +218,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Final Call to Action */}
       <section id="contact" className="py-32 relative">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto space-y-12">
@@ -241,11 +247,11 @@ export default function Home() {
             </div>
             <span className="font-bold tracking-tight">ALEX // DEV</span>
           </div>
-          <p className="text-xs text-muted-foreground font-mono">© 2024 Built with Next.js 15, Genkit & Passion.</p>
+          <p className="text-xs text-muted-foreground font-mono">© 2024 Built with Next.js 15, Genkit & Firestore.</p>
           <div className="flex gap-8">
             <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">GitHub</Link>
             <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">LinkedIn</Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Twitter</Link>
+            <Link href="/cms" className="text-sm text-primary hover:underline transition-colors font-bold">CMS Login</Link>
           </div>
         </div>
       </footer>
