@@ -89,8 +89,6 @@ export default function Home() {
             <div className="lg:col-span-7 space-y-16">
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">01</span>
-                  <div className="h-[1px] w-12 bg-primary/20" />
                   <Badge variant="outline" className="text-primary border-primary/20 py-1 px-4 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] bg-primary/5">
                     Engineering Creed
                   </Badge>
