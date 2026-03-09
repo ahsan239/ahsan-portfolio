@@ -2,10 +2,10 @@
 
 import { Navigation } from "@/components/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { 
-  User, Code2, BrainCircuit, Rocket, Heart, 
-  Coffee, Globe, Zap, ShieldCheck, Sparkles, Mail, ChevronRight
+  User, BrainCircuit, Zap, ShieldCheck, Heart, 
+  Coffee, Globe, Rocket, Mail, ChevronRight
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -75,9 +75,41 @@ export default function AboutPage() {
             ))}
           </section>
 
-          {/* Detailed Journey */}
+          {/* Detailed Narrative & Journey */}
           <section className="grid lg:grid-cols-12 gap-24 items-start mb-40">
-            <div className="lg:col-span-7 space-y-20">
+            <div className="lg:col-span-7 space-y-32">
+              
+              {/* The Narrative Section */}
+              <div className="space-y-10">
+                <div className="flex items-center gap-4">
+                  <div className="h-[1px] flex-1 bg-white/5" />
+                  <h2 className="text-2xl font-black uppercase tracking-tighter">The Narrative</h2>
+                </div>
+                <div className="space-y-12">
+                  <h3 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-gradient leading-tight">
+                    The Story Behind <br /> the Code
+                  </h3>
+                  <div className="space-y-8 text-xl text-muted-foreground leading-relaxed font-light">
+                    <p>
+                      My journey into technology began with <strong className="text-foreground font-bold">full-stack web development</strong>, where I focused on building complete web applications—from intuitive frontend interfaces to reliable backend systems. Using modern technologies, I created responsive user experiences, managed databases, and developed scalable APIs that support real-world products.
+                    </p>
+                    <p>
+                      While working on web projects, I became interested in <strong className="text-foreground font-bold">improving workflows and reducing repetitive manual tasks</strong> that slow down teams and business operations. This curiosity led me to explore <strong className="text-foreground font-bold">workflow automation</strong> and smarter ways to streamline everyday processes.
+                    </p>
+                    <p>
+                      During this journey, I discovered <strong className="text-foreground font-bold">Google Apps Script</strong>, which allowed me to build automation solutions within <strong className="text-foreground font-bold">Google Workspace</strong>. By integrating tools like <strong className="text-foreground font-bold">Google Sheets</strong>, <strong className="text-foreground font-bold">Google Forms</strong>, and <strong className="text-foreground font-bold">Gmail</strong>, I created <strong className="text-foreground font-bold">Google Workspace workflow automation systems</strong> that automate data processing, reporting, notifications, and internal workflows.
+                    </p>
+                    <p>
+                      Today, I combine <strong className="text-foreground font-bold">modern web development with workflow automation</strong> to build scalable applications and efficient systems that simplify complex processes, reduce manual work, and improve productivity.
+                    </p>
+                    <p className="text-foreground font-bold italic border-l-4 border-primary pl-6 py-2">
+                      For me, coding is about building technology that solves real problems and makes work more efficient.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* My Journey Section */}
               <div className="space-y-10">
                 <div className="flex items-center gap-4">
                   <div className="h-[1px] flex-1 bg-white/5" />
@@ -88,11 +120,12 @@ export default function AboutPage() {
                     I started my career building small-scale web applications, but my passion for performance and scalability quickly led me to enterprise-level architecture.
                   </p>
                   <p>
-                    Today, my focus is at the intersection of <strong className="text-foreground font-bold underline decoration-primary/30">Full-Stack Development</strong> and <strong className="text-foreground font-bold underline decoration-primary/30">Generative AI</strong>. I believe the most successful products are those that leverage intelligent automation to augment human creativity.
+                    Today, my focus is at the intersection of <strong className="text-foreground font-bold underline decoration-primary/30">Full-Stack Development</strong> and <strong className="text-foreground font-bold underline decoration-primary/30">Operational Intelligence</strong>. I believe the most successful products are those that leverage intelligent automation to augment human capacity.
                   </p>
                 </div>
               </div>
 
+              {/* Stack Section */}
               <div className="space-y-10">
                 <div className="flex items-center gap-4">
                   <div className="h-[1px] flex-1 bg-white/5" />
