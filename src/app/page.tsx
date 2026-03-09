@@ -57,7 +57,7 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tighter mb-10 max-w-4xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+          <h1 className="text-5xl font-bold tracking-tighter mb-10 max-w-4xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
             Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
@@ -102,7 +102,7 @@ export default function Home() {
 
               <div className="space-y-10 max-w-2xl">
                 <div className="space-y-4">
-                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-foreground flex items-center gap-2">
+                  <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-foreground flex items-center gap-2">
                     <Target size={14} className="text-primary" />
                     The Automation Mindset
                   </h4>
@@ -117,14 +117,14 @@ export default function Home() {
                       <p className="text-4xl font-bold tracking-tighter">02+</p>
                       <User size={16} className="text-primary/50" />
                     </div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 leading-tight">Professional <br />Years Experience</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Professional <br />Years Experience</p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-baseline gap-2">
                       <p className="text-4xl font-bold tracking-tighter">10+</p>
                       <Rocket size={16} className="text-accent/50" />
                     </div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 leading-tight">Enterprise <br />Automations Deployed</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Enterprise <br />Automations Deployed</p>
                   </div>
                 </div>
               </div>
@@ -140,13 +140,13 @@ export default function Home() {
                           <Terminal size={18} />
                         </div>
                         <div className="space-y-0.5">
-                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
                           <p className="text-[9px] font-bold text-muted-foreground/60 uppercase">System Integration</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/5 border border-green-500/10">
                         <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-                        <span className="text-[8px] font-black text-green-500/80 uppercase tracking-widest">Live Engine</span>
+                        <span className="text-[8px] font-bold text-green-500/80 uppercase tracking-widest">Live Engine</span>
                       </div>
                     </div>
                     
