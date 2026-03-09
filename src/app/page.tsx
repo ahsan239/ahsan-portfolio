@@ -27,8 +27,18 @@ export default function Home() {
   const { data: experiences, isLoading: experiencesLoading } = useCollection(experiencesQuery);
 
   const techStack = [
-    { name: "Frontend", skills: ["Next.js", "React", "TypeScript", "Tailwind CSS"], icon: <Layers size={18} /> },
-    { name: "Backend", skills: ["Node.js", "Python", "PostgreSQL", "Redis"], icon: <Database size={18} /> },
+    { 
+      name: "Frontend", 
+      skills: ["Next.js", "React", "TypeScript", "Tailwind CSS"], 
+      icon: <Layers size={24} />,
+      description: "Architecting responsive, high-performance user interfaces with modern React patterns."
+    },
+    { 
+      name: "Backend", 
+      skills: ["Node.js", "Python", "PostgreSQL", "Redis"], 
+      icon: <Database size={24} />,
+      description: "Building scalable distributed systems and secure API architectures for production."
+    },
   ];
 
   return (
@@ -45,7 +55,7 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-4xl md:text-7xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
             Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
@@ -94,36 +104,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills Matrix */}
-      <section className="py-32 bg-white/[0.01] border-y border-white/5">
+      {/* Skills Matrix - Modern Redesign */}
+      <section className="py-40 bg-white/[0.01] border-y border-white/5 relative">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-16">
-            <div className="lg:col-span-5 space-y-8">
-              <h2 className="text-xs font-black uppercase tracking-[0.5em] text-primary">Technical Arsenal</h2>
-              <h3 className="text-4xl md:text-5xl font-black tracking-tighter leading-none uppercase">The Stack <br />I trust.</h3>
-              <p className="text-muted-foreground leading-relaxed max-w-md font-light">
-                A carefully curated suite of technologies for building high-performance, secure, and modern digital products.
+          <div className="grid lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-40">
+              <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em]">
+                Technical Arsenal
+              </Badge>
+              <h3 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.8] uppercase">
+                The tools behind <br />
+                <span className="text-muted-foreground">the craft.</span>
+              </h3>
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-md font-light">
+                A meticulously curated suite of technologies for architecting high-performance, secure, and resilient digital products.
               </p>
             </div>
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="lg:col-span-7 grid grid-cols-1 gap-6">
               {techStack.map((category) => (
-                <Card key={category.name} className="glass-card border-white/5 hover:border-primary/20 transition-all group rounded-[2.5rem]">
-                  <CardContent className="p-8 space-y-6">
-                    <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                      {category.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-black text-xl mb-3 uppercase tracking-tighter">{category.name}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {category.skills.map(skill => (
-                          <span key={skill} className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/80 px-3 py-1 bg-white/5 rounded-full border border-white/5">
-                            {skill}
-                          </span>
-                        ))}
+                <div key={category.name} className="group relative">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-accent/30 rounded-[3rem] blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                  <Card className="glass-card relative border-white/5 group-hover:border-primary/50 transition-all duration-500 rounded-[3rem] overflow-hidden">
+                    <CardContent className="p-10 md:p-14 flex flex-col md:flex-row gap-10 md:items-center">
+                      <div className="h-20 w-20 rounded-[2rem] bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-500 shrink-0">
+                        {category.icon}
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                      <div className="space-y-6 flex-1">
+                        <div>
+                          <h4 className="font-black text-3xl mb-2 uppercase tracking-tighter group-hover:text-primary transition-colors">{category.name}</h4>
+                          <p className="text-muted-foreground font-light text-sm max-w-lg leading-relaxed">{category.description}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {category.skills.map(skill => (
+                            <span key={skill} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60 px-5 py-2.5 bg-white/5 rounded-full border border-white/5 group-hover:border-primary/20 transition-all">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               ))}
             </div>
           </div>
