@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from "react";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase } from "@/firebase";
 import { collection, doc, query, orderBy } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
@@ -37,6 +38,7 @@ export default function CMSPage() {
       headline: formData.get('headline') as string,
       bio: formData.get('bio') as string,
       contactEmail: formData.get('contactEmail') as string,
+      resumeUrl: formData.get('resumeUrl') as string,
     };
     
     setDocumentNonBlocking(profileRef, data, { merge: true });
@@ -61,7 +63,7 @@ export default function CMSPage() {
       githubLink: formData.get('githubLink') as string,
       technologies: (formData.get('technologies') as string).split(',').map(s => s.trim()),
       imageUrl: formData.get('imageUrl') as string || `https://picsum.photos/seed/${id}/1200/630`,
-      publishedAt: new Date().toISOString(),
+      publishedAt: formData.get('publishedAt') as string || new Date().toISOString(),
       order: editingId ? (projects?.find(p => p.id === id)?.order ?? 0) : (projects?.length || 0),
     };
 
@@ -145,9 +147,15 @@ export default function CMSPage() {
                       <Input name="contactEmail" type="email" defaultValue={profile?.contactEmail} placeholder="hello@example.dev" required className="bg-white/5 border-white/10 h-12" />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Headline</label>
-                    <Input name="headline" defaultValue={profile?.headline} placeholder="Senior Software Engineer & AI Architect" required className="bg-white/5 border-white/10 h-12" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Headline</label>
+                      <Input name="headline" defaultValue={profile?.headline} placeholder="Senior Software Engineer & AI Architect" required className="bg-white/5 border-white/10 h-12" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Resume URL (Drive/S3)</label>
+                      <Input name="resumeUrl" defaultValue={profile?.resumeUrl} placeholder="https://drive.google.com/..." className="bg-white/5 border-white/10 h-12" />
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Bio / About</label>
@@ -182,14 +190,18 @@ export default function CMSPage() {
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Demo Link</label>
-                      <Input name="projectLink" defaultValue={projects?.find(p => p.id === editingId)?.projectLink} placeholder="https://demo.example.com" className="bg-white/5 border-white/10 h-12" />
+                      <Input name="projectLink" defaultValue={projects?.find(p => p.id === editingId)?.projectLink} placeholder="https://demo.com" className="bg-white/5 border-white/10 h-12" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">GitHub Link</label>
                       <Input name="githubLink" defaultValue={projects?.find(p => p.id === editingId)?.githubLink} placeholder="https://github.com/..." className="bg-white/5 border-white/10 h-12" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Published Date</label>
+                      <Input name="publishedAt" type="date" defaultValue={projects?.find(p => p.id === editingId)?.publishedAt?.split('T')[0]} className="bg-white/5 border-white/10 h-12" />
                     </div>
                   </div>
 
