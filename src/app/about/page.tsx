@@ -7,7 +7,8 @@ import {
   User, BrainCircuit, Zap, ShieldCheck, Heart, 
   Globe, Coffee, Rocket, Mail, Code2, Cpu, 
   Database, Flame, Layers, Share2, Terminal, 
-  Palette, Sparkles, BookOpen, Hammer, Search
+  Palette, Sparkles, BookOpen, Hammer, Search,
+  GraduationCap, School, Calendar, Award
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -56,6 +57,25 @@ export default function AboutPage() {
     { name: "Generative AI", category: "AI", icon: <Sparkles size={24} />, color: "text-purple-400", glow: "hover:shadow-purple-400/20", desc: "LLM & GenAI integration" },
   ];
 
+  const education = [
+    {
+      degree: "Bachelor of Computer Applications (BCA)",
+      institution: "Khwaja Moinuddin Chishti Language University",
+      period: "2021 — 2024",
+      score: "CGPA: 7.28",
+      desc: "Studied computer science fundamentals including programming, software development, database management, and web technologies. Developed practical skills in full-stack development and problem solving through academic and project work.",
+      icon: <GraduationCap size={24} className="text-primary" />
+    },
+    {
+      degree: "Intermediate (Class XII)",
+      institution: "St. Mary Public Inter College",
+      period: "2020",
+      score: "PERCENTAGE: 71%",
+      desc: "Completed higher secondary education with focus on core academic subjects while developing strong analytical and problem-solving skills.",
+      icon: <School size={24} className="text-primary" />
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground dot-pattern mesh-gradient overflow-hidden selection:bg-primary/20">
       <Navigation />
@@ -100,10 +120,9 @@ export default function AboutPage() {
             ))}
           </section>
 
-          {/* Detailed Narrative & Journey */}
+          {/* Detailed Narrative */}
           <section className="space-y-32 mb-40">
             
-            {/* The Narrative Section */}
             <div className="space-y-10">
               <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit">
                 <span className="flex items-center gap-3">
@@ -135,10 +154,8 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Personal Section (Integrated) */}
             <div className="space-y-16">
               <div className="space-y-8 max-w-5xl">
-                {/* Beyond the Desk */}
                 <Card className="glass-card p-12 rounded-[4rem] border-white/5 relative overflow-hidden group">
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                     <Heart size={160} />
@@ -163,7 +180,6 @@ export default function AboutPage() {
                   </ul>
                 </Card>
 
-                {/* Inquiries */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="flex items-center justify-between p-10 rounded-[3rem] bg-primary text-white shadow-2xl shadow-primary/20">
                     <div className="flex items-center gap-6">
@@ -183,7 +199,6 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Technical Arsenal Section */}
             <div className="space-y-10">
               <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit">
                 <span className="flex items-center gap-3">
@@ -226,7 +241,6 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Engineering Philosophy Section */}
             <div className="space-y-16">
               <div className="space-y-6">
                 <h2 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none">
@@ -238,7 +252,6 @@ export default function AboutPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Automation Mindset */}
                 <Card className="md:col-span-2 glass-card p-10 rounded-[3rem] border-white/5 hover:border-primary/30 transition-all duration-500">
                   <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-10">
                     <Layers size={24} />
@@ -251,7 +264,6 @@ export default function AboutPage() {
                   </div>
                 </Card>
 
-                {/* SEO Optimization */}
                 <Card className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-blue-400/30 transition-all duration-500">
                   <div className="h-12 w-12 rounded-2xl bg-blue-400/10 flex items-center justify-center text-blue-400 mb-10">
                     <Search size={24} />
@@ -264,7 +276,6 @@ export default function AboutPage() {
                   </div>
                 </Card>
 
-                {/* Velocity & Precision */}
                 <Card className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-purple-400/30 transition-all duration-500">
                   <div className="h-12 w-12 rounded-2xl bg-purple-400/10 flex items-center justify-center text-purple-400 mb-10">
                     <Zap size={24} />
@@ -277,7 +288,6 @@ export default function AboutPage() {
                   </div>
                 </Card>
 
-                {/* AI-Augmented Engineering */}
                 <Card className="md:col-span-2 glass-card p-10 rounded-[3rem] border-white/5 flex flex-col md:flex-row items-center justify-between group overflow-hidden relative hover:border-primary/30 transition-all duration-500">
                   <div className="space-y-6 max-w-xl relative z-10 mb-8 md:mb-0">
                     <div className="flex items-center gap-3 text-primary">
@@ -298,6 +308,59 @@ export default function AboutPage() {
                   </div>
                   <div className="absolute top-0 right-0 h-full w-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
                 </Card>
+              </div>
+            </div>
+
+            {/* Educational Journey Section */}
+            <div className="space-y-16">
+              <div className="space-y-8">
+                <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
+                  Academic Foundation
+                </Badge>
+                <div className="space-y-4">
+                  <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
+                    Educational <span className="text-primary italic">Journey</span>
+                  </h2>
+                  <p className="text-xl text-muted-foreground font-light max-w-2xl">
+                    Building the core principles of computer science and analytical thinking.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-8">
+                {education.map((edu, idx) => (
+                  <Card key={idx} className="glass-card border-white/5 p-10 rounded-[3rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden">
+                    <div className="flex flex-col md:flex-row gap-10 items-start md:items-center">
+                      <div className="h-20 w-20 shrink-0 rounded-full bg-white/5 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                        {edu.icon}
+                      </div>
+                      
+                      <div className="flex-1 space-y-6">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                          <div className="space-y-1">
+                            <h3 className="text-2xl md:text-3xl font-black tracking-tighter uppercase">{edu.degree}</h3>
+                            <div className="flex items-center gap-2 text-primary font-bold uppercase text-[10px] tracking-widest">
+                              <School size={14} />
+                              {edu.institution}
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <Badge variant="outline" className="rounded-full bg-primary/5 border-primary/20 text-primary text-[10px] font-black uppercase px-4 py-1 gap-2">
+                              <Calendar size={12} /> {edu.period}
+                            </Badge>
+                            <Badge variant="outline" className="rounded-full bg-white/5 border-white/10 text-foreground text-[10px] font-black uppercase px-4 py-1">
+                              {edu.score}
+                            </Badge>
+                          </div>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed font-light max-w-4xl">
+                          {edu.desc}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  </Card>
+                ))}
               </div>
             </div>
 
