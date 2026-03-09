@@ -23,11 +23,9 @@ export default function Home() {
 
   const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
   const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db]);
-  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
 
   const { data: profile } = useDoc(profileRef);
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
-  const { data: experiences, isLoading: experiencesLoading } = useCollection(experiencesQuery);
 
   const techArsenal = [
     { name: "Next.js 15", category: "FRONTEND", icon: <Zap size={24} />, color: "text-blue-400", glow: "hover:shadow-blue-500/20", desc: "App Router, RSC, Server Actions" },
@@ -92,7 +90,7 @@ export default function Home() {
                 <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
                   Engineering Creed
                 </Badge>
-                <h3 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+                <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1] md:leading-[0.85] uppercase">
                   Efficiency Through <br className="hidden sm:block" />
                   <span className="text-primary italic">Intelligence,</span> <br className="hidden sm:block" />
                   Scale Through <span className="text-muted-foreground/30">Design.</span>
@@ -265,51 +263,6 @@ export default function Home() {
             ) : (
               <p className="text-muted-foreground italic py-20">No projects found. Add them in the CMS.</p>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Timeline */}
-      <section id="experience" className="py-20 md:py-32">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
-          <div className="max-w-4xl mx-auto space-y-16 md:space-y-20">
-            <div className="text-center space-y-4">
-              <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary">Career Path</h2>
-              <h3 className="text-4xl md:text-5xl font-bold tracking-tighter italic uppercase">Professional Journey</h3>
-            </div>
-
-            <div className="space-y-6">
-              {experiencesLoading ? (
-                <p className="text-center text-muted-foreground">Loading history...</p>
-              ) : experiences && experiences.length > 0 ? (
-                experiences.map((exp, idx) => (
-                  <div key={exp.id} className="group relative pl-10 md:pl-12 before:absolute before:left-[11px] before:top-4 before:bottom-0 before:w-[1px] before:bg-white/5 last:before:hidden">
-                    <div className="absolute left-0 top-3 h-6 w-6 rounded-full bg-background border border-primary flex items-center justify-center group-hover:scale-125 transition-transform">
-                      <div className="h-2 w-2 rounded-full bg-primary" />
-                    </div>
-                    <div className="glass-card p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] border-white/5 hover:border-primary/30 transition-all">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 mb-6 md:mb-8">
-                        <div>
-                          <h4 className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors uppercase tracking-tighter">{exp.role}</h4>
-                          <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px] md:text-xs mt-1">{exp.company}</p>
-                        </div>
-                        <Badge variant="outline" className="w-fit h-7 md:h-8 px-4 rounded-full border-white/10 text-muted-foreground text-[9px] md:text-[10px] font-bold uppercase tracking-widest">{exp.duration}</Badge>
-                      </div>
-                      <ul className="grid sm:grid-cols-2 gap-3 md:gap-4">
-                         {exp.points?.map((point: string, pIdx: number) => (
-                           <li key={pIdx} className="flex gap-3 md:gap-4 text-xs md:text-sm text-muted-foreground leading-relaxed font-light">
-                              <CheckCircle2 size={14} className="text-primary shrink-0 mt-0.5" />
-                              <span>{point}</span>
-                           </li>
-                         ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-center text-muted-foreground italic">No career entries yet.</p>
-              )}
-            </div>
           </div>
         </div>
       </section>
