@@ -38,29 +38,29 @@ export default function Home() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-20">
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-48 pb-20">
         <div className="container mx-auto px-6 text-center z-10 flex flex-col items-center">
-          <Badge variant="secondary" className="mb-8 py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
+          <Badge variant="secondary" className="mb-10 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Open to select opportunities</span>
             </span>
           </Badge>
           
-          <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 max-w-6xl mx-auto leading-[0.9] animate-fade-in-up">
-            Building digital <span className="text-gradient">products</span> that matter.
+          <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 max-w-6xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+            Building digital <span className="text-gradient italic">products</span> that matter.
           </h1>
           
-          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
+          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
             {profile?.headline || "Senior Software Engineer & AI Architect. I design and engineer high-performance systems for the modern web."}
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-24 animate-fade-in-up [animation-delay:400ms]">
-            <Button asChild size="lg" className="rounded-full px-10 h-16 font-bold text-lg shadow-2xl shadow-primary/20 hover:scale-105 transition-transform">
-              <Link href="/#projects">View Projects <ArrowRight size={20} className="ml-2" /></Link>
+          <div className="flex flex-wrap justify-center gap-5 mb-24 animate-fade-in-up [animation-delay:400ms]">
+            <Button asChild size="lg" className="rounded-full px-12 h-16 font-black uppercase tracking-widest text-sm shadow-2xl shadow-primary/20 hover:scale-105 transition-transform">
+              <Link href="/#projects">View Projects <ArrowRight size={18} className="ml-2" /></Link>
             </Button>
-            <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-10 h-16 font-bold text-lg border-white/10 hover:bg-white/5 transition-all">
-              <Link href="/#experience">Experience</Link>
+            <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 font-black uppercase tracking-widest text-sm border-white/10 hover:bg-white/5 transition-all">
+              <Link href="/about">My Story</Link>
             </Button>
           </div>
 
@@ -102,20 +102,20 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-16">
             <div className="lg:col-span-5 space-y-8">
               <h2 className="text-xs font-black uppercase tracking-[0.5em] text-primary">Technical Arsenal</h2>
-              <h3 className="text-4xl md:text-5xl font-black tracking-tighter leading-none">The Stack <br />I trust.</h3>
-              <p className="text-muted-foreground leading-relaxed max-w-md">
+              <h3 className="text-4xl md:text-5xl font-black tracking-tighter leading-none uppercase">The Stack <br />I trust.</h3>
+              <p className="text-muted-foreground leading-relaxed max-w-md font-light">
                 A carefully curated suite of technologies for building high-performance, secure, and AI-enabled digital products.
               </p>
             </div>
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {techStack.map((category) => (
-                <Card key={category.name} className="glass-card border-white/5 hover:border-primary/20 transition-all group rounded-[2rem]">
+                <Card key={category.name} className="glass-card border-white/5 hover:border-primary/20 transition-all group rounded-[2.5rem]">
                   <CardContent className="p-8 space-y-6">
                     <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                       {category.icon}
                     </div>
                     <div>
-                      <h4 className="font-bold text-xl mb-3">{category.name}</h4>
+                      <h4 className="font-black text-xl mb-3 uppercase tracking-tighter">{category.name}</h4>
                       <div className="flex flex-wrap gap-2">
                         {category.skills.map(skill => (
                           <span key={skill} className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/80 px-3 py-1 bg-white/5 rounded-full border border-white/5">
@@ -138,7 +138,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-20">
             <div className="text-center space-y-4">
               <h2 className="text-xs font-black uppercase tracking-[0.5em] text-primary">Career Path</h2>
-              <h3 className="text-5xl font-black tracking-tighter italic">Professional Journey</h3>
+              <h3 className="text-5xl font-black tracking-tighter italic uppercase">Professional Journey</h3>
             </div>
 
             <div className="space-y-6">
@@ -153,14 +153,14 @@ export default function Home() {
                     <div className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-primary/30 transition-all">
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
                         <div>
-                          <h4 className="text-2xl font-black text-white group-hover:text-primary transition-colors">{exp.role}</h4>
-                          <p className="text-muted-foreground font-medium uppercase tracking-widest text-xs mt-1">{exp.company}</p>
+                          <h4 className="text-2xl font-black text-white group-hover:text-primary transition-colors uppercase tracking-tighter">{exp.role}</h4>
+                          <p className="text-muted-foreground font-black uppercase tracking-widest text-xs mt-1">{exp.company}</p>
                         </div>
                         <Badge variant="outline" className="w-fit h-8 px-4 rounded-full border-white/10 text-muted-foreground text-[10px] font-black uppercase tracking-widest">{exp.duration}</Badge>
                       </div>
                       <ul className="grid sm:grid-cols-2 gap-4">
                          {exp.points?.map((point: string, pIdx: number) => (
-                           <li key={pIdx} className="flex gap-4 text-sm text-muted-foreground leading-relaxed">
+                           <li key={pIdx} className="flex gap-4 text-sm text-muted-foreground leading-relaxed font-light">
                               <CheckCircle2 size={16} className="text-primary shrink-0 mt-0.5" />
                               <span>{point}</span>
                            </li>
