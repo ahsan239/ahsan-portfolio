@@ -1,13 +1,12 @@
-
 "use client";
 
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Database, Layers, Mail, Github, 
-  Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2,
+  Linkedin, Briefcase, Terminal, Sparkles, Code2,
   Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette,
-  Activity, User, Target, Rocket
+  Activity, Target
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -55,16 +54,16 @@ export default function Home() {
           <Badge variant="secondary" className="mb-8 md:mb-12 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">Open to select opportunities</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest opacity-80 text-primary">Open to select opportunities</span>
             </span>
           </Badge>
           
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 md:mb-10 max-w-4xl mx-auto leading-[1] md:leading-[0.9] animate-fade-in-up uppercase">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 md:mb-10 max-w-4xl mx-auto leading-[1] md:leading-[0.9] animate-fade-in-up uppercase text-foreground">
             Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-normal tracking-tight animate-fade-in-up [animation-delay:200ms]">
-            {profile?.headline || "Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes."}
+            {profile?.headline || "Senior Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:400ms] w-full sm:w-auto">
@@ -93,7 +92,7 @@ export default function Home() {
                 <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
                   Engineering Creed
                 </Badge>
-                <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+                <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1] md:leading-[0.85] uppercase text-foreground">
                   Efficiency Through <br className="hidden sm:block" />
                   <span className="text-primary italic">Intelligence,</span> <br className="hidden sm:block" />
                   Scale Through <span className="text-muted-foreground/30">Design.</span>
@@ -118,11 +117,11 @@ export default function Home() {
 
                 <div className="grid grid-cols-2 gap-8 md:gap-12 pt-10 md:pt-12 border-t border-white/5">
                   <div className="space-y-1 md:space-y-2">
-                    <p className="text-4xl md:text-5xl font-bold tracking-tighter">02+</p>
+                    <p className="text-4xl md:text-5xl font-bold tracking-tighter text-foreground">02+</p>
                     <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Professional <br />Years Experience</p>
                   </div>
                   <div className="space-y-1 md:space-y-2">
-                    <p className="text-4xl md:text-5xl font-bold tracking-tighter">10+</p>
+                    <p className="text-4xl md:text-5xl font-bold tracking-tighter text-foreground">10+</p>
                     <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Enterprise <br />Automations Deployed</p>
                   </div>
                 </div>
@@ -204,7 +203,7 @@ export default function Home() {
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Technical Arsenal
             </Badge>
-            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase">
+            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
               Technologies <br className="hidden sm:block" />
               I use to <span className="text-primary italic">Build.</span>
             </h3>
@@ -230,7 +229,7 @@ export default function Home() {
                   </div>
                   
                   <div className="mt-auto space-y-2">
-                    <h4 className="text-lg md:text-xl font-semibold uppercase tracking-tighter group-hover:text-primary transition-colors">
+                    <h4 className="text-lg md:text-xl font-semibold uppercase tracking-tighter group-hover:text-primary transition-colors text-foreground">
                       {tech.name}
                     </h4>
                     <p className="text-[10px] md:text-[11px] text-muted-foreground font-normal leading-relaxed tracking-tight">
@@ -253,7 +252,7 @@ export default function Home() {
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Career Path
             </Badge>
-            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase">
+            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
               Professional <br className="hidden sm:block" />
               <span className="text-primary italic">Journey.</span>
             </h3>
@@ -268,7 +267,7 @@ export default function Home() {
                   <div className="absolute left-[-5px] top-0 h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
                   <div className="space-y-4">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                      <h4 className="text-2xl font-bold uppercase tracking-tight">{exp.role}</h4>
+                      <h4 className="text-2xl font-bold uppercase tracking-tight text-foreground">{exp.role}</h4>
                       <span className="text-xs font-black uppercase tracking-widest text-primary bg-primary/5 px-3 py-1 rounded-full border border-primary/10 w-fit">
                         {exp.duration}
                       </span>
@@ -297,7 +296,7 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="mb-12 md:mb-20 max-w-3xl">
             <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
-            <h3 className="text-3xl md:text-6xl font-bold tracking-tight leading-none italic uppercase">
+            <h3 className="text-3xl md:text-6xl font-bold tracking-tight leading-none italic uppercase text-foreground">
               Proven results in <span className="text-muted-foreground">engineering.</span>
             </h3>
           </div>
