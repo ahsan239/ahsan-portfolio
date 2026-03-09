@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/tabs";
 import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase } from "@/firebase";
 import { collection, doc, query, orderBy } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
-import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Link as LinkIcon, Github } from "lucide-react";
+import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Calendar, Globe, Github } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const OWNER_ID = "alex-rivera";
@@ -53,7 +53,6 @@ export default function CMSPage() {
       title: formData.get('title') as string,
       slug: (formData.get('title') as string).toLowerCase().replace(/\s+/g, '-'),
       summary: formData.get('summary') as string,
-      description: formData.get('description') as string,
       problem: formData.get('problem') as string,
       solution: formData.get('solution') as string,
       roiMetric: formData.get('roiMetric') as string,
@@ -110,7 +109,7 @@ export default function CMSPage() {
           </div>
           <div>
             <h1 className="text-3xl font-black tracking-tight uppercase">Dashboard CMS</h1>
-            <p className="text-muted-foreground text-sm font-medium">Manage your professional identity and portfolio.</p>
+            <p className="text-muted-foreground text-sm font-medium">Manage your professional identity and portfolio content.</p>
           </div>
         </div>
 
@@ -317,7 +316,7 @@ export default function CMSPage() {
                       <Button variant="ghost" size="icon" onClick={() => setEditingId(ex.id)} className="text-muted-foreground hover:text-primary rounded-lg">
                         <Edit3 size={18} />
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/experiences/${p.id}`)} className="text-muted-foreground hover:text-destructive rounded-lg">
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/experiences/${ex.id}`)} className="text-muted-foreground hover:text-destructive rounded-lg">
                         <Trash2 size={18} />
                       </Button>
                     </div>
