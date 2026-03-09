@@ -24,17 +24,20 @@ export default function AboutPage() {
     { 
       icon: <Zap className="text-yellow-400" />, 
       title: "Performance First", 
-      desc: "Every millisecond counts. I architect systems that are fast by default, ensuring optimal user experiences." 
+      desc: "Every millisecond counts. I architect systems that are fast by default, ensuring optimal user experiences.",
+      glow: "hover:shadow-yellow-400/10"
     },
     { 
       icon: <ShieldCheck className="text-green-400" />, 
       title: "Production Ready", 
-      desc: "Code is a liability until it's in production. I focus on tested, maintainable software." 
+      desc: "Code is a liability until it's in production. I focus on tested, maintainable software.",
+      glow: "hover:shadow-green-400/10"
     },
     { 
       icon: <BrainCircuit className="text-primary" />, 
       title: "AI Native", 
-      desc: "Integrating LLMs and automation into core workflows to unlock new digital possibilities." 
+      desc: "Integrating LLMs and automation into core workflows to unlock new digital possibilities.",
+      glow: "hover:shadow-primary/10"
     }
   ];
 
@@ -83,12 +86,16 @@ export default function AboutPage() {
           {/* Value Cards */}
           <section className="grid md:grid-cols-3 gap-6 mb-40">
             {values.map((value, idx) => (
-              <Card key={idx} className="glass-card border-white/5 hover:border-primary/20 transition-all group p-10 rounded-[3rem]">
-                <div className="h-14 w-14 rounded-2xl bg-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+              <Card key={idx} className={cn(
+                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 group p-10 rounded-[3rem] bg-white/[0.02] overflow-hidden hover:-translate-y-2 shadow-xl",
+                value.glow
+              )}>
+                <div className="h-14 w-14 rounded-2xl bg-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform shadow-lg">
                   {value.icon}
                 </div>
-                <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">{value.title}</h3>
+                <h3 className="text-2xl font-bold mb-4 uppercase tracking-tighter transition-colors group-hover:text-primary">{value.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-light">{value.desc}</p>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               </Card>
             ))}
           </section>
