@@ -2,77 +2,87 @@ import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { PROJECTS } from "@/app/lib/projects";
-import { ArrowDownRight, ArrowRight, Zap, Globe, Layers, ShieldCheck } from "lucide-react";
+import { ArrowRight, Code2, Cpu, Globe, Sparkles, Terminal, Database, Layers, Mail } from "lucide-react";
 import Link from "next/link";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-main")!;
 
+  const techStack = [
+    { name: "Next.js", icon: <Layers size={16} /> },
+    { name: "TypeScript", icon: <Code2 size={16} /> },
+    { name: "Firebase", icon: <Database size={16} /> },
+    { name: "GenAI", icon: <Sparkles size={16} /> },
+    { name: "Tailwind", icon: <Globe size={16} /> },
+    { name: "Python", icon: <Terminal size={16} /> },
+  ];
+
   return (
-    <div className="min-h-screen bg-background text-foreground font-body brutalist-grid">
+    <div className="min-h-screen bg-background text-foreground dot-pattern mesh-gradient overflow-hidden">
       <Navigation />
       
-      {/* Hero Section - Inspired by Jack Elder's layout */}
-      <section className="relative min-h-[90vh] flex flex-col justify-end pb-24">
-        <div className="container mx-auto px-6 grid lg:grid-cols-12 gap-12 items-end">
-          <div className="lg:col-span-8 space-y-8">
-            <div className="flex items-center gap-4 text-accent font-black text-[10px] uppercase tracking-[0.5em]">
-              <div className="h-[1px] w-12 bg-accent" />
-              Strategic AI Engineering
-            </div>
-            
-            <h1 className="text-7xl md:text-[10vw] font-black leading-[0.85] tracking-tighter text-reveal">
-              <span>DESIGNING</span> <br />
-              <span className="text-muted-foreground">INTELLIGENT</span> <br />
-              <span>SYSTEMS.</span>
-            </h1>
-          </div>
+      {/* Hero Section */}
+      <section className="relative pt-48 pb-32">
+        <div className="container mx-auto px-6 flex flex-col items-center text-center">
+          <Badge variant="secondary" className="mb-8 py-1.5 px-4 rounded-full border-white/10 bg-white/5 backdrop-blur-sm animate-fade-in-up">
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+              Available for new projects
+            </span>
+          </Badge>
           
-          <div className="lg:col-span-4 pb-4">
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-sm mb-10 border-l border-white/10 pl-6">
-              I partner with forward-thinking organizations to build production-grade AI infrastructure and high-performance LLM pipelines.
-            </p>
+          <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 max-w-5xl leading-[0.9] animate-fade-in-up">
+            Building the next generation of <span className="text-gradient">AI-First</span> software.
+          </h1>
+          
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed animate-fade-in-up [animation-delay:200ms]">
+            Senior Full-Stack Engineer specializing in LLM orchestration, 
+            production-grade RAG pipelines, and high-performance web architecture.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 mb-20 animate-fade-in-up [animation-delay:400ms]">
             <Link 
               href="/#projects" 
-              className="group inline-flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.4em] text-white hover:text-accent transition-colors"
+              className="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:scale-105 transition-all shadow-xl shadow-primary/20"
             >
-              See the work <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:translate-y-1" />
+              View My Work <ArrowRight size={20} />
+            </Link>
+            <Link 
+              href="/hire" 
+              className="glass-card px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all"
+            >
+              Consulting Services
             </Link>
           </div>
-        </div>
 
-        {/* Ambient Drifting Image (Replacing Video) */}
-        <div className="absolute top-0 right-0 w-1/2 h-full -z-10 opacity-40 mask-fade-bottom overflow-hidden hidden lg:block">
-          <div className="relative w-full h-full animate-drift">
-             <Image
-              src={heroImage.imageUrl}
-              alt={heroImage.description}
-              fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
-              priority
-              data-ai-hint={heroImage.imageHint}
-            />
+          {/* Tech Stack Pills */}
+          <div className="flex flex-wrap justify-center gap-3 max-w-3xl animate-fade-in-up [animation-delay:600ms]">
+            {techStack.map((tech) => (
+              <div key={tech.name} className="flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium">
+                <span className="text-primary">{tech.icon}</span>
+                {tech.name}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Case Study Grid */}
-      <section id="projects" className="py-32 border-t border-white/5">
+      {/* Featured Projects */}
+      <section id="projects" className="py-24 relative">
         <div className="container mx-auto px-6">
-          <div className="flex justify-between items-end mb-24">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">
-              Selected <br /> <span className="text-muted-foreground">Cases</span>
-            </h2>
-            <div className="text-right hidden md:block">
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground mb-2">Capabilities</p>
-              <div className="flex gap-4 text-xs font-bold opacity-40">
-                <span>RAG</span> • <span>AGENTS</span> • <span>MLOPS</span>
-              </div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+            <div className="space-y-4">
+              <h2 className="text-4xl font-bold tracking-tight">Featured Projects</h2>
+              <p className="text-muted-foreground">A selection of my latest work in AI and Web Engineering.</p>
             </div>
+            <Link href="#" className="text-primary font-bold flex items-center gap-2 hover:underline">
+              Browse all projects <ArrowRight size={16} />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5 overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {PROJECTS.map((project, idx) => (
               <ProjectCard key={project.slug} project={project} index={idx} />
             ))}
@@ -80,60 +90,92 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services / Process Section */}
-      <section className="py-32 bg-white/2">
+      {/* Experience / Approach */}
+      <section className="py-24 bg-white/[0.02]">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-20">
-            <div className="lg:col-span-4">
-              <h3 className="text-2xl font-black uppercase tracking-tighter sticky top-32">
-                Strategic <br /> Approach
-              </h3>
-            </div>
+          <div className="glass-card rounded-[2.5rem] p-12 md:p-20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
             
-            <div className="lg:col-span-8 grid md:grid-cols-2 gap-16">
-              {[
-                { title: "Audit & Strategy", desc: "Deep analysis of existing data pipelines and bottleneck identification.", icon: <Globe className="h-6 w-6" /> },
-                { title: "Rapid Prototyping", desc: "Building functional MVP LLM solutions within 2-week sprints.", icon: <Zap className="h-6 w-6" /> },
-                { title: "Infrastructure", desc: "Architecting scalable cloud environments for low-latency AI ops.", icon: <Layers className="h-6 w-6" /> },
-                { title: "Security First", desc: "Enterprise-grade safety guardrails and data privacy compliance.", icon: <ShieldCheck className="h-6 w-6" /> }
-              ].map((service, idx) => (
-                <div key={idx} className="space-y-6 group">
-                  <div className="h-12 w-12 flex items-center justify-center bg-white/5 rounded-full border border-white/5 group-hover:border-accent/50 group-hover:text-accent transition-all duration-500">
-                    {service.icon}
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <h3 className="text-3xl md:text-5xl font-bold tracking-tight">Engineering with <br /><span className="text-primary">Business Value</span> in mind.</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  I don't just write code. I architect solutions that solve real-world operational 
+                  challenges. Whether it's reducing churn with AI agents or optimizing legacy 
+                  pipelines, my focus is on measurable ROI.
+                </p>
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <p className="text-3xl font-bold text-white">40%+</p>
+                    <p className="text-sm text-muted-foreground">Avg. Operational Savings</p>
                   </div>
-                  <h4 className="text-xl font-black tracking-tight">{service.title}</h4>
-                  <p className="text-muted-foreground leading-relaxed font-light">{service.desc}</p>
+                  <div>
+                    <p className="text-3xl font-bold text-white">100+</p>
+                    <p className="text-sm text-muted-foreground">Production Deploys</p>
+                  </div>
                 </div>
-              ))}
+              </div>
+              
+              <div className="grid grid-cols-1 gap-4">
+                {[
+                  { title: "RAG Specialization", desc: "Expert at building context-aware retrieval systems with Vector DBs.", icon: <Sparkles className="text-primary" /> },
+                  { title: "Cloud Native", desc: "Scaling serverless architecture on GCP, AWS, and Azure.", icon: <Globe className="text-blue-400" /> },
+                  { title: "Full Stack Mastery", desc: "Crafting pixel-perfect UIs and robust distributed backends.", icon: <Cpu className="text-purple-400" /> }
+                ].map((item, idx) => (
+                  <div key={idx} className="p-6 rounded-2xl bg-white/5 border border-white/10 flex gap-6 items-start">
+                    <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-bold mb-1">{item.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action - Minimalist but Impactful */}
-      <section className="py-48 text-center border-t border-white/5">
-        <div className="container mx-auto px-6 max-w-4xl space-y-12">
-          <h2 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8] mb-12">
-            Let's <span className="text-muted-foreground">Ship</span> Value.
-          </h2>
-          <Link 
-            href="/hire" 
-            className="group inline-flex items-center gap-8 bg-white text-black px-12 py-6 rounded-full text-lg font-black uppercase tracking-[0.2em] hover:bg-accent transition-all duration-500 hover:scale-105 shadow-2xl"
-          >
-            Start Conversation <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-2" />
-          </Link>
+      {/* Call to Action */}
+      <section className="py-32">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-3xl mx-auto space-y-8">
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight italic">Ready to build something <span className="text-primary">extraordinary</span>?</h2>
+            <p className="text-muted-foreground text-lg">
+              Let's discuss how AI and modern web technologies can transform your project.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link 
+                href="/hire" 
+                className="bg-white text-black px-10 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all"
+              >
+                Let's Talk
+              </Link>
+              <Link 
+                href="mailto:hello@dev.io" 
+                className="glass-card px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all flex items-center gap-2"
+              >
+                <Mail size={20} /> Email Me
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
       <footer className="py-12 border-t border-white/5">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">
-            © 2024 AI SOLUTIONS • ARCHITECTED FOR SCALE
-          </p>
-          <div className="flex gap-12 text-[10px] font-black uppercase tracking-[0.4em]">
-            <Link href="#" className="hover:text-accent transition-colors">LinkedIn</Link>
-            <Link href="#" className="hover:text-accent transition-colors">Twitter</Link>
-            <Link href="#" className="hover:text-accent transition-colors">GitHub</Link>
+          <div className="flex items-center gap-2">
+            <div className="h-6 w-6 rounded bg-primary flex items-center justify-center text-[10px] font-bold">
+              <Code2 size={12} />
+            </div>
+            <span className="font-bold text-sm">DevPort // 2024</span>
+          </div>
+          <div className="flex gap-8 text-sm text-muted-foreground">
+            <Link href="#" className="hover:text-primary transition-colors">GitHub</Link>
+            <Link href="#" className="hover:text-primary transition-colors">Twitter</Link>
+            <Link href="#" className="hover:text-primary transition-colors">LinkedIn</Link>
           </div>
         </div>
       </footer>

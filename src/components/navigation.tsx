@@ -3,22 +3,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Plus, Menu, X } from "lucide-react";
+import { Github, Linkedin, Mail, Code2 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const navLinks = [
-  { name: "Work", href: "/#projects" },
+  { name: "Projects", href: "/#projects" },
   { name: "Services", href: "/hire" },
-  { name: "Contact", href: "mailto:hello@aisolutions.me" },
 ];
 
 export function Navigation() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -26,71 +24,48 @@ export function Navigation() {
   return (
     <header 
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-700",
-        scrolled ? "bg-background/80 backdrop-blur-md border-b" : "bg-transparent"
+        "fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl transition-all duration-300",
+        scrolled ? "top-4" : "top-6"
       )}
     >
-      <div className="container mx-auto px-6 h-24 flex items-center justify-between">
-        <Link href="/" className="group relative flex items-center gap-2">
-          <span className="text-2xl font-black tracking-tighter leading-none">
-            AI<span className="text-muted-foreground">S.</span>
-          </span>
-          <div className="h-1.5 w-1.5 rounded-full bg-accent absolute -right-3 top-1 animate-pulse" />
+      <div className="glass-card rounded-2xl px-6 h-16 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform">
+            <Code2 size={18} />
+          </div>
+          <span className="font-bold tracking-tight hidden sm:block">DevPort</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-12">
+        <nav className="flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               className={cn(
-                "text-[11px] font-bold uppercase tracking-[0.3em] transition-all hover:text-accent relative overflow-hidden group",
-                pathname === link.href ? "text-accent" : "text-muted-foreground"
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === link.href ? "text-primary" : "text-muted-foreground"
               )}
             >
-              <span className="block group-hover:-translate-y-full transition-transform duration-300">
-                {link.name}
-              </span>
-              <span className="absolute top-full left-0 block text-accent transition-transform duration-300 group-hover:-translate-y-full">
-                {link.name}
-              </span>
+              {link.name}
             </Link>
           ))}
+          <div className="h-4 w-px bg-white/10 hidden sm:block" />
+          <div className="hidden sm:flex items-center gap-4">
+            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
+              <Github size={18} />
+            </Link>
+            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
+              <Linkedin size={18} />
+            </Link>
+          </div>
           <Link 
-            href="/hire" 
-            className="group flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-accent hover:text-black transition-colors"
+            href="mailto:hello@dev.io" 
+            className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
           >
-            Start Project <Plus className="h-3 w-3 transition-transform group-hover:rotate-90" />
+            Contact
           </Link>
         </nav>
-
-        {/* Mobile menu button */}
-        <button
-          className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
       </div>
-
-      {/* Mobile Nav */}
-      {isOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-background flex flex-col items-center justify-center p-8 animate-in fade-in duration-500">
-          <nav className="flex flex-col gap-10 text-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-5xl font-black tracking-tighter hover:text-accent transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
     </header>
   );
 }
