@@ -6,7 +6,7 @@ import {
   ArrowRight, Database, Layers, Mail, Github, 
   Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2,
   Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette,
-  Workflow, CpuCore, Shield, Activity
+  Workflow, Shield, Activity, User, Target, Rocket
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -57,8 +57,8 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
-            Building digital <span className="text-gradient italic pr-3">products</span> that matter.
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tighter mb-10 max-w-4xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+            Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
@@ -82,107 +82,96 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <section id="projects" className="py-32">
-        <div className="container mx-auto px-6">
-          <div className="mb-20 max-w-3xl">
-            <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
-            <h3 className="text-4xl md:text-6xl font-bold tracking-tight leading-none italic uppercase">
-              Proven results in <span className="text-muted-foreground">engineering.</span>
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projectsLoading ? (
-               <p className="text-muted-foreground italic py-20">Syncing projects...</p>
-            ) : projects && projects.length > 0 ? (
-              projects.map((project, idx) => (
-                <ProjectCard key={project.id} project={project as any} index={idx} />
-              ))
-            ) : (
-              <p className="text-muted-foreground italic py-20">No projects found. Add them in the CMS.</p>
-            )}
-          </div>
-        </div>
-      </section>
-
       {/* The Philosophy Section */}
       <section id="philosophy" className="py-40 relative">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            <div className="lg:col-span-7 space-y-12">
-              <div className="space-y-4">
-                <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
-                  The Philosophy
-                </Badge>
-                <h3 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none uppercase">
-                  Efficiency Through <span className="text-primary italic">Intelligence,</span><br />
-                  Scale Through <span className="text-muted-foreground/50">Design.</span>
+          <div className="grid lg:grid-cols-12 gap-20 lg:gap-32 items-start">
+            <div className="lg:col-span-7 space-y-16">
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">01</span>
+                  <div className="h-[1px] w-12 bg-primary/20" />
+                  <Badge variant="outline" className="text-primary border-primary/20 py-1 px-4 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] bg-primary/5">
+                    Engineering Creed
+                  </Badge>
+                </div>
+                <h3 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] uppercase">
+                  Efficiency Through <br />
+                  <span className="text-primary italic">Intelligence,</span> <br />
+                  Scale Through <span className="text-muted-foreground/30">Design.</span>
                 </h3>
               </div>
 
-              <div className="space-y-8 max-w-2xl">
-                <div className="space-y-2">
-                  <h4 className="text-xl font-bold uppercase tracking-tight text-foreground">The Automation Mindset</h4>
-                  <p className="text-lg text-muted-foreground leading-relaxed font-light">
-                    I develop modern web applications using React, Next.js, Node.js, and Firebase while also building automation solutions with Google Apps Script to streamline business processes and improve productivity.
+              <div className="space-y-10 max-w-2xl">
+                <div className="space-y-4">
+                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-foreground flex items-center gap-2">
+                    <Target size={14} className="text-primary" />
+                    The Automation Mindset
+                  </h4>
+                  <p className="text-xl text-muted-foreground leading-relaxed font-light">
+                    I architect high-performance web applications using React and Next.js, while simultaneously leveraging <strong className="text-white">Google Apps Script</strong> to bridge the gap between engineering and operational excellence.
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-10 pt-4">
-                  <div className="space-y-1">
-                    <p className="text-3xl font-bold tracking-tighter">02+</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Years Experience</p>
+                <div className="grid grid-cols-2 gap-12 pt-6 border-t border-white/5">
+                  <div className="space-y-2">
+                    <div className="flex items-baseline gap-2">
+                      <p className="text-4xl font-bold tracking-tighter">02+</p>
+                      <User size={16} className="text-primary/50" />
+                    </div>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 leading-tight">Professional <br />Years Experience</p>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-3xl font-bold tracking-tighter">10+</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Automations Deployed</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary">Full-Stack & Google Workspace Specialist</p>
+                  <div className="space-y-2">
+                    <div className="flex items-baseline gap-2">
+                      <p className="text-4xl font-bold tracking-tighter">10+</p>
+                      <Rocket size={16} className="text-accent/50" />
+                    </div>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 leading-tight">Enterprise <br />Automations Deployed</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-5 space-y-8">
-              <Card className="glass-card border-white/5 rounded-[3rem] overflow-hidden">
-                <CardContent className="p-10 space-y-8">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-primary">
-                      <Terminal size={16} />
-                      Strategic Tech Stack
+            <div className="lg:col-span-5 space-y-8 sticky top-32">
+              <Card className="glass-card border-white/5 rounded-[3rem] overflow-hidden group hover:border-primary/20 transition-all duration-700">
+                <CardContent className="p-12 space-y-10">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+                        <Terminal size={14} />
+                        Core Stack
+                      </div>
+                      <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "Next.js 15", "Google Apps Script", "React 19", 
-                        "Firebase", "MongoDB", "Express.js", 
-                        "Workspace Automation", "Tailwind CSS", "TypeScript"
+                        "Next.js 15", "React 19", "Apps Script", 
+                        "Firebase", "TypeScript", "Tailwind"
                       ].map((tech) => (
-                        <span key={tech} className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-muted-foreground/80">
+                        <span key={tech} className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover:bg-primary/5 group-hover:border-primary/20 transition-all">
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="space-y-6 pt-6 border-t border-white/5">
-                    <div className="flex gap-5">
-                      <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                        <Activity size={20} />
+                  <div className="space-y-8 pt-10 border-t border-white/5">
+                    <div className="flex gap-6 group/item">
+                      <div className="h-12 w-12 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary group-hover/item:scale-110 transition-transform">
+                        <Activity size={22} />
                       </div>
                       <div className="space-y-1">
-                        <h5 className="font-bold uppercase tracking-tight text-sm">Zero Latency</h5>
-                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Optimization is built into every layer, from database queries to front-end rendering.</p>
+                        <h5 className="font-bold uppercase tracking-widest text-xs">Zero Latency</h5>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed font-light">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
                       </div>
                     </div>
-                    <div className="flex gap-5">
-                      <div className="h-10 w-10 shrink-0 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-                        <ShieldCheck size={20} />
+                    <div className="flex gap-6 group/item">
+                      <div className="h-12 w-12 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent group-hover/item:scale-110 transition-transform">
+                        <ShieldCheck size={22} />
                       </div>
                       <div className="space-y-1">
-                        <h5 className="font-bold uppercase tracking-tight text-sm">Bulletproof Logic</h5>
-                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Mission-critical systems designed for 99.9% uptime and reliable performance.</p>
+                        <h5 className="font-bold uppercase tracking-widest text-xs">Bulletproof Logic</h5>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed font-light">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
                       </div>
                     </div>
                   </div>
@@ -232,6 +221,30 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Grid */}
+      <section id="projects" className="py-32">
+        <div className="container mx-auto px-6">
+          <div className="mb-20 max-w-3xl">
+            <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
+            <h3 className="text-4xl md:text-6xl font-bold tracking-tight leading-none italic uppercase">
+              Proven results in <span className="text-muted-foreground">engineering.</span>
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projectsLoading ? (
+               <p className="text-muted-foreground italic py-20">Syncing projects...</p>
+            ) : projects && projects.length > 0 ? (
+              projects.map((project, idx) => (
+                <ProjectCard key={project.id} project={project as any} index={idx} />
+              ))
+            ) : (
+              <p className="text-muted-foreground italic py-20">No projects found. Add them in the CMS.</p>
+            )}
           </div>
         </div>
       </section>
