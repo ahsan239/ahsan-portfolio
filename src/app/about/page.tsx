@@ -1,14 +1,18 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { 
   User, BrainCircuit, Zap, ShieldCheck, Heart, 
-  Globe, Coffee, Rocket, Mail, ChevronRight
+  Globe, Coffee, Rocket, Mail, ChevronRight,
+  Code2, Cpu, Database, Flame, Layers, Share2, 
+  Terminal, Palette, Sparkles
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
+import { cn } from "@/lib/utils";
 
 const OWNER_ID = "alex-rivera";
 
@@ -33,6 +37,21 @@ export default function AboutPage() {
       title: "AI Native", 
       desc: "Integrating LLMs and automation into core workflows to unlock new digital possibilities." 
     }
+  ];
+
+  const techArsenal = [
+    { name: "Next.js 15", category: "FRONTEND", icon: <Zap size={24} />, color: "text-blue-400", glow: "hover:shadow-blue-500/20", desc: "App Router, RSC, Server Actions" },
+    { name: "React 19", category: "FRONTEND", icon: <Code2 size={24} />, color: "text-cyan-400", glow: "hover:shadow-cyan-400/20", desc: "Concurrent rendering, Hooks" },
+    { name: "TypeScript", category: "LANGUAGE", icon: <ShieldCheck size={24} />, color: "text-blue-500", glow: "hover:shadow-blue-500/20", desc: "Type-safe development" },
+    { name: "JavaScript", category: "LANGUAGE", icon: <Globe size={24} />, color: "text-yellow-400", glow: "hover:shadow-yellow-400/20", desc: "Modern web standard" },
+    { name: "Node.js", category: "BACKEND", icon: <Cpu size={24} />, color: "text-green-500", glow: "hover:shadow-green-500/20", desc: "Scalable server environments" },
+    { name: "Express.js", category: "BACKEND", icon: <Database size={24} />, color: "text-emerald-400", glow: "hover:shadow-emerald-400/20", desc: "Minimalist web framework" },
+    { name: "Firebase", category: "CLOUD/DB", icon: <Flame size={24} />, color: "text-orange-500", glow: "hover:shadow-orange-500/20", desc: "Real-time apps & Auth" },
+    { name: "MongoDB", category: "DATABASE", icon: <Layers size={24} />, color: "text-green-600", glow: "hover:shadow-green-600/20", desc: "NoSQL document storage" },
+    { name: "GraphQL", category: "API", icon: <Share2 size={24} />, color: "text-pink-500", glow: "hover:shadow-pink-500/20", desc: "Flexible data fetching" },
+    { name: "Google Apps Script", category: "AUTOMATION", icon: <Terminal size={24} />, color: "text-blue-600", glow: "hover:shadow-blue-600/20", desc: "Productivity workflows" },
+    { name: "Tailwind CSS", category: "STYLING", icon: <Palette size={24} />, color: "text-sky-400", glow: "hover:shadow-sky-400/20", desc: "Utility-first CSS framework" },
+    { name: "Generative AI", category: "AI", icon: <Sparkles size={24} />, color: "text-purple-400", glow: "hover:shadow-purple-400/20", desc: "LLM & GenAI integration" },
   ];
 
   return (
@@ -152,18 +171,43 @@ export default function AboutPage() {
                 </Card>
               </div>
 
-              {/* Stack Section */}
+              {/* Technical Arsenal Integrated in About Page */}
               <div className="space-y-10">
                 <div className="flex items-center gap-4">
                   <div className="h-[1px] flex-1 bg-white/5" />
-                  <h2 className="text-2xl font-black uppercase tracking-tighter">Stack</h2>
+                  <h2 className="text-2xl font-black uppercase tracking-tighter">Technical Arsenal</h2>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {["Next.js", "React", "TypeScript", "Node.js", "Genkit", "PostgreSQL", "Google Cloud", "Firebase", "Tailwind"].map(tech => (
-                    <div key={tech} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 text-[10px] font-black uppercase tracking-widest hover:border-primary/50 transition-all group">
-                      {tech}
-                      <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {techArsenal.map((tech) => (
+                    <Card key={tech.name} className={cn(
+                      "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:-translate-y-2 shadow-xl",
+                      tech.glow
+                    )}>
+                      <CardContent className="p-8 flex flex-col h-full relative z-10">
+                        <div className="flex justify-between items-start mb-10">
+                          <div className={cn(
+                            "h-14 w-14 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:bg-white/10",
+                            tech.color
+                          )}>
+                            {tech.icon}
+                          </div>
+                          <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/40 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 group-hover:border-primary/30 group-hover:text-primary transition-colors">
+                            {tech.category}
+                          </span>
+                        </div>
+                        
+                        <div className="mt-auto space-y-2">
+                          <h4 className="text-xl font-bold uppercase tracking-tighter group-hover:text-primary transition-colors">
+                            {tech.name}
+                          </h4>
+                          <p className="text-[11px] text-muted-foreground font-light leading-relaxed tracking-tight">
+                            {tech.desc}
+                          </p>
+                        </div>
+                        
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               </div>
