@@ -8,8 +8,6 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
-  const heroImage = PlaceHolderImages.find(img => img.id === "hero-main")!;
-
   const techStack = [
     { name: "Next.js", icon: <Layers size={16} /> },
     { name: "TypeScript", icon: <Code2 size={16} /> },
@@ -167,7 +165,7 @@ export default function Home() {
       <footer className="py-12 border-t border-white/5">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded bg-primary flex items-center justify-center text-[10px] font-bold">
+            <div className="h-6 w-6 rounded bg-primary flex items-center justify-center text-[10px] font-bold text-white">
               <Code2 size={12} />
             </div>
             <span className="font-bold text-sm">DevPort // 2024</span>
