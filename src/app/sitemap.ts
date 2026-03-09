@@ -15,16 +15,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/hire`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/cms`,
       lastModified: new Date(),
       changeFrequency: 'always',
-      priority: 0.1, // CMS should not be high priority for indexing
+      priority: 0.1,
     },
   ];
 }

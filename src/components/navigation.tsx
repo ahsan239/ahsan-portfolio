@@ -10,14 +10,13 @@ import { Button } from "@/components/ui/button";
 
 /**
  * Navigation component based on PRD Section 3.4.
- * Links align with Home, Projects, Experience, Contact requirement.
+ * Updated to include Home, About, Projects, and Experience.
  */
 const navLinks = [
   { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
   { name: "Projects", href: "/#projects" },
   { name: "Experience", href: "/#experience" },
-  { name: "Contact", href: "/#contact" },
-  { name: "Services", href: "/hire" },
 ];
 
 export function Navigation() {
