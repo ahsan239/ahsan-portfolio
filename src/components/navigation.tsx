@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Github, Code2, Menu, X, User, LayoutGrid } from "lucide-react";
+import { Github, Code2, Menu, X, User, LayoutGrid, Briefcase } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { name: "Home", href: "/", icon: <LayoutGrid size={14} /> },
   { name: "About", href: "/about", icon: <User size={14} /> },
+  { name: "Experience", href: "/#experience", icon: <Briefcase size={14} /> },
   { name: "Projects", href: "/#projects", icon: <Code2 size={14} /> },
 ];
 

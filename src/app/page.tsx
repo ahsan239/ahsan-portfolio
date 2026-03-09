@@ -23,9 +23,11 @@ export default function Home() {
 
   const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
   const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db]);
+  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
 
   const { data: profile } = useDoc(profileRef);
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
+  const { data: experiences, isLoading: expLoading } = useCollection(experiencesQuery);
 
   const techArsenal = [
     { name: "Next.js 15", category: "FRONTEND", icon: <Zap size={24} />, color: "text-blue-400", glow: "hover:shadow-blue-500/20", desc: "App Router, RSC, Server Actions" },
@@ -239,6 +241,52 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Professional Journey (Experience) */}
+      <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
+          <div className="mb-12 md:mb-20">
+            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
+              Career Path
+            </Badge>
+            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase">
+              Professional <br className="hidden sm:block" />
+              <span className="text-primary italic">Journey.</span>
+            </h3>
+          </div>
+
+          <div className="space-y-12">
+            {expLoading ? (
+              <p className="text-muted-foreground italic">Syncing career history...</p>
+            ) : experiences && experiences.length > 0 ? (
+              experiences.map((exp, idx) => (
+                <div key={exp.id} className="relative pl-8 md:pl-12 border-l border-white/10 pb-12 last:pb-0">
+                  <div className="absolute left-[-5px] top-0 h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
+                  <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                      <h4 className="text-2xl font-bold uppercase tracking-tight">{exp.role}</h4>
+                      <span className="text-xs font-black uppercase tracking-widest text-primary bg-primary/5 px-3 py-1 rounded-full border border-primary/10 w-fit">
+                        {exp.duration}
+                      </span>
+                    </div>
+                    <p className="text-lg font-bold text-muted-foreground uppercase tracking-widest">{exp.company}</p>
+                    <ul className="space-y-3 mt-4">
+                      {exp.points?.map((point: string, pIdx: number) => (
+                        <li key={pIdx} className="flex gap-3 text-sm text-muted-foreground font-light leading-relaxed">
+                          <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-1.5 shrink-0" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-muted-foreground italic">No career entries yet. Add them in the CMS.</p>
+            )}
           </div>
         </div>
       </section>
