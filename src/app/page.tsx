@@ -133,44 +133,62 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-5 space-y-8 sticky top-32">
-              <Card className="glass-card border-white/5 rounded-[3rem] overflow-hidden group hover:border-primary/20 transition-all duration-700">
-                <CardContent className="p-12 space-y-10">
-                  <div className="space-y-6">
+              <Card className="glass-card border-white/5 rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]">
+                <CardContent className="p-12 space-y-12">
+                  <div className="space-y-8">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-                        <Terminal size={14} />
-                        Core Stack
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                          <Terminal size={18} />
+                        </div>
+                        <div className="space-y-0.5">
+                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
+                          <p className="text-[9px] font-bold text-muted-foreground/60 uppercase">System Integration</p>
+                        </div>
                       </div>
-                      <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/5 border border-green-500/10">
+                        <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-[8px] font-black text-green-500/80 uppercase tracking-widest">Live Engine</span>
+                      </div>
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    
+                    <div className="grid grid-cols-2 gap-3">
                       {[
-                        "Next.js 15", "React 19", "Apps Script", 
-                        "Firebase", "TypeScript", "Tailwind"
+                        { name: "Next.js 15", icon: <Zap size={12} /> },
+                        { name: "React 19", icon: <Code2 size={12} /> },
+                        { name: "Apps Script", icon: <Terminal size={12} /> },
+                        { name: "Firebase", icon: <Flame size={12} /> },
+                        { name: "TypeScript", icon: <ShieldCheck size={12} /> },
+                        { name: "Tailwind", icon: <Palette size={12} /> }
                       ].map((tech) => (
-                        <span key={tech} className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover:bg-primary/5 group-hover:border-primary/20 transition-all">
-                          {tech}
-                        </span>
+                        <div key={tech.name} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/5 hover:border-primary/20 transition-all cursor-default group/item">
+                          <div className="text-primary group-hover/item:scale-110 transition-transform">
+                            {tech.icon}
+                          </div>
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover/item:text-foreground transition-colors">
+                            {tech.name}
+                          </span>
+                        </div>
                       ))}
                     </div>
                   </div>
 
                   <div className="space-y-8 pt-10 border-t border-white/5">
-                    <div className="flex gap-6 group/item">
-                      <div className="h-12 w-12 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary group-hover/item:scale-110 transition-transform">
-                        <Activity size={22} />
+                    <div className="flex gap-6 group/benefit">
+                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-white/[0.03] border border-white/5 flex items-center justify-center text-primary group-hover/benefit:scale-110 group-hover/benefit:bg-primary/5 group-hover/benefit:border-primary/20 transition-all duration-500">
+                        <Activity size={24} />
                       </div>
-                      <div className="space-y-1">
-                        <h5 className="font-bold uppercase tracking-widest text-xs">Zero Latency</h5>
+                      <div className="space-y-2">
+                        <h5 className="font-bold uppercase tracking-widest text-xs text-foreground group-hover/benefit:text-primary transition-colors">Zero Latency</h5>
                         <p className="text-[11px] text-muted-foreground leading-relaxed font-light">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
                       </div>
                     </div>
-                    <div className="flex gap-6 group/item">
-                      <div className="h-12 w-12 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent group-hover/item:scale-110 transition-transform">
-                        <ShieldCheck size={22} />
+                    <div className="flex gap-6 group/benefit">
+                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-white/[0.03] border border-white/5 flex items-center justify-center text-accent group-hover/benefit:scale-110 group-hover/benefit:bg-accent/5 group-hover/benefit:border-accent/20 transition-all duration-500">
+                        <ShieldCheck size={24} />
                       </div>
-                      <div className="space-y-1">
-                        <h5 className="font-bold uppercase tracking-widest text-xs">Bulletproof Logic</h5>
+                      <div className="space-y-2">
+                        <h5 className="font-bold uppercase tracking-widest text-xs text-foreground group-hover/benefit:text-accent transition-colors">Bulletproof Logic</h5>
                         <p className="text-[11px] text-muted-foreground leading-relaxed font-light">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
                       </div>
                     </div>
