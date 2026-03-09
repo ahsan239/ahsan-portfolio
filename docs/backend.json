@@ -1,0 +1,469 @@
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents the portfolio owner's profile and global website settings, centralizing personal and contact information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserProfile entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The full name of the portfolio owner."
+        },
+        "headline": {
+          "type": "string",
+          "description": "The value proposition headline displayed prominently on the homepage hero section (e.g., 'Engineering AI Solutions that Automate Workflows and Drive Revenue')."
+        },
+        "professionalHeadshotUrl": {
+          "type": "string",
+          "description": "URL to the professional headshot image of the portfolio owner.",
+          "format": "uri"
+        },
+        "bio": {
+          "type": "string",
+          "description": "A brief biography or 'About Me' section content, providing context about the portfolio owner's expertise and philosophy."
+        },
+        "resumeUrl": {
+          "type": "string",
+          "description": "URL to the downloadable resume of the portfolio owner.",
+          "format": "uri"
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "The primary email address for professional inquiries and direct contact.",
+          "format": "email"
+        },
+        "calendlyLink": {
+          "type": "string",
+          "description": "URL for booking discovery calls or consultations via a calendar integration (e.g., Cal.com), streamlining client engagement.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "headline",
+        "professionalHeadshotUrl",
+        "resumeUrl",
+        "contactEmail",
+        "calendlyLink"
+      ]
+    },
+    "SocialMediaLink": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "SocialMediaLink",
+      "type": "object",
+      "description": "Represents a single social media profile link associated with the portfolio owner.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the SocialMediaLink entity."
+        },
+        "platform": {
+          "type": "string",
+          "description": "The name of the social media platform (e.g., 'LinkedIn', 'GitHub', 'X', 'Medium')."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to the social media profile of the portfolio owner on the specified platform.",
+          "format": "uri"
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to the UserProfile entity this social media link belongs to. (Relationship: UserProfile 1:N SocialMediaLink)"
+        }
+      },
+      "required": [
+        "id",
+        "platform",
+        "url",
+        "userProfileId"
+      ]
+    },
+    "Technology": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Technology",
+      "type": "object",
+      "description": "Represents a specific technology, tool, or framework used or proficient in by the portfolio owner.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Technology entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The common name of the technology (e.g., 'Python', 'React', 'OpenAI', 'AWS')."
+        },
+        "logoUrl": {
+          "type": "string",
+          "description": "URL to an SVG or image logo representing the technology, suitable for display.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the technology belongs to (e.g., 'Frontend', 'Backend', 'AI/ML', 'Cloud', 'Styling', 'DevOps')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description or general use case for this technology."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "logoUrl",
+        "category"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a detailed AI solution project, structured as a business case study.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Project entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The main title or name of the AI project/case study."
+        },
+        "description": {
+          "type": "string",
+          "description": "A concise, high-level summary of the project, suitable for display on homepage grids or project listings."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly identifier for the project, used in its dedicated page URL."
+        },
+        "businessProblem": {
+          "type": "string",
+          "description": "A detailed narrative describing the business pain point or inefficiency that the AI solution addresses."
+        },
+        "aiSolutionHighLevel": {
+          "type": "string",
+          "description": "A high-level explanation of the technical AI implementation, approach, and how it solves the identified business problem."
+        },
+        "roiMetrics": {
+          "type": "array",
+          "description": "An array of key metrics highlighting the Return on Investment (ROI) or quantifiable impact of the solution (e.g., 'Reduced Support Tickets by 40%', 'Saved $50k/year').",
+          "items": {
+            "type": "string"
+          }
+        },
+        "videoDemoUrl": {
+          "type": "string",
+          "description": "URL for an embedded video walk-through or demonstration of the project's functionality.",
+          "format": "uri"
+        },
+        "liveDemoUrl": {
+          "type": "string",
+          "description": "Optional URL for an interactive live demo playground where users can try a limited version of the tool.",
+          "format": "uri"
+        },
+        "technicalDeepDive": {
+          "type": "string",
+          "description": "Detailed content covering the architecture, technical challenges, design decisions, and relevant code snippets, typically formatted in Markdown."
+        },
+        "isFeatured": {
+          "type": "boolean",
+          "description": "A flag indicating if this project should be prominently displayed in the 'Featured Projects Grid' on the homepage."
+        },
+        "impactBadgeText": {
+          "type": "string",
+          "description": "A concise text for a business impact badge displayed on project cards (e.g., 'Reduced Support Tickets by 40%')."
+        },
+        "technologiesUsedIds": {
+          "type": "array",
+          "description": "References to Technology entities that were utilized in the development and implementation of this project. (Relationship: Project N:N Technology)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "slug",
+        "businessProblem",
+        "aiSolutionHighLevel",
+        "roiMetrics",
+        "videoDemoUrl",
+        "technicalDeepDive",
+        "isFeatured",
+        "impactBadgeText",
+        "technologiesUsedIds"
+      ]
+    },
+    "ServiceOffering": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ServiceOffering",
+      "type": "object",
+      "description": "Defines a specific service or type of engagement offered by the portfolio owner.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ServiceOffering entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The concise title of the service offered (e.g., 'Full-time Engineering Leadership', 'Custom AI Automation')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed explanation of what the service entails, its benefits, and target outcomes for clients/recruiters."
+        },
+        "targetAudience": {
+          "type": "string",
+          "description": "Specifies the intended audience for this particular service offering (e.g., 'Recruiters', 'Clients', 'Business Partners')."
+        },
+        "iconName": {
+          "type": "string",
+          "description": "Optional. A semantic name referencing an icon to visually represent the service in the UI."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "targetAudience"
+      ]
+    },
+    "BlogPost": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "BlogPost",
+      "type": "object",
+      "description": "Represents a technical blog post or article, focusing on the application of AI in business.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the BlogPost entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The main title of the blog post."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly identifier for the blog post, used in its dedicated page URL."
+        },
+        "publishDate": {
+          "type": "string",
+          "description": "The date and time when the blog post was published.",
+          "format": "date-time"
+        },
+        "summary": {
+          "type": "string",
+          "description": "A short summary or excerpt of the blog post, suitable for display on blog listings."
+        },
+        "content": {
+          "type": "string",
+          "description": "The full content of the blog post, typically provided in Markdown format for rich text display."
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to the UserProfile entity of the author of this blog post. (Relationship: UserProfile 1:N BlogPost)"
+        },
+        "tagIds": {
+          "type": "array",
+          "description": "References to Tag entities associated with this blog post, enabling categorization and search. (Relationship: BlogPost N:N Tag)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "publishDate",
+        "summary",
+        "content",
+        "userProfileId",
+        "tagIds"
+      ]
+    },
+    "Tag": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tag",
+      "type": "object",
+      "description": "Represents a categorical tag used to organize and filter blog posts.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Tag entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The display name of the tag (e.g., 'LLM Costs', 'AI in Business', 'Caching')."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly identifier for the tag, used in tag-specific listing pages."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "slug"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores the portfolio owner's profile data. The document ID matches the `userId`. The `UserProfile.id` field within the document will also match the `userId`, ensuring consistency and explicit ownership for security rules.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the authenticated user (portfolio owner)."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/socialMediaLinks/{socialMediaLinkId}",
+        "definition": {
+          "entityName": "SocialMediaLink",
+          "schema": {
+            "$ref": "#/backend/entities/SocialMediaLink"
+          },
+          "description": "Stores social media links belonging to a specific user's profile. The `userProfileId` field in the document will match the `userId` from the path, ensuring explicit ownership for security rules.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user (portfolio owner) to whom these social media links belong."
+            },
+            {
+              "name": "socialMediaLinkId",
+              "description": "The unique identifier for a specific social media link."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores detailed AI solution project case studies belonging to a specific user. The owner is implicitly defined by the `userId` in the path, which simplifies security rules for write access while allowing public read.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user (portfolio owner) who owns this project."
+            },
+            {
+              "name": "projectId",
+              "description": "The unique identifier for a specific project case study."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/blogPosts/{blogPostId}",
+        "definition": {
+          "entityName": "BlogPost",
+          "schema": {
+            "$ref": "#/backend/entities/BlogPost"
+          },
+          "description": "Stores technical blog posts belonging to a specific user. The `userProfileId` field in the document will match the `userId` from the path, ensuring explicit ownership for security rules.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user (portfolio owner) who authored this blog post."
+            },
+            {
+              "name": "blogPostId",
+              "description": "The unique identifier for a specific blog post."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/technologies/{technologyId}",
+        "definition": {
+          "entityName": "Technology",
+          "schema": {
+            "$ref": "#/backend/entities/Technology"
+          },
+          "description": "A global collection for all available technologies, tools, or frameworks used. These documents are publicly readable. Write access is restricted to authenticated administrators defined in the `/roles_admin` collection.",
+          "params": [
+            {
+              "name": "technologyId",
+              "description": "The unique identifier for a specific technology."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/serviceOfferings/{serviceOfferingId}",
+        "definition": {
+          "entityName": "ServiceOffering",
+          "schema": {
+            "$ref": "#/backend/entities/ServiceOffering"
+          },
+          "description": "A global collection for all defined service offerings and engagement types. These documents are publicly readable. Write access is restricted to authenticated administrators defined in the `/roles_admin` collection.",
+          "params": [
+            {
+              "name": "serviceOfferingId",
+              "description": "The unique identifier for a specific service offering."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/tags/{tagId}",
+        "definition": {
+          "entityName": "Tag",
+          "schema": {
+            "$ref": "#/backend/entities/Tag"
+          },
+          "description": "A global collection for all categorical tags used to organize blog posts. These documents are publicly readable. Write access is restricted to authenticated administrators defined in the `/roles_admin` collection.",
+          "params": [
+            {
+              "name": "tagId",
+              "description": "The unique identifier for a specific tag."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "AdminRole",
+          "schema": {
+            "$ref": "#/backend/entities/AdminRole"
+          },
+          "description": "A collection used to define administrative roles based on the DBAC principle (Database-Based Access Control). The existence of a document at `/roles_admin/{adminId}` where `adminId` matches a user's UID grants administrator privileges to that user. This is used to restrict write access to global content collections like `technologies`, `serviceOfferings`, and `tags` without relying on custom claims or complex `get()` operations.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The unique identifier of a user who possesses administrative privileges. This ID should match `request.auth.uid`."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to be secure, scalable, and highly debuggable, adhering strictly to the core design principles and mandates. It prioritizes Authorization Independence, Structural Segregation, consistent Access Modeling, and Data Clarity.\n\n**Authorization Independence:** This is achieved primarily through path-based ownership for user-specific data and a dedicated admin role collection for global data. \n1.  **User-Owned Data:** Entities like `UserProfile`, `SocialMediaLink`, `Project`, and `BlogPost` are nested under a user's specific path (`/users/{userId}/...`). This structure means that the `userId` is an explicit part of the document's path, making the owner readily available within Firestore Security Rules (`request.auth.uid == userId`). This eliminates the need for `get()` calls to parent documents to ascertain ownership, enabling atomic operations (like creating a user profile and their first project simultaneously in a batch) and greatly simplifying rule logic.\n2.  **Global Data with Restricted Write:** Collections such as `technologies`, `serviceOfferings`, and `tags` are global. Write access to these collections is controlled by checking the *existence* of a document in a separate `/roles_admin/{adminId}` collection (`exists(/roles_admin/$(request.auth.uid))`). This check is atomic and independent of any other document's content, further reinforcing authorization independence.\n\n**Support for QAPs (Rules are not Filters):**\n1.  **Structural Segregation:** All documents within a given collection share the same security posture. For instance, all documents under `/users/{userId}/projects/{projectId}` are publicly readable for their content (showcasing AI solutions) but only writable by the designated owner (`userId`). Similarly, all `technologies`, `serviceOfferings`, and `tags` are publicly readable, with write access reserved for administrators. There is no mixing of public and private data within the same collection, which would necessitate complex filtering rules and potentially leak metadata.\n2.  **Explicit Intent:** Because the security posture is homogeneous per collection, `list` operations can be explicitly allowed (`allow list: if true;`) for all public-facing collections. This means the client-side queries do not rely on Firestore rules to filter out unauthorized documents, ensuring that queries only retrieve data that the user is explicitly allowed to see, without performance overhead or security risks from incomplete filtering. The `isFeatured` flag on `Project` documents, for example, is a client-side filtering mechanism, not a security one, as all projects are public by design.\n\nThis design leverages the inherent capabilities of Firestore paths and rule conditions to create a robust, secure, and easily auditable data model for the AI Solutions Portfolio application."
+  }
+}
