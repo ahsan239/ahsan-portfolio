@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -9,11 +8,16 @@ import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 
+/**
+ * Navigation component based on PRD Section 3.4.
+ * Links align with Home, Projects, Experience, Contact requirement.
+ */
 const navLinks = [
+  { name: "Home", href: "/" },
   { name: "Projects", href: "/#projects" },
-  { name: "About", href: "/#about" },
-  { name: "Services", href: "/hire" },
+  { name: "Experience", href: "/#experience" },
   { name: "Contact", href: "/#contact" },
+  { name: "Services", href: "/hire" },
 ];
 
 export function Navigation() {
@@ -49,7 +53,7 @@ export function Navigation() {
               key={link.name}
               href={link.href}
               className={cn(
-                "text-sm font-semibold transition-colors hover:text-primary uppercase tracking-widest text-xs",
+                "text-[10px] font-black transition-colors hover:text-primary uppercase tracking-widest",
                 pathname === link.href ? "text-primary" : "text-muted-foreground"
               )}
             >
@@ -61,12 +65,12 @@ export function Navigation() {
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-3 pr-3 border-r border-white/10">
             <ThemeToggle />
-            <Link href="https://github.com" target="_blank" className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-white/5">
+            <Link href="https://github.com/alexrivera" target="_blank" className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-white/5">
               <Github size={18} />
             </Link>
           </div>
           
-          <Button asChild size="sm" className="rounded-lg h-9 px-4 font-bold shadow-lg shadow-primary/20 hidden sm:flex">
+          <Button asChild size="sm" className="rounded-lg h-9 px-4 font-bold shadow-lg shadow-primary/20 hidden sm:flex uppercase tracking-widest text-[10px]">
             <Link href="/#contact">Let's Talk</Link>
           </Button>
 
@@ -86,7 +90,7 @@ export function Navigation() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-lg font-bold hover:text-primary transition-colors"
+                className="text-xs font-black uppercase tracking-widest hover:text-primary transition-colors"
               >
                 {link.name}
               </Link>
@@ -94,8 +98,8 @@ export function Navigation() {
             <div className="pt-6 border-t border-white/10 flex items-center justify-between">
               <ThemeToggle />
               <div className="flex gap-4">
-                <Link href="https://github.com"><Github size={20} /></Link>
-                <Link href="mailto:hello@alexrivera.dev"><Mail size={20} /></Link>
+                <Link href="https://github.com/alexrivera" className="text-muted-foreground hover:text-primary"><Github size={20} /></Link>
+                <Link href="mailto:hello@alexrivera.dev" className="text-muted-foreground hover:text-primary"><Mail size={20} /></Link>
               </div>
             </div>
           </nav>

@@ -4,7 +4,7 @@ import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Database, Layers, Mail, Github, 
-  Linkedin, Briefcase, GraduationCap, User, Star, Terminal, Sparkles, CheckCircle2, Code2
+  Linkedin, Briefcase, GraduationCap, User, Terminal, Sparkles, CheckCircle2, Code2, Download
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -60,7 +60,12 @@ export default function Home() {
               <Link href="/#projects">View Projects <ArrowRight size={18} className="ml-2" /></Link>
             </Button>
             <Button variant="outline" asChild size="lg" className="glass-card rounded-xl px-8 h-14 font-bold border-white/10">
-              <Link href="/hire">Work with Me</Link>
+              <Link href="/#contact">Contact Me</Link>
+            </Button>
+            <Button variant="ghost" asChild size="lg" className="rounded-xl px-8 h-14 font-bold">
+              <a href={profile?.resumeUrl || "#"} target="_blank" rel="noopener noreferrer">
+                Download CV <Download size={18} className="ml-2" />
+              </a>
             </Button>
           </div>
 
@@ -128,26 +133,26 @@ export default function Home() {
                 <Briefcase size={14} /> Projects
               </div>
               <h2 className="text-4xl font-bold tracking-tight">Proof of <span className="text-primary">Engineering</span></h2>
-              <p className="text-muted-foreground max-w-xl">Curated case studies highlighting complex systems and high-performance solutions.</p>
+              <p className="text-muted-foreground max-xl">Curated case studies highlighting complex systems and high-performance solutions.</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projectsLoading ? (
-               <p className="text-muted-foreground italic">Initializing project gallery...</p>
+               <p className="text-muted-foreground italic text-center col-span-full py-20">Initializing project gallery...</p>
             ) : projects && projects.length > 0 ? (
               projects.map((project, idx) => (
                 <ProjectCard key={project.id} project={project as any} index={idx} />
               ))
             ) : (
-              <p className="text-muted-foreground italic">No projects found. Add them in the CMS.</p>
+              <p className="text-muted-foreground italic text-center col-span-full py-20">No projects found. Add them in the CMS.</p>
             )}
           </div>
         </div>
       </section>
 
       {/* Career Path */}
-      <section className="py-24 bg-white/[0.01]">
+      <section id="experience" className="py-24 bg-white/[0.01]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto space-y-16">
             <div className="text-center space-y-4">
@@ -220,13 +225,13 @@ export default function Home() {
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold">
               <Code2 size={16} />
             </div>
-            <span className="font-bold tracking-tight">ALEX // DEV</span>
+            <span className="font-bold tracking-tight uppercase">Alex Rivera</span>
           </div>
-          <p className="text-xs text-muted-foreground font-mono">© 2024 Alex Rivera. Engineered with Next.js 15 & Firestore.</p>
+          <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">© 2024 Alex Rivera. Optimized for Performance.</p>
           <div className="flex gap-8">
-            <Link href="https://github.com/alexrivera" target="_blank" className="text-sm text-muted-foreground hover:text-primary transition-colors">GitHub</Link>
-            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="text-sm text-muted-foreground hover:text-primary transition-colors">LinkedIn</Link>
-            <Link href="/cms" className="text-sm text-primary hover:underline transition-colors font-bold">CMS</Link>
+            <Link href="https://github.com/alexrivera" target="_blank" className="text-xs text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest font-black">GitHub</Link>
+            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="text-xs text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest font-black">LinkedIn</Link>
+            <Link href="/cms" className="text-xs text-primary hover:underline transition-colors uppercase tracking-widest font-black">CMS</Link>
           </div>
         </div>
       </footer>

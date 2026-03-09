@@ -8,7 +8,11 @@ import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
 import { ChevronLeft, Github, ExternalLink, Code, Loader2, Target, Zap } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+
+/**
+ * @fileOverview Individual project case study page.
+ * Aligns with PRD Section 3.1 (Dynamic Project Showcase).
+ */
 
 const OWNER_ID = "alex-rivera";
 
