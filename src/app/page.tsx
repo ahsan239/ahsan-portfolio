@@ -6,7 +6,7 @@ import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Database, Layers, Mail, Github, 
   Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2,
-  Zap, ShieldCheck, Globe, Cpu, Flame
+  Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +37,10 @@ export default function Home() {
     { name: "Express.js", category: "BACKEND", icon: <Database size={18} />, desc: "Minimalist web framework" },
     { name: "Firebase", category: "CLOUD/DB", icon: <Flame size={18} />, desc: "Real-time apps & Auth" },
     { name: "MongoDB", category: "DATABASE", icon: <Layers size={18} />, desc: "NoSQL document storage" },
+    { name: "GraphQL", category: "API", icon: <Share2 size={18} />, desc: "Flexible data fetching" },
+    { name: "Google Apps Script", category: "AUTOMATION", icon: <Terminal size={18} />, desc: "Productivity workflows" },
+    { name: "Tailwind CSS", category: "STYLING", icon: <Palette size={18} />, desc: "Utility-first CSS framework" },
+    { name: "Generative AI", category: "AI", icon: <Sparkles size={18} />, desc: "LLM & GenAI integration" },
   ];
 
   return (
@@ -53,7 +57,7 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
             Building digital <span className="text-gradient italic pr-3">products</span> that matter.
           </h1>
           
@@ -106,10 +110,10 @@ export default function Home() {
       <section className="py-40 relative">
         <div className="container mx-auto px-6">
           <div className="mb-16">
-            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em] bg-primary/5 mb-6">
+            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Technical Arsenal
             </Badge>
-            <h3 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight uppercase">
+            <h3 className="text-5xl md:text-7xl font-bold tracking-tighter leading-tight uppercase">
               Technologies <br />
               I use to <span className="text-primary italic">Build.</span>
             </h3>
@@ -123,13 +127,13 @@ export default function Home() {
                     <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-xl">
                       {tech.icon}
                     </div>
-                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                    <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/50 bg-white/5 px-3 py-1 rounded-full border border-white/5">
                       {tech.category}
                     </span>
                   </div>
                   
                   <div className="mt-auto">
-                    <h4 className="text-xl font-black uppercase tracking-tighter mb-1">
+                    <h4 className="text-xl font-semibold uppercase tracking-tighter mb-1">
                       {tech.name}
                     </h4>
                     <p className="text-xs text-muted-foreground font-light leading-relaxed">
