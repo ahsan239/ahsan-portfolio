@@ -49,63 +49,63 @@ export default function Home() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-start pt-72 pb-20">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48 text-center z-10 flex flex-col items-center">
-          <Badge variant="secondary" className="mb-12 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-48 md:pt-60 lg:pt-72 pb-20">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center z-10 flex flex-col items-center">
+          <Badge variant="secondary" className="mb-8 md:mb-12 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">Open to select opportunities</span>
             </span>
           </Badge>
           
-          <h1 className="text-5xl font-bold tracking-tighter mb-10 max-w-4xl mx-auto leading-[0.9] animate-fade-in-up uppercase" style={{ fontSize: '3rem' }}>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 md:mb-10 max-w-4xl mx-auto leading-[1] md:leading-[0.9] animate-fade-in-up uppercase">
             Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
-          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
+          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
             {profile?.headline || "Senior Software Engineer & AI Architect. I design and engineer high-performance systems for the modern web."}
           </p>
 
-          <div className="flex flex-wrap justify-center gap-5 mb-24 animate-fade-in-up [animation-delay:400ms]">
-            <Button asChild size="lg" className="rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm shadow-2xl shadow-primary/20 hover:scale-105 transition-transform">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:400ms] w-full sm:w-auto">
+            <Button asChild size="lg" className="rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm shadow-2xl shadow-primary/20 hover:scale-105 transition-transform w-full sm:w-auto">
               <Link href="/#projects">View Projects <ArrowRight size={18} className="ml-2" /></Link>
             </Button>
-            <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm border-white/10 hover:bg-white/5 transition-all">
+            <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm border-white/10 hover:bg-white/5 transition-all w-full sm:w-auto">
               <Link href="/about">My Story</Link>
             </Button>
           </div>
 
-          <div className="flex items-center justify-center gap-10 opacity-30 animate-fade-in-up [animation-delay:600ms]">
-            <Link href="https://github.com/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={28} /></Link>
-            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={28} /></Link>
-            <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={28} /></Link>
+          <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:600ms]">
+            <Link href="https://github.com/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} className="md:size-7" /></Link>
+            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} className="md:size-7" /></Link>
+            <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} className="md:size-7" /></Link>
           </div>
         </div>
       </section>
 
       {/* The Philosophy Section */}
-      <section id="philosophy" className="py-40 relative border-t border-white/5 bg-white/[0.01]">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
+      <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5 bg-white/[0.01]">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
-            <div className="lg:col-span-7 space-y-16">
-              <div className="space-y-8">
+            <div className="lg:col-span-7 space-y-12 md:space-y-16">
+              <div className="space-y-6 md:space-y-8">
                 <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
                   Engineering Creed
                 </Badge>
-                <h3 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] uppercase">
-                  Efficiency Through <br />
-                  <span className="text-primary italic">Intelligence,</span> <br />
+                <h3 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+                  Efficiency Through <br className="hidden sm:block" />
+                  <span className="text-primary italic">Intelligence,</span> <br className="hidden sm:block" />
                   Scale Through <span className="text-muted-foreground/30">Design.</span>
                 </h3>
               </div>
 
-              <div className="space-y-12 max-w-3xl">
-                <div className="space-y-6">
+              <div className="space-y-10 md:space-y-12 max-w-3xl">
+                <div className="space-y-4 md:space-y-6">
                   <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-foreground flex items-center gap-2">
                     <Target size={14} className="text-primary" />
                     The Automation Mindset
                   </h4>
-                  <div className="space-y-6 text-xl md:text-2xl text-muted-foreground leading-relaxed font-light">
+                  <div className="space-y-4 md:space-y-6 text-lg md:text-2xl text-muted-foreground leading-relaxed font-light">
                     <p>
                       Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes.
                     </p>
@@ -115,31 +115,31 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-12 pt-12 border-t border-white/5">
-                  <div className="space-y-2">
-                    <p className="text-5xl font-bold tracking-tighter">02+</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Professional <br />Years Experience</p>
+                <div className="grid grid-cols-2 gap-8 md:gap-12 pt-10 md:pt-12 border-t border-white/5">
+                  <div className="space-y-1 md:space-y-2">
+                    <p className="text-4xl md:text-5xl font-bold tracking-tighter">02+</p>
+                    <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Professional <br />Years Experience</p>
                   </div>
-                  <div className="space-y-2">
-                    <p className="text-5xl font-bold tracking-tighter">10+</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Enterprise <br />Automations Deployed</p>
+                  <div className="space-y-1 md:space-y-2">
+                    <p className="text-4xl md:text-5xl font-bold tracking-tighter">10+</p>
+                    <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 leading-tight">Enterprise <br />Automations Deployed</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-5 space-y-8 sticky top-32">
-              <Card className="glass-card border-white/5 rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-2xl">
-                <CardContent className="p-8 lg:p-12 space-y-12">
-                  <div className="space-y-10">
+            <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
+              <Card className="glass-card border-white/5 rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-2xl">
+                <CardContent className="p-6 md:p-8 lg:p-12 space-y-10 md:space-y-12">
+                  <div className="space-y-8 md:space-y-10">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="h-12 w-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                          <Terminal size={20} />
+                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                          <Terminal className="h-[18px] w-[18px] md:h-5 md:w-5" />
                         </div>
                         <div className="space-y-0.5">
-                          <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
-                          <p className="text-[9px] font-bold text-muted-foreground/60 uppercase">System Integration</p>
+                          <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
+                          <p className="text-[8px] md:text-[9px] font-bold text-muted-foreground/60 uppercase">System Integration</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/5 border border-green-500/10">
@@ -148,7 +148,7 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3 md:gap-4">
                       {[
                         { name: "Next.js 15", icon: <Zap size={14} /> },
                         { name: "React 19", icon: <Code2 size={14} /> },
@@ -157,11 +157,11 @@ export default function Home() {
                         { name: "TypeScript", icon: <ShieldCheck size={14} /> },
                         { name: "Tailwind", icon: <Palette size={14} /> }
                       ].map((tech) => (
-                        <div key={tech.name} className="flex items-center gap-3 p-4 rounded-2xl bg-muted/20 border border-transparent hover:bg-muted/30 hover:border-primary/20 transition-all cursor-default group/item">
+                        <div key={tech.name} className="flex items-center gap-2 md:gap-3 p-3 md:p-4 rounded-xl md:rounded-2xl bg-muted/20 border border-transparent hover:bg-muted/30 hover:border-primary/20 transition-all cursor-default group/item">
                           <div className="text-primary group-hover/item:scale-110 transition-transform">
                             {tech.icon}
                           </div>
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover/item:text-foreground transition-colors">
+                          <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover/item:text-foreground transition-colors">
                             {tech.name}
                           </span>
                         </div>
@@ -169,23 +169,23 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="space-y-10 pt-10 border-t border-white/5">
-                    <div className="flex gap-6 group/benefit">
-                      <div className="h-16 w-16 shrink-0 rounded-[1.5rem] bg-muted/20 border border-transparent flex items-center justify-center text-primary group-hover/benefit:scale-110 group-hover/benefit:bg-primary/5 group-hover/benefit:border-primary/20 transition-all duration-500">
-                        <Activity size={28} />
+                  <div className="space-y-8 md:space-y-10 pt-8 md:pt-10 border-t border-white/5">
+                    <div className="flex gap-4 md:gap-6 group/benefit">
+                      <div className="h-14 w-14 md:h-16 md:w-16 shrink-0 rounded-[1.2rem] md:rounded-[1.5rem] bg-muted/20 border border-transparent flex items-center justify-center text-primary group-hover/benefit:scale-110 group-hover/benefit:bg-primary/5 group-hover/benefit:border-primary/20 transition-all duration-500">
+                        <Activity className="h-6 w-6 md:h-7 md:w-7" />
                       </div>
-                      <div className="space-y-2">
-                        <h5 className="font-bold uppercase tracking-widest text-sm text-foreground group-hover/benefit:text-primary transition-colors">Zero Latency</h5>
-                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
+                      <div className="space-y-1 md:space-y-2">
+                        <h5 className="font-bold uppercase tracking-widest text-xs md:text-sm text-foreground group-hover/benefit:text-primary transition-colors">Zero Latency</h5>
+                        <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-light">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
                       </div>
                     </div>
-                    <div className="flex gap-6 group/benefit">
-                      <div className="h-16 w-16 shrink-0 rounded-[1.5rem] bg-muted/20 border border-transparent flex items-center justify-center text-accent group-hover/benefit:scale-110 group-hover/benefit:bg-accent/5 group-hover/benefit:border-accent/20 transition-all duration-500">
-                        <ShieldCheck size={28} />
+                    <div className="flex gap-4 md:gap-6 group/benefit">
+                      <div className="h-14 w-14 md:h-16 md:w-16 shrink-0 rounded-[1.2rem] md:rounded-[1.5rem] bg-muted/20 border border-transparent flex items-center justify-center text-accent group-hover/benefit:scale-110 group-hover/benefit:bg-accent/5 group-hover/benefit:border-accent/20 transition-all duration-500">
+                        <ShieldCheck className="h-6 w-6 md:h-7 md:w-7" />
                       </div>
-                      <div className="space-y-2">
-                        <h5 className="font-bold uppercase tracking-widest text-sm text-foreground group-hover/benefit:text-accent transition-colors">Bulletproof Logic</h5>
-                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
+                      <div className="space-y-1 md:space-y-2">
+                        <h5 className="font-bold uppercase tracking-widest text-xs md:text-sm text-foreground group-hover/benefit:text-accent transition-colors">Bulletproof Logic</h5>
+                        <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-light">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
                       </div>
                     </div>
                   </div>
@@ -197,14 +197,14 @@ export default function Home() {
       </section>
 
       {/* Technical Arsenal */}
-      <section id="arsenal" className="py-40 relative">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-20">
+      <section id="arsenal" className="py-20 md:py-40 relative">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
+          <div className="mb-12 md:mb-20">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Technical Arsenal
             </Badge>
-            <h3 className="text-5xl md:text-7xl font-bold tracking-tighter leading-tight uppercase">
-              Technologies <br />
+            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase">
+              Technologies <br className="hidden sm:block" />
               I use to <span className="text-primary italic">Build.</span>
             </h3>
           </div>
@@ -212,27 +212,27 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {techArsenal.map((tech) => (
               <Card key={tech.name} className={cn(
-                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:-translate-y-2 shadow-xl",
+                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:-translate-y-2 shadow-xl",
                 tech.glow
               )}>
-                <CardContent className="p-8 flex flex-col h-full relative z-10">
-                  <div className="flex justify-between items-start mb-12">
+                <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">
+                  <div className="flex justify-between items-start mb-10 md:mb-12">
                     <div className={cn(
-                      "h-14 w-14 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:bg-white/10",
+                      "h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:bg-white/10",
                       tech.color
                     )}>
                       {tech.icon}
                     </div>
-                    <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/40 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 group-hover:border-primary/30 group-hover:text-primary transition-colors">
+                    <span className="text-[8px] md:text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/40 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 group-hover:border-primary/30 group-hover:text-primary transition-colors">
                       {tech.category}
                     </span>
                   </div>
                   
                   <div className="mt-auto space-y-2">
-                    <h4 className="text-xl font-semibold uppercase tracking-tighter group-hover:text-primary transition-colors">
+                    <h4 className="text-lg md:text-xl font-semibold uppercase tracking-tighter group-hover:text-primary transition-colors">
                       {tech.name}
                     </h4>
-                    <p className="text-[11px] text-muted-foreground font-light leading-relaxed tracking-tight">
+                    <p className="text-[10px] md:text-[11px] text-muted-foreground font-light leading-relaxed tracking-tight">
                       {tech.desc}
                     </p>
                   </div>
@@ -246,11 +246,11 @@ export default function Home() {
       </section>
 
       {/* Projects Grid */}
-      <section id="projects" className="py-32">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-20 max-w-3xl">
+      <section id="projects" className="py-20 md:py-32">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
+          <div className="mb-12 md:mb-20 max-w-3xl">
             <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
-            <h3 className="text-4xl md:text-6xl font-bold tracking-tight leading-none italic uppercase">
+            <h3 className="text-3xl md:text-6xl font-bold tracking-tight leading-none italic uppercase">
               Proven results in <span className="text-muted-foreground">engineering.</span>
             </h3>
           </div>
@@ -270,12 +270,12 @@ export default function Home() {
       </section>
 
       {/* Experience Timeline */}
-      <section id="experience" className="py-32">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
-          <div className="max-w-4xl mx-auto space-y-20">
+      <section id="experience" className="py-20 md:py-32">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
+          <div className="max-w-4xl mx-auto space-y-16 md:space-y-20">
             <div className="text-center space-y-4">
               <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary">Career Path</h2>
-              <h3 className="text-5xl font-bold tracking-tighter italic uppercase">Professional Journey</h3>
+              <h3 className="text-4xl md:text-5xl font-bold tracking-tighter italic uppercase">Professional Journey</h3>
             </div>
 
             <div className="space-y-6">
@@ -283,22 +283,22 @@ export default function Home() {
                 <p className="text-center text-muted-foreground">Loading history...</p>
               ) : experiences && experiences.length > 0 ? (
                 experiences.map((exp, idx) => (
-                  <div key={exp.id} className="group relative pl-12 before:absolute before:left-[11px] before:top-4 before:bottom-0 before:w-[1px] before:bg-white/5 last:before:hidden">
+                  <div key={exp.id} className="group relative pl-10 md:pl-12 before:absolute before:left-[11px] before:top-4 before:bottom-0 before:w-[1px] before:bg-white/5 last:before:hidden">
                     <div className="absolute left-0 top-3 h-6 w-6 rounded-full bg-background border border-primary flex items-center justify-center group-hover:scale-125 transition-transform">
                       <div className="h-2 w-2 rounded-full bg-primary" />
                     </div>
-                    <div className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-primary/30 transition-all">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                    <div className="glass-card p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] border-white/5 hover:border-primary/30 transition-all">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 mb-6 md:mb-8">
                         <div>
-                          <h4 className="text-2xl font-bold text-white group-hover:text-primary transition-colors uppercase tracking-tighter">{exp.role}</h4>
-                          <p className="text-muted-foreground font-bold uppercase tracking-widest text-xs mt-1">{exp.company}</p>
+                          <h4 className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors uppercase tracking-tighter">{exp.role}</h4>
+                          <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px] md:text-xs mt-1">{exp.company}</p>
                         </div>
-                        <Badge variant="outline" className="w-fit h-8 px-4 rounded-full border-white/10 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">{exp.duration}</Badge>
+                        <Badge variant="outline" className="w-fit h-7 md:h-8 px-4 rounded-full border-white/10 text-muted-foreground text-[9px] md:text-[10px] font-bold uppercase tracking-widest">{exp.duration}</Badge>
                       </div>
-                      <ul className="grid sm:grid-cols-2 gap-4">
+                      <ul className="grid sm:grid-cols-2 gap-3 md:gap-4">
                          {exp.points?.map((point: string, pIdx: number) => (
-                           <li key={pIdx} className="flex gap-4 text-sm text-muted-foreground leading-relaxed font-light">
-                              <CheckCircle2 size={16} className="text-primary shrink-0 mt-0.5" />
+                           <li key={pIdx} className="flex gap-3 md:gap-4 text-xs md:text-sm text-muted-foreground leading-relaxed font-light">
+                              <CheckCircle2 size={14} className="text-primary shrink-0 mt-0.5" />
                               <span>{point}</span>
                            </li>
                          ))}
@@ -315,20 +315,20 @@ export default function Home() {
       </section>
 
       {/* Contact Strategy */}
-      <section id="contact" className="py-40 relative">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48 text-center">
-          <div className="max-w-5xl mx-auto space-y-12">
-             <h2 className="text-7xl md:text-9xl font-bold tracking-tighter leading-[0.8] italic uppercase text-gradient">
+      <section id="contact" className="py-24 md:py-40 relative">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center">
+          <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
+             <h2 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[1] md:leading-[0.8] italic uppercase text-gradient">
               Let's build <br />something great.
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-light">
+            <p className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto font-light">
               Available for select full-stack architecture, software engineering, and engineering leadership roles.
             </p>
-            <div className="flex flex-wrap justify-center gap-6 pt-10">
-              <Button asChild size="lg" className="rounded-full px-12 h-20 font-bold text-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-transform uppercase tracking-widest">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-6 md:pt-10 w-full sm:w-auto">
+              <Button asChild size="lg" className="rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-transform uppercase tracking-widest w-full sm:w-auto">
                 <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`}>Email Me</Link>
               </Button>
-              <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-20 font-bold text-xl border-white/10 hover:bg-white/5 transition-all uppercase tracking-widest">
+              <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl border-white/10 hover:bg-white/5 transition-all uppercase tracking-widest w-full sm:w-auto">
                 <Link href="https://linkedin.com/in/alexrivera" target="_blank">LinkedIn</Link>
               </Button>
             </div>
@@ -336,18 +336,18 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-20 border-t border-white/5">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48 flex flex-col md:flex-row justify-between items-center gap-10">
+      <footer className="py-12 md:py-20 border-t border-white/5">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-              <Code2 size={20} />
+            <div className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
+              <Code2 className="h-[18px] w-[18px] md:h-5 md:w-5" />
             </div>
-            <span className="font-bold tracking-tighter uppercase text-xl">ALEX.DEV</span>
+            <span className="font-bold tracking-tighter uppercase text-lg md:text-xl">ALEX.DEV</span>
           </div>
-          <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-[0.5em] opacity-40">Engineering with precision since 2014</p>
-          <div className="flex gap-10">
-            <Link href="/cms" className="text-[10px] text-primary hover:underline transition-all uppercase tracking-[0.3em] font-bold">Dashboard</Link>
-            <Link href="https://github.com/alexrivera" target="_blank" className="text-[10px] text-muted-foreground hover:text-primary transition-all uppercase tracking-[0.3em] font-bold">GitHub</Link>
+          <p className="text-[8px] md:text-[10px] text-muted-foreground font-mono uppercase tracking-[0.5em] opacity-40 text-center">Engineering with precision since 2014</p>
+          <div className="flex gap-6 md:gap-10">
+            <Link href="/cms" className="text-[8px] md:text-[10px] text-primary hover:underline transition-all uppercase tracking-[0.3em] font-bold">Dashboard</Link>
+            <Link href="https://github.com/alexrivera" target="_blank" className="text-[8px] md:text-[10px] text-muted-foreground hover:text-primary transition-all uppercase tracking-[0.3em] font-bold">GitHub</Link>
           </div>
         </div>
       </footer>
