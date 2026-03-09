@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -62,7 +63,7 @@ export default function Home() {
             Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
-          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
+          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-normal tracking-tight animate-fade-in-up [animation-delay:200ms]">
             {profile?.headline || "Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes."}
           </p>
 
@@ -76,9 +77,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:600ms]">
-            <Link href="https://github.com/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} className="md:size-7" /></Link>
-            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} className="md:size-7" /></Link>
-            <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} className="md:size-7" /></Link>
+            <Link href="https://github.com/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
+            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
+            <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
           </div>
         </div>
       </section>
@@ -105,7 +106,7 @@ export default function Home() {
                     <Target size={14} className="text-primary" />
                     The Automation Mindset
                   </h4>
-                  <div className="space-y-4 md:space-y-6 text-lg md:text-2xl text-muted-foreground leading-relaxed font-light">
+                  <div className="space-y-4 md:space-y-6 text-lg md:text-2xl text-muted-foreground leading-relaxed font-normal tracking-tight">
                     <p>
                       Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes.
                     </p>
@@ -135,7 +136,7 @@ export default function Home() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                          <Terminal className="h-[18px] w-[18px] md:h-5 md:w-5" />
+                          <Terminal size={18} />
                         </div>
                         <div className="space-y-0.5">
                           <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-primary">Strategic Stack</p>
@@ -176,7 +177,7 @@ export default function Home() {
                       </div>
                       <div className="space-y-1 md:space-y-2">
                         <h5 className="font-bold uppercase tracking-widest text-xs md:text-sm text-foreground group-hover/benefit:text-primary transition-colors">Zero Latency</h5>
-                        <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-light">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
+                        <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-normal tracking-tight">Performance-first architecture ensuring sub-200ms interactions at every touchpoint.</p>
                       </div>
                     </div>
                     <div className="flex gap-4 md:gap-6 group/benefit">
@@ -185,7 +186,7 @@ export default function Home() {
                       </div>
                       <div className="space-y-1 md:space-y-2">
                         <h5 className="font-bold uppercase tracking-widest text-xs md:text-sm text-foreground group-hover/benefit:text-accent transition-colors">Bulletproof Logic</h5>
-                        <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-light">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
+                        <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-normal tracking-tight">Robust, type-safe systems designed for mission-critical reliability and zero-drift state.</p>
                       </div>
                     </div>
                   </div>
@@ -232,7 +233,7 @@ export default function Home() {
                     <h4 className="text-lg md:text-xl font-semibold uppercase tracking-tighter group-hover:text-primary transition-colors">
                       {tech.name}
                     </h4>
-                    <p className="text-[10px] md:text-[11px] text-muted-foreground font-light leading-relaxed tracking-tight">
+                    <p className="text-[10px] md:text-[11px] text-muted-foreground font-normal leading-relaxed tracking-tight">
                       {tech.desc}
                     </p>
                   </div>
@@ -275,7 +276,7 @@ export default function Home() {
                     <p className="text-lg font-bold text-muted-foreground uppercase tracking-widest">{exp.company}</p>
                     <ul className="space-y-3 mt-4">
                       {exp.points?.map((point: string, pIdx: number) => (
-                        <li key={pIdx} className="flex gap-3 text-sm text-muted-foreground font-light leading-relaxed">
+                        <li key={pIdx} className="flex gap-3 text-sm text-muted-foreground font-normal leading-relaxed tracking-tight">
                           <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-1.5 shrink-0" />
                           {point}
                         </li>
@@ -323,7 +324,7 @@ export default function Home() {
               Let's build <br className="hidden md:block" /> something <span className="text-foreground">great.</span>
             </h2>
             <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto">
-              <p className="text-lg md:text-2xl text-muted-foreground font-light leading-relaxed">
+              <p className="text-lg md:text-2xl text-muted-foreground font-normal tracking-tight leading-relaxed">
                 If you're looking for someone who can turn complex ideas into efficient, scalable solutions, you're in the right place.
               </p>
             </div>

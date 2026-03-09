@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -104,10 +105,10 @@ export default function AboutPage() {
               Solving with <br className="hidden sm:block" /> <span className="text-gradient">precision.</span>
             </h1>
             <div className="space-y-4 md:space-y-6 max-w-4xl animate-fade-in-up [animation-delay:200ms]">
-              <p className="text-lg md:text-3xl text-muted-foreground leading-relaxed font-light">
+              <p className="text-lg md:text-3xl text-muted-foreground leading-relaxed font-normal tracking-tight">
                 Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes.
               </p>
-              <p className="text-lg md:text-3xl text-muted-foreground leading-relaxed font-light">
+              <p className="text-lg md:text-3xl text-muted-foreground leading-relaxed font-normal tracking-tight">
                 I build scalable, high-performance applications and automation solutions that improve workflows, enhance productivity, and deliver seamless user experiences.
               </p>
             </div>
@@ -123,8 +124,8 @@ export default function AboutPage() {
                 <div className="h-14 w-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 transition-transform shadow-lg">
                   {value.icon}
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-4 uppercase tracking-tighter transition-colors group-hover:text-primary">{value.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-light">{value.desc}</p>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 uppercase tracking-tighter transition-colors group-hover:text-primary">{value.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-normal tracking-tight">{value.desc}</p>
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               </Card>
             ))}
@@ -144,7 +145,7 @@ export default function AboutPage() {
                 <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-gradient leading-tight">
                   The Story Behind <br className="hidden sm:block" /> the Code
                 </h3>
-                <div className="space-y-6 md:space-y-8 text-lg md:text-xl text-muted-foreground leading-relaxed font-light max-w-5xl">
+                <div className="space-y-6 md:space-y-8 text-lg md:text-xl text-muted-foreground leading-relaxed font-normal tracking-tight max-w-5xl">
                   <p>
                     My journey into technology began with <strong className="text-foreground font-bold">full-stack web development</strong>, where I focused on building complete web applications—from intuitive frontend interfaces to reliable backend systems. Using modern technologies, I created responsive user experiences, managed databases, and developed scalable APIs that support real-world products.
                   </p>
@@ -188,7 +189,7 @@ export default function AboutPage() {
                         </div>
                         <div>
                           <p className="font-black text-foreground uppercase tracking-widest text-xs">{item.title}</p>
-                          <p className="text-xs md:text-sm text-muted-foreground font-light mt-1">{item.desc}</p>
+                          <p className="text-xs md:text-sm text-muted-foreground font-normal tracking-tight mt-1">{item.desc}</p>
                         </div>
                       </li>
                     ))}
@@ -244,7 +245,7 @@ export default function AboutPage() {
                         <h4 className="text-lg md:text-xl font-bold uppercase tracking-tighter group-hover:text-primary transition-colors">
                           {tech.name}
                         </h4>
-                        <p className="text-[10px] md:text-[11px] text-muted-foreground font-light leading-relaxed tracking-tight">
+                        <p className="text-[10px] md:text-[11px] text-muted-foreground font-normal leading-relaxed tracking-tight">
                           {tech.desc}
                         </p>
                       </div>
@@ -261,7 +262,7 @@ export default function AboutPage() {
                 <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none">
                   Engineering <span className="text-primary italic">Philosophy</span>
                 </h2>
-                <p className="text-lg md:text-xl text-muted-foreground font-light">
+                <p className="text-lg md:text-xl text-muted-foreground font-normal tracking-tight">
                   My approach to building software that lasts and empowers.
                 </p>
               </div>
@@ -273,7 +274,7 @@ export default function AboutPage() {
                   </div>
                   <div className="space-y-4">
                     <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight">The Automation Mindset</h3>
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-normal tracking-tight">
                       I develop modern web applications using React, Next.js, Node.js, and Firebase while also building automation solutions with Google Apps Script to streamline business processes and improve productivity.
                     </p>
                   </div>
@@ -285,7 +286,7 @@ export default function AboutPage() {
                   </div>
                   <div className="space-y-4">
                     <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight">SEO Optimization</h3>
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-normal tracking-tight">
                       I build with visibility in mind. Technical SEO isn't an afterthought—it's woven into the architecture of every project.
                     </p>
                   </div>
@@ -297,7 +298,7 @@ export default function AboutPage() {
                   </div>
                   <div className="space-y-4">
                     <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight">Velocity & Precision</h3>
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-normal tracking-tight">
                       High-performance isn't just about code speed—it's about delivery speed without sacrificing quality.
                     </p>
                   </div>
@@ -311,7 +312,7 @@ export default function AboutPage() {
                     </div>
                     <div className="space-y-3 md:space-y-4">
                       <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight">AI-Augmented Engineering</h3>
-                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light">
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-normal tracking-tight">
                         I integrate Large Language Models (LLMs) to create smarter applications—from automated data analysis in spreadsheets to intelligent, context-aware web interfaces.
                       </p>
                     </div>
@@ -336,7 +337,7 @@ export default function AboutPage() {
                   <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
                     Educational <span className="text-primary italic">Journey</span>
                   </h2>
-                  <p className="text-lg md:text-xl text-muted-foreground font-light max-w-2xl">
+                  <p className="text-lg md:text-xl text-muted-foreground font-normal tracking-tight max-w-2xl">
                     Building the core principles of computer science and analytical thinking.
                   </p>
                 </div>
@@ -370,7 +371,7 @@ export default function AboutPage() {
                             </Badge>
                           </div>
                         </div>
-                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light max-w-4xl">
+                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-normal tracking-tight max-w-4xl">
                           {edu.desc}
                         </p>
                       </div>
