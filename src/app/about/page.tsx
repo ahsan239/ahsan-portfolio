@@ -53,7 +53,7 @@ export default function AboutPage() {
               Solving with <br /> <span className="text-gradient">precision.</span>
             </h1>
             <p className="text-xl md:text-3xl text-muted-foreground leading-relaxed max-w-4xl font-light">
-              {profile?.bio || "I am a Senior Software Engineer and AI Architect dedicated to building high-impact digital products. I blend technical mastery with deep business objectives."}
+              {profile?.bio || "I develop modern web applications using React, Next.js, Node.js, and Firebase while also building automation solutions with Google Apps Script to streamline business processes and improve productivity."}
             </p>
           </header>
 
@@ -84,7 +84,7 @@ export default function AboutPage() {
                     I started my career building small-scale web applications, but my passion for performance and scalability quickly led me to enterprise-level architecture.
                   </p>
                   <p>
-                    Today, my focus is at the intersection of <strong className="text-white font-bold">Full-Stack Development</strong> and <strong className="text-white font-bold">Generative AI</strong>. I believe the most successful products are those that leverage intelligent automation to augment human creativity.
+                    Today, my focus is at the intersection of <strong className="text-foreground font-bold underline decoration-primary/30">Full-Stack Development</strong> and <strong className="text-foreground font-bold underline decoration-primary/30">Generative AI</strong>. I believe the most successful products are those that leverage intelligent automation to augment human creativity.
                   </p>
                 </div>
               </div>
