@@ -6,7 +6,7 @@ import {
   ArrowRight, Database, Layers, Mail, Github, 
   Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2,
   Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette,
-  Workflow, Shield, Activity, User, Target, Rocket
+  Activity, User, Target, Rocket
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -49,7 +49,7 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-start pt-72 pb-20">
-        <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48 text-center z-10 flex flex-col items-center">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48 text-center z-10 flex flex-col items-center">
           <Badge variant="secondary" className="mb-12 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
@@ -84,8 +84,8 @@ export default function Home() {
 
       {/* The Philosophy Section */}
       <section id="philosophy" className="py-40 relative">
-        <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48">
-          <div className="grid lg:grid-cols-12 gap-20 lg:gap-32 items-start">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             <div className="lg:col-span-7 space-y-16">
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
@@ -107,7 +107,7 @@ export default function Home() {
                     The Automation Mindset
                   </h4>
                   <p className="text-xl text-muted-foreground leading-relaxed font-light">
-                    I architect high-performance web applications using React and Next.js, while simultaneously leveraging <strong className="text-white">Google Apps Script</strong> to bridge the gap between engineering and operational excellence.
+                    I architect high-performance web applications using React and Next.js, while simultaneously leveraging <strong className="text-foreground font-bold underline decoration-primary/30">Google Apps Script</strong> to bridge the gap between engineering and operational excellence.
                   </p>
                 </div>
 
@@ -131,8 +131,8 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-5 space-y-8 sticky top-32">
-              <Card className="glass-card border-white/5 rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]">
-                <CardContent className="p-12 space-y-12">
+              <Card className="glass-card border-white/5 rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] dark:shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]">
+                <CardContent className="p-8 lg:p-12 space-y-12">
                   <div className="space-y-8">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -159,11 +159,11 @@ export default function Home() {
                         { name: "TypeScript", icon: <ShieldCheck size={12} /> },
                         { name: "Tailwind", icon: <Palette size={12} /> }
                       ].map((tech) => (
-                        <div key={tech.name} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/5 hover:border-primary/20 transition-all cursor-default group/item">
+                        <div key={tech.name} className="flex items-center gap-3 p-3 rounded-xl bg-muted/20 border border-transparent hover:bg-muted/40 hover:border-primary/20 transition-all cursor-default group/item">
                           <div className="text-primary group-hover/item:scale-110 transition-transform">
                             {tech.icon}
                           </div>
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover/item:text-foreground transition-colors">
+                          <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover/item:text-foreground transition-colors">
                             {tech.name}
                           </span>
                         </div>
@@ -173,7 +173,7 @@ export default function Home() {
 
                   <div className="space-y-8 pt-10 border-t border-white/5">
                     <div className="flex gap-6 group/benefit">
-                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-white/[0.03] border border-white/5 flex items-center justify-center text-primary group-hover/benefit:scale-110 group-hover/benefit:bg-primary/5 group-hover/benefit:border-primary/20 transition-all duration-500">
+                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-muted/20 border border-transparent flex items-center justify-center text-primary group-hover/benefit:scale-110 group-hover/benefit:bg-primary/5 group-hover/benefit:border-primary/20 transition-all duration-500">
                         <Activity size={24} />
                       </div>
                       <div className="space-y-2">
@@ -182,7 +182,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="flex gap-6 group/benefit">
-                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-white/[0.03] border border-white/5 flex items-center justify-center text-accent group-hover/benefit:scale-110 group-hover/benefit:bg-accent/5 group-hover/benefit:border-accent/20 transition-all duration-500">
+                      <div className="h-14 w-14 shrink-0 rounded-[1.25rem] bg-muted/20 border border-transparent flex items-center justify-center text-accent group-hover/benefit:scale-110 group-hover/benefit:bg-accent/5 group-hover/benefit:border-accent/20 transition-all duration-500">
                         <ShieldCheck size={24} />
                       </div>
                       <div className="space-y-2">
@@ -200,7 +200,7 @@ export default function Home() {
 
       {/* Technical Arsenal */}
       <section id="arsenal" className="py-40 relative">
-        <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
           <div className="mb-16">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Technical Arsenal
@@ -243,7 +243,7 @@ export default function Home() {
 
       {/* Projects Grid */}
       <section id="projects" className="py-32">
-        <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
           <div className="mb-20 max-w-3xl">
             <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
             <h3 className="text-4xl md:text-6xl font-bold tracking-tight leading-none italic uppercase">
@@ -267,7 +267,7 @@ export default function Home() {
 
       {/* Experience Timeline */}
       <section id="experience" className="py-32">
-        <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48">
           <div className="max-w-4xl mx-auto space-y-20">
             <div className="text-center space-y-4">
               <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary">Career Path</h2>
@@ -312,7 +312,7 @@ export default function Home() {
 
       {/* Contact Strategy */}
       <section id="contact" className="py-40 relative">
-        <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48 text-center">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48 text-center">
           <div className="max-w-5xl mx-auto space-y-12">
              <h2 className="text-7xl md:text-9xl font-bold tracking-tighter leading-[0.8] italic uppercase text-gradient">
               Let's build <br />something great.
@@ -333,7 +333,7 @@ export default function Home() {
       </section>
 
       <footer className="py-20 border-t border-white/5">
-        <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48 flex flex-col md:flex-row justify-between items-center gap-10">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 xl:px-48 flex flex-col md:flex-row justify-between items-center gap-10">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
               <Code2 size={20} />
