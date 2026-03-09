@@ -120,25 +120,27 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {techArsenal.map((tech) => (
-              <Card key={tech.name} className="glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group">
-                <CardContent className="p-8 flex flex-col h-full">
+              <Card key={tech.name} className="glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2">
+                <CardContent className="p-8 flex flex-col h-full relative z-10">
                   <div className="flex justify-between items-start mb-10">
-                    <div className={`h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center ${tech.color} group-hover:scale-110 transition-transform shadow-xl`}>
+                    <div className={`h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center ${tech.color} group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-xl`}>
                       {tech.icon}
                     </div>
-                    <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/50 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                    <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/50 bg-white/5 px-3 py-1 rounded-full border border-white/5 group-hover:border-primary/20 group-hover:text-primary/70 transition-colors">
                       {tech.category}
                     </span>
                   </div>
                   
                   <div className="mt-auto">
-                    <h4 className="text-xl font-semibold uppercase tracking-tighter mb-1">
+                    <h4 className="text-xl font-semibold uppercase tracking-tighter mb-1 group-hover:text-primary transition-colors">
                       {tech.name}
                     </h4>
                     <p className="text-xs text-muted-foreground font-light leading-relaxed">
                       {tech.desc}
                     </p>
                   </div>
+                  
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </CardContent>
               </Card>
             ))}
