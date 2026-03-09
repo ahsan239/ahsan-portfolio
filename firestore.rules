@@ -7,75 +7,40 @@ service cloud.firestore {
      * 
      * CORE PHILOSOPHY:
      * This ruleset implements a dual-layered security model:
-     * 1. Path-Based Ownership: User-specific data (Profiles, Projects, Blog Posts) is nested 
-     *    under `/users/{userId}`. Authorization is derived directly from the path, ensuring 
-     *    that only the authenticated owner can modify their content.
-     * 2. Database-Based Access Control (DBAC): Global metadata (Technologies, Tags, Services) 
-     *    is publicly readable but restricted to administrators. Admin status is determined 
-     *    by the presence of a UID in the `/roles_admin` collection.
-     * 
-     * DATA STRUCTURE:
-     * - /users/{userId}: Root profile and settings.
-     * - /users/{userId}/...: Sub-collections for Projects, BlogPosts, and Social Links.
-     * - /technologies, /tags, /serviceOfferings: Global collections for site-wide metadata.
-     * - /roles_admin: Internal collection for RBAC.
-     * 
-     * KEY SECURITY DECISIONS:
-     * - Public Read Access: All portfolio content (Profiles, Projects, Blogs, Tech) is 
-     *   publicly readable to facilitate website visitors.
-     * - Restricted User Listing: General listing of the /users collection is disallowed 
-     *   to prevent scraping, though individual profiles are reachable via their IDs.
-     * - Immutable Ownership: Relational fields (like userProfileId) are enforced on 
-     *   creation and made immutable on update to prevent data hijacking.
-     * - Prototyping Flexibility: Logic focuses on "Who" can write, not "What" the 
-     *   data looks like, allowing for rapid schema evolution.
+     * 1. Path-Based Ownership: User-specific data (Profiles, Projects, Experiences) is nested 
+     *    under `/users/{userId}`. Authorization is derived directly from the path.
+     * 2. Public Accessibility: Portfolio content is publicly readable.
      */
 
     // --- Helper Functions ---
 
-    /** @description Checks if the request is from a signed-in user. */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /** @description Checks if the signed-in user's UID matches the provided userId. */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /** @description Checks if the document exists and the user is the owner. Used for updates/deletes. */
     function isExistingOwner(userId) {
       return resource != null && isOwner(userId);
     }
 
-    /** @description Checks if the user is registered in the global admin roles collection. */
     function isAdmin() {
       return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
     }
 
     // --- Collection Rules ---
 
-    /**
-     * @description Rules for the UserProfile document.
-     * @path /users/{userId}
-     * @allow get: if true; (Public portfolio view)
-     * @allow create: if isOwner(userId) && request.resource.data.id == userId;
-     * @deny update: if request.auth.uid != userId;
-     * @principle Ownership-based writes with public read access. Enforces path/data consistency.
-     */
     match /users/{userId} {
       allow get: if true;
-      allow list: if false; // Prevent listing all portfolio owners
+      allow list: if false; 
       allow create: if isOwner(userId) && request.resource.data.id == userId;
       allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
       allow delete: if isExistingOwner(userId);
 
       /**
        * @description Rules for SocialMediaLink sub-collection.
-       * @path /users/{userId}/socialMediaLinks/{linkId}
-       * @allow create: if isOwner(userId) && request.resource.data.userProfileId == userId;
-       * @deny create: if userId mismatch.
-       * @principle Nested ownership. Relies on parent path segment for authorization.
        */
       match /socialMediaLinks/{linkId} {
         allow get, list: if true;
@@ -86,23 +51,24 @@ service cloud.firestore {
 
       /**
        * @description Rules for Project case studies.
-       * @path /users/{userId}/projects/{projectId}
-       * @allow list: if true; (Public project gallery)
-       * @allow update: if isOwner(userId);
-       * @principle Public consumption with owner-only management.
        */
       match /projects/{projectId} {
         allow get, list: if true;
         allow create: if isOwner(userId);
-        allow update: if isExistingOwner(userId);
-        allow delete: if isExistingOwner(userId);
+        allow update, delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Rules for Professional Experience.
+       */
+      match /experiences/{experienceId} {
+        allow get, list: if true;
+        allow create: if isOwner(userId);
+        allow update, delete: if isExistingOwner(userId);
       }
 
       /**
        * @description Rules for Technical Blog Posts.
-       * @path /users/{userId}/blogPosts/{blogPostId}
-       * @allow create: if isOwner(userId) && request.resource.data.userProfileId == userId;
-       * @principle Validates author relationship to ensure data integrity.
        */
       match /blogPosts/{blogPostId} {
         allow get, list: if true;
@@ -112,52 +78,24 @@ service cloud.firestore {
       }
     }
 
-    /**
-     * @description Rules for the global Technology directory.
-     * @path /technologies/{technologyId}
-     * @allow create, update, delete: if isAdmin();
-     * @deny write: if !isAdmin();
-     * @principle DBAC (Database-Based Access Control) for global resources.
-     */
     match /technologies/{technologyId} {
       allow get, list: if true;
       allow create, update, delete: if isAdmin();
     }
 
-    /**
-     * @description Rules for Service Offerings.
-     * @path /serviceOfferings/{serviceOfferingId}
-     * @allow get, list: if true;
-     * @allow write: if isAdmin();
-     * @principle Centralized admin control for business offerings.
-     */
     match /serviceOfferings/{serviceOfferingId} {
       allow get, list: if true;
       allow create, update, delete: if isAdmin();
     }
 
-    /**
-     * @description Rules for Categorical Tags.
-     * @path /tags/{tagId}
-     * @allow get, list: if true;
-     * @allow write: if isAdmin();
-     * @principle Publicly readable metadata with restricted write access.
-     */
     match /tags/{tagId} {
       allow get, list: if true;
       allow create, update, delete: if isAdmin();
     }
 
-    /**
-     * @description Rules for the Admin Role registry.
-     * @path /roles_admin/{adminId}
-     * @allow get: if isOwner(adminId); (Check own admin status)
-     * @deny create, update, delete: if true; (Managed via Console/Admin SDK)
-     * @principle Protected RBAC registry. Users cannot elevate their own privileges.
-     */
     match /roles_admin/{adminId} {
       allow get: if isOwner(adminId);
-      allow list: if false; // Prevent discovery of other admins
+      allow list: if false;
       allow create, update, delete: if false; 
     }
   }
