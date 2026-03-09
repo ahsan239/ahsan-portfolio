@@ -3,12 +3,14 @@
 import { Navigation } from "@/components/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { 
   User, BrainCircuit, Zap, ShieldCheck, Heart, 
   Globe, Coffee, Rocket, Mail, Code2, Cpu, 
   Database, Flame, Layers, Share2, Terminal, 
   Palette, Sparkles, BookOpen, Hammer, Search,
-  GraduationCap, School, Calendar, Award
+  GraduationCap, School, Calendar, Award, ArrowRight
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -59,26 +61,26 @@ export default function AboutPage() {
 
   const education = [
     {
-      degree: "Bachelor of Computer Applications (BCA)",
-      institution: "Khwaja Moinuddin Chishti Language University",
-      period: "2021 — 2024",
-      score: "CGPA: 7.28",
+      degree: " Bachelor of Technology (B.Tech) in Computer Science",
+      institution: "Shri Ramswaroop College Of Engineering and Management",
+      period: "2019 — 2023",
+      score: "CGPA: 7.9",
       desc: "Studied computer science fundamentals including programming, software development, database management, and web technologies. Developed practical skills in full-stack development and problem solving through academic and project work.",
       icon: <GraduationCap size={24} className="text-primary" />
     },
     {
       degree: "Intermediate (Class XII)",
-      institution: "St. Mary Public Inter College",
-      period: "2020",
+      institution: "Pioneer Montessori Inter College",
+      period: "2019",
       score: "PERCENTAGE: 71%",
       desc: "Completed higher secondary education with focus on core academic subjects while developing strong analytical and problem-solving skills.",
       icon: <School size={24} className="text-primary" />
     },
     {
       degree: "High School (Class X)",
-      institution: "St. Mary Public Inter College",
-      period: "2018",
-      score: "PERCENTAGE: 74%",
+      institution: "Pioneer Montessori High School",
+      period: "2017",
+      score: "PERCENTAGE: 87%",
       desc: "Successfully completed secondary education with a focus on science and mathematics, fostering early analytical and problem-solving skills.",
       icon: <School size={24} className="text-primary" />
     }
@@ -376,6 +378,30 @@ export default function AboutPage() {
                 ))}
               </div>
             </div>
+
+            {/* CTA Section */}
+            <section className="mt-40">
+              <div className="rounded-[4rem] bg-primary p-16 md:p-24 text-center space-y-12 shadow-2xl shadow-primary/20 relative overflow-hidden group">
+                <div className="space-y-4 relative z-10">
+                  <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-primary-foreground uppercase leading-[0.8] animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    Ready to build <br /> the <span className="italic opacity-80">Future?</span>
+                  </h2>
+                </div>
+                <div className="flex flex-wrap justify-center gap-6 relative z-10">
+                  <Button asChild size="lg" className="rounded-full px-12 h-20 bg-white text-primary hover:bg-white/90 font-black uppercase tracking-widest text-sm shadow-xl transition-all hover:scale-105 active:scale-95">
+                    <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`}>Start a Conversation</Link>
+                  </Button>
+                  <Button variant="outline" asChild size="lg" className="rounded-full px-12 h-20 border-white/20 bg-white/10 text-white hover:bg-white/20 font-black uppercase tracking-widest text-sm backdrop-blur-md transition-all hover:scale-105 active:scale-95">
+                    <Link href="/#projects">View My Work <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                  </Button>
+                </div>
+                
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 h-full w-full bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
+                <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl pointer-events-none group-hover:scale-150 transition-transform duration-1000" />
+                <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-black/20 blur-3xl pointer-events-none group-hover:scale-150 transition-transform duration-1000" />
+              </div>
+            </section>
 
           </section>
         </div>
