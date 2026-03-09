@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   User, BrainCircuit, Zap, ShieldCheck, Heart, 
-  Globe, Coffee, Rocket, Mail, ChevronRight,
-  Code2, Cpu, Database, Flame, Layers, Share2, 
-  Terminal, Palette, Sparkles, BookOpen, Map, Hammer
+  Globe, Coffee, Rocket, Mail, Code2, Cpu, 
+  Database, Flame, Layers, Share2, Terminal, 
+  Palette, Sparkles, BookOpen, Hammer, Search
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -75,7 +75,7 @@ export default function AboutPage() {
             </h1>
             <div className="space-y-6 max-w-4xl animate-fade-in-up [animation-delay:200ms]">
               <p className="text-xl md:text-3xl text-muted-foreground leading-relaxed font-light">
-                {profile?.bio || "Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes."}
+                Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes.
               </p>
               <p className="text-xl md:text-3xl text-muted-foreground leading-relaxed font-light">
                 I build scalable, high-performance applications and automation solutions that improve workflows, enhance productivity, and deliver seamless user experiences.
@@ -223,6 +223,81 @@ export default function AboutPage() {
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+            </div>
+
+            {/* Engineering Philosophy Section */}
+            <div className="space-y-16">
+              <div className="space-y-6">
+                <h2 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none">
+                  Engineering <span className="text-primary italic">Philosophy</span>
+                </h2>
+                <p className="text-xl text-muted-foreground font-light">
+                  My approach to building software that lasts and empowers.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Automation Mindset */}
+                <Card className="md:col-span-2 glass-card p-10 rounded-[3rem] border-white/5 hover:border-primary/30 transition-all duration-500">
+                  <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-10">
+                    <Layers size={24} />
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-bold uppercase tracking-tight">The Automation Mindset</h3>
+                    <p className="text-muted-foreground leading-relaxed font-light">
+                      I develop modern web applications using React, Next.js, Node.js, and Firebase while also building automation solutions with Google Apps Script to streamline business processes and improve productivity.
+                    </p>
+                  </div>
+                </Card>
+
+                {/* SEO Optimization */}
+                <Card className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-blue-400/30 transition-all duration-500">
+                  <div className="h-12 w-12 rounded-2xl bg-blue-400/10 flex items-center justify-center text-blue-400 mb-10">
+                    <Search size={24} />
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-bold uppercase tracking-tight">SEO Optimization</h3>
+                    <p className="text-muted-foreground leading-relaxed font-light">
+                      I build with visibility in mind. Technical SEO isn't an afterthought—it's woven into the architecture of every project.
+                    </p>
+                  </div>
+                </Card>
+
+                {/* Velocity & Precision */}
+                <Card className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-purple-400/30 transition-all duration-500">
+                  <div className="h-12 w-12 rounded-2xl bg-purple-400/10 flex items-center justify-center text-purple-400 mb-10">
+                    <Zap size={24} />
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-bold uppercase tracking-tight">Velocity & Precision</h3>
+                    <p className="text-muted-foreground leading-relaxed font-light">
+                      High-performance isn't just about code speed—it's about delivery speed without sacrificing quality.
+                    </p>
+                  </div>
+                </Card>
+
+                {/* AI-Augmented Engineering */}
+                <Card className="md:col-span-2 glass-card p-10 rounded-[3rem] border-white/5 flex flex-col md:flex-row items-center justify-between group overflow-hidden relative hover:border-primary/30 transition-all duration-500">
+                  <div className="space-y-6 max-w-xl relative z-10 mb-8 md:mb-0">
+                    <div className="flex items-center gap-3 text-primary">
+                      <Sparkles size={14} />
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em]">The AI Edge</span>
+                    </div>
+                    <div className="space-y-4">
+                      <h3 className="text-3xl font-bold uppercase tracking-tight">AI-Augmented Engineering</h3>
+                      <p className="text-muted-foreground leading-relaxed font-light">
+                        I integrate Large Language Models (LLMs) to create smarter applications—from automated data analysis in spreadsheets to intelligent, context-aware web interfaces.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-full bg-primary/5 border border-primary/10 relative z-10 group-hover:scale-110 transition-transform duration-500">
+                     <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                        <Cpu size={40} />
+                     </div>
+                  </div>
+                  <div className="absolute top-0 right-0 h-full w-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
+                </Card>
               </div>
             </div>
 
