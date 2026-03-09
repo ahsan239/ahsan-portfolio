@@ -29,15 +29,15 @@ export default function Home() {
   const techStack = [
     { 
       name: "Frontend", 
-      skills: ["Next.js", "React", "TypeScript", "Tailwind CSS"], 
-      icon: <Layers size={24} />,
-      description: "Architecting responsive, high-performance user interfaces with modern React patterns."
+      skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"], 
+      icon: <Layers size={32} />,
+      description: "Engineering fluid, high-performance interfaces with a focus on core web vitals and accessible design patterns."
     },
     { 
       name: "Backend", 
-      skills: ["Node.js", "Python", "PostgreSQL", "Redis"], 
-      icon: <Database size={24} />,
-      description: "Building scalable distributed systems and secure API architectures for production."
+      skills: ["Node.js", "Python", "PostgreSQL", "Redis", "gRPC", "Docker"], 
+      icon: <Database size={32} />,
+      description: "Architecting resilient distributed systems and secure API layers designed for massive horizontal scale."
     },
   ];
 
@@ -46,7 +46,7 @@ export default function Home() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-start pt-64 pb-20">
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-72 pb-20">
         <div className="container mx-auto px-6 text-center z-10 flex flex-col items-center">
           <Badge variant="secondary" className="mb-12 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
@@ -55,8 +55,8 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
-            Building digital <span className="text-gradient italic pr-2">products</span> that matter.
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+            Building digital <span className="text-gradient italic pr-3">products</span> that matter.
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
@@ -104,39 +104,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills Matrix - Modern Redesign */}
+      {/* Technical Arsenal - High Fidelity Sticky Side Redesign */}
       <section className="py-40 bg-white/[0.01] border-y border-white/5 relative">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-40">
-              <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em]">
-                Technical Arsenal
-              </Badge>
-              <h3 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.8] uppercase">
-                The tools behind <br />
-                <span className="text-muted-foreground">the craft.</span>
-              </h3>
+          <div className="grid lg:grid-cols-12 gap-20 items-start">
+            {/* Sticky Header Column */}
+            <div className="lg:col-span-5 space-y-10 lg:sticky lg:top-40">
+              <div className="space-y-6">
+                <Badge variant="outline" className="text-primary border-primary/20 py-2 px-6 rounded-full text-[10px] font-black uppercase tracking-[0.4em] bg-primary/5">
+                  Technical Arsenal
+                </Badge>
+                <h3 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.8] uppercase">
+                  The tools <br />
+                  <span className="text-muted-foreground italic">behind the craft.</span>
+                </h3>
+              </div>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-md font-light">
                 A meticulously curated suite of technologies for architecting high-performance, secure, and resilient digital products.
               </p>
+              <div className="pt-10 flex items-center gap-4 text-xs font-black uppercase tracking-widest text-primary/50">
+                <div className="h-px w-12 bg-primary/20" />
+                <span>Modern Stack 2024</span>
+              </div>
             </div>
-            <div className="lg:col-span-7 grid grid-cols-1 gap-6">
+
+            {/* Content Column */}
+            <div className="lg:col-span-7 space-y-8">
               {techStack.map((category) => (
                 <div key={category.name} className="group relative">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-accent/30 rounded-[3rem] blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                  <Card className="glass-card relative border-white/5 group-hover:border-primary/50 transition-all duration-500 rounded-[3rem] overflow-hidden">
-                    <CardContent className="p-10 md:p-14 flex flex-col md:flex-row gap-10 md:items-center">
-                      <div className="h-20 w-20 rounded-[2rem] bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-500 shrink-0">
-                        {category.icon}
-                      </div>
-                      <div className="space-y-6 flex-1">
-                        <div>
-                          <h4 className="font-black text-3xl mb-2 uppercase tracking-tighter group-hover:text-primary transition-colors">{category.name}</h4>
-                          <p className="text-muted-foreground font-light text-sm max-w-lg leading-relaxed">{category.description}</p>
+                  {/* Hover Glow Effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
+                  
+                  <Card className="glass-card relative border-white/5 group-hover:border-primary/50 transition-all duration-700 rounded-[4rem] overflow-hidden bg-white/[0.02]">
+                    <CardContent className="p-12 md:p-16 flex flex-col gap-12">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                        <div className="h-24 w-24 rounded-[2.5rem] bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-700 shrink-0 shadow-2xl">
+                          {category.icon}
                         </div>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="space-y-2 text-right md:text-right">
+                          <h4 className="font-black text-4xl uppercase tracking-tighter group-hover:text-primary transition-colors duration-500">
+                            {category.name}
+                          </h4>
+                          <p className="text-muted-foreground font-mono text-[10px] uppercase tracking-[0.3em]">Engineering Core</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-10">
+                        <p className="text-lg text-muted-foreground font-light leading-relaxed">
+                          {category.description}
+                        </p>
+                        
+                        <div className="flex flex-wrap gap-3">
                           {category.skills.map(skill => (
-                            <span key={skill} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60 px-5 py-2.5 bg-white/5 rounded-full border border-white/5 group-hover:border-primary/20 transition-all">
+                            <span key={skill} className="text-[11px] font-black uppercase tracking-[0.2em] text-white/70 px-6 py-3 bg-white/5 rounded-full border border-white/5 group-hover:border-primary/30 transition-all duration-500">
                               {skill}
                             </span>
                           ))}
