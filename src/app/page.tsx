@@ -5,7 +5,8 @@ import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Database, Layers, Mail, Github, 
   Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2,
-  Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette
+  Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette,
+  Workflow, CpuCore, Shield, Activity
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -105,8 +106,95 @@ export default function Home() {
         </div>
       </section>
 
+      {/* The Philosophy Section */}
+      <section id="philosophy" className="py-40 relative">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+            <div className="lg:col-span-7 space-y-12">
+              <div className="space-y-4">
+                <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
+                  The Philosophy
+                </Badge>
+                <h3 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none uppercase">
+                  Efficiency Through <span className="text-primary italic">Intelligence,</span><br />
+                  Scale Through <span className="text-muted-foreground/50">Design.</span>
+                </h3>
+              </div>
+
+              <div className="space-y-8 max-w-2xl">
+                <div className="space-y-2">
+                  <h4 className="text-xl font-bold uppercase tracking-tight text-foreground">The Automation Mindset</h4>
+                  <p className="text-lg text-muted-foreground leading-relaxed font-light">
+                    I develop modern web applications using React, Next.js, Node.js, and Firebase while also building automation solutions with Google Apps Script to streamline business processes and improve productivity.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-10 pt-4">
+                  <div className="space-y-1">
+                    <p className="text-3xl font-bold tracking-tighter">02+</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Years Experience</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-3xl font-bold tracking-tighter">10+</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Automations Deployed</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary">Full-Stack & Google Workspace Specialist</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 space-y-8">
+              <Card className="glass-card border-white/5 rounded-[3rem] overflow-hidden">
+                <CardContent className="p-10 space-y-8">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-primary">
+                      <Terminal size={16} />
+                      Strategic Tech Stack
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        "Next.js 15", "Google Apps Script", "React 19", 
+                        "Firebase", "MongoDB", "Express.js", 
+                        "Workspace Automation", "Tailwind CSS", "TypeScript"
+                      ].map((tech) => (
+                        <span key={tech} className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-muted-foreground/80">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-6 pt-6 border-t border-white/5">
+                    <div className="flex gap-5">
+                      <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                        <Activity size={20} />
+                      </div>
+                      <div className="space-y-1">
+                        <h5 className="font-bold uppercase tracking-tight text-sm">Zero Latency</h5>
+                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Optimization is built into every layer, from database queries to front-end rendering.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-5">
+                      <div className="h-10 w-10 shrink-0 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+                        <ShieldCheck size={20} />
+                      </div>
+                      <div className="space-y-1">
+                        <h5 className="font-bold uppercase tracking-tight text-sm">Bulletproof Logic</h5>
+                        <p className="text-xs text-muted-foreground leading-relaxed font-light">Mission-critical systems designed for 99.9% uptime and reliable performance.</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Technical Arsenal */}
-      <section className="py-40 relative">
+      <section id="arsenal" className="py-40 relative">
         <div className="container mx-auto px-6">
           <div className="mb-16">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
