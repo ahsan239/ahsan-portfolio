@@ -318,12 +318,17 @@ export default function Home() {
       <section id="contact" className="py-24 md:py-40 relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center">
           <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
-             <h2 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[1] md:leading-[0.8] italic uppercase text-gradient">
-              Let's build <br />something great.
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.85] italic uppercase text-gradient">
+              Great software is built with clarity, performance, and reliability at its core.
             </h2>
-            <p className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto font-light">
-              Available for select full-stack architecture, software engineering, and engineering leadership roles.
-            </p>
+            <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto">
+              <p className="text-lg md:text-2xl text-muted-foreground font-light leading-relaxed">
+                If you're looking for someone who can turn complex ideas into efficient, scalable solutions, you're in the right place.
+              </p>
+              <p className="text-xl md:text-3xl font-black uppercase tracking-widest text-foreground animate-pulse">
+                Let’s start building something great.
+              </p>
+            </div>
             <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-6 md:pt-10 w-full sm:w-auto">
               <Button asChild size="lg" className="rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-transform uppercase tracking-widest w-full sm:w-auto">
                 <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`}>Email Me</Link>
@@ -340,7 +345,7 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-              <Code2 className="h-[18px] w-[18px] md:h-5 md:w-5" />
+              <Code2 className="h-4 w-4 md:h-5 md:w-5" />
             </div>
             <span className="font-bold tracking-tighter uppercase text-lg md:text-xl">ALEX.DEV</span>
           </div>
