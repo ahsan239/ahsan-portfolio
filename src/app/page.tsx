@@ -323,7 +323,7 @@ export default function Home() {
             </h2>
             <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto">
               <p className="text-lg md:text-2xl text-muted-foreground font-light leading-relaxed">
-                Available for select full-stack architecture, software engineering, and engineering leadership roles.
+                If you're looking for someone who can turn complex ideas into efficient, scalable solutions, you're in the right place.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-6 md:pt-10 w-full sm:w-auto">
