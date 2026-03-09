@@ -37,7 +37,7 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground dot-pattern mesh-gradient overflow-hidden">
       <Navigation />
       
-      {/* Hero Section */}
+      {/* Hero Section - Aligns with PRD 3.3 */}
       <section className="relative pt-48 pb-32">
         <div className="container mx-auto px-6 flex flex-col items-center text-center">
           <Badge variant="secondary" className="mb-8 py-1.5 px-4 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About & Expertise */}
+      {/* About Section */}
       <section id="about" className="py-24 relative bg-white/[0.01]">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -124,7 +124,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Showcase */}
+      {/* Projects Grid - Aligns with PRD 3.1 */}
       <section id="projects" className="py-24">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
@@ -151,7 +151,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Career Path */}
+      {/* Experience Timeline - Aligns with PRD 3.2 */}
       <section id="experience" className="py-24 bg-white/[0.01]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto space-y-16">
@@ -198,6 +198,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Contact Section - Aligns with PRD 3.5 */}
       <section id="contact" className="py-32 relative">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto space-y-12">
