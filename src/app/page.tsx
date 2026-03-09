@@ -29,8 +29,6 @@ export default function Home() {
   const techStack = [
     { name: "Frontend", skills: ["Next.js", "React", "TypeScript", "Tailwind CSS"], icon: <Layers size={18} /> },
     { name: "Backend", skills: ["Node.js", "Python", "PostgreSQL", "Redis"], icon: <Database size={18} /> },
-    { name: "AI/ML", skills: ["Genkit", "LLMs", "RAG Pipelines", "Vector DBs"], icon: <Sparkles size={18} /> },
-    { name: "DevOps", skills: ["GCP", "Docker", "CI/CD", "Terraform"], icon: <Terminal size={18} /> },
   ];
 
   return (
@@ -38,16 +36,16 @@ export default function Home() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-start pt-48 pb-20">
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-64 pb-20">
         <div className="container mx-auto px-6 text-center z-10 flex flex-col items-center">
-          <Badge variant="secondary" className="mb-10 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
+          <Badge variant="secondary" className="mb-12 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Open to select opportunities</span>
             </span>
           </Badge>
           
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 max-w-6xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+          <h1 className="text-4xl md:text-7xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
             Building digital <span className="text-gradient italic">products</span> that matter.
           </h1>
           
@@ -104,7 +102,7 @@ export default function Home() {
               <h2 className="text-xs font-black uppercase tracking-[0.5em] text-primary">Technical Arsenal</h2>
               <h3 className="text-4xl md:text-5xl font-black tracking-tighter leading-none uppercase">The Stack <br />I trust.</h3>
               <p className="text-muted-foreground leading-relaxed max-w-md font-light">
-                A carefully curated suite of technologies for building high-performance, secure, and AI-enabled digital products.
+                A carefully curated suite of technologies for building high-performance, secure, and modern digital products.
               </p>
             </div>
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -185,7 +183,7 @@ export default function Home() {
               Let's build <br />something great.
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-light">
-              Available for select full-stack architecture, AI implementation, and engineering leadership roles.
+              Available for select full-stack architecture, software engineering, and engineering leadership roles.
             </p>
             <div className="flex flex-wrap justify-center gap-6 pt-10">
               <Button asChild size="lg" className="rounded-full px-12 h-20 font-black text-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-transform uppercase tracking-widest">
