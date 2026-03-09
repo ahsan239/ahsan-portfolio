@@ -3,20 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Github, Mail, Code2, Menu, X } from "lucide-react";
+import { Github, Code2, Menu, X, User, Briefcase, LayoutGrid } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 
-/**
- * Navigation component based on PRD Section 3.4.
- * Updated to include Home, About, Projects, and Experience.
- */
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Projects", href: "/#projects" },
-  { name: "Experience", href: "/#experience" },
+  { name: "Home", href: "/", icon: <LayoutGrid size={14} /> },
+  { name: "About", href: "/about", icon: <User size={14} /> },
+  { name: "Projects", href: "/#projects", icon: <Code2 size={14} /> },
+  { name: "Experience", href: "/#experience", icon: <Briefcase size={14} /> },
 ];
 
 export function Navigation() {
@@ -33,73 +29,67 @@ export function Navigation() {
   return (
     <header 
       className={cn(
-        "fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl transition-all duration-300",
+        "fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-4 transition-all duration-500",
         scrolled ? "top-4 scale-[0.98]" : "top-6"
       )}
     >
-      <div className="glass-card rounded-2xl px-6 h-16 flex items-center justify-between border-white/10 shadow-2xl">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform shadow-lg shadow-primary/20">
-            <Code2 size={18} />
+      <div className="glass-card rounded-full px-6 h-14 flex items-center justify-between border-white/10 shadow-2xl bg-background/60 backdrop-blur-md">
+        <Link href="/" className="flex items-center gap-2 group shrink-0">
+          <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white font-bold group-hover:rotate-12 transition-transform shadow-lg shadow-primary/20">
+            <Code2 size={16} />
           </div>
-          <span className="font-bold tracking-tight hidden sm:block">ALEX.DEV</span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               className={cn(
-                "text-[10px] font-black transition-colors hover:text-primary uppercase tracking-widest",
-                pathname === link.href ? "text-primary" : "text-muted-foreground"
+                "flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold transition-all uppercase tracking-widest",
+                pathname === link.href 
+                  ? "bg-primary text-white" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
               )}
             >
+              {link.icon}
               {link.name}
             </Link>
           ))}
         </nav>
         
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-3 pr-3 border-r border-white/10">
-            <ThemeToggle />
-            <Link href="https://github.com/alexrivera" target="_blank" className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-white/5">
-              <Github size={18} />
-            </Link>
-          </div>
-          
-          <Button asChild size="sm" className="rounded-lg h-9 px-4 font-bold shadow-lg shadow-primary/20 hidden sm:flex uppercase tracking-widest text-[10px]">
-            <Link href="/#contact">Let's Talk</Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Button variant="ghost" size="icon" className="md:hidden h-9 w-9 rounded-full" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </Button>
-
-          {/* Mobile Toggle */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </Button>
+          <div className="hidden md:block h-4 w-[1px] bg-white/10 mx-1" />
+          <Link href="https://github.com/alexrivera" target="_blank" className="hidden md:flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all">
+            <Github size={18} />
+          </Link>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="absolute top-20 left-0 right-0 glass-card rounded-2xl p-6 border border-white/10 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
-          <nav className="flex flex-col gap-6">
+        <div className="absolute top-16 left-4 right-4 glass-card rounded-3xl p-6 border border-white/10 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
+          <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-xs font-black uppercase tracking-widest hover:text-primary transition-colors"
+                className="flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-primary/10 hover:text-primary transition-all"
               >
+                {link.icon}
                 {link.name}
               </Link>
             ))}
-            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-              <ThemeToggle />
-              <div className="flex gap-4">
-                <Link href="https://github.com/alexrivera" className="text-muted-foreground hover:text-primary"><Github size={20} /></Link>
-                <Link href="mailto:hello@alexrivera.dev" className="text-muted-foreground hover:text-primary"><Mail size={20} /></Link>
-              </div>
+            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+              <Link href="https://github.com/alexrivera" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">
+                <Github size={16} /> GitHub
+              </Link>
             </div>
           </nav>
         </div>
