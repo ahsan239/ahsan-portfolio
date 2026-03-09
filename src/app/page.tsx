@@ -4,7 +4,7 @@ import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Database, Layers, Mail, Github, 
-  Linkedin, Briefcase, GraduationCap, Terminal, Sparkles, CheckCircle2, Code2, Download
+  Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -39,7 +39,7 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center pt-20">
-        <div className="container mx-auto px-6 text-center z-10">
+        <div className="container mx-auto px-6 text-center z-10 flex flex-col items-center">
           <Badge variant="secondary" className="mb-8 py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
@@ -47,7 +47,7 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 max-w-6xl leading-[0.8] animate-fade-in-up">
+          <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 max-w-6xl mx-auto leading-[0.9] animate-fade-in-up">
             Building digital <span className="text-gradient">products</span> that matter.
           </h1>
           
@@ -69,12 +69,6 @@ export default function Home() {
             <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={28} /></Link>
             <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={28} /></Link>
           </div>
-        </div>
-
-        {/* Decorative elements */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-20 animate-bounce">
-           <div className="h-10 w-[1px] bg-gradient-to-b from-primary to-transparent" />
-           <span className="text-[9px] font-black uppercase tracking-[0.4em] rotate-90">Scroll</span>
         </div>
       </section>
 
