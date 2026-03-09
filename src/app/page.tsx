@@ -1,10 +1,12 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Database, Layers, Mail, Github, 
-  Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2
+  Linkedin, Briefcase, Terminal, Sparkles, CheckCircle2, Code2,
+  Zap, ShieldCheck, Globe, Cpu, Flame
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -26,19 +28,15 @@ export default function Home() {
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
   const { data: experiences, isLoading: experiencesLoading } = useCollection(experiencesQuery);
 
-  const techStack = [
-    { 
-      name: "Frontend", 
-      skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"], 
-      icon: <Layers size={32} />,
-      description: "Engineering fluid, high-performance interfaces with a focus on core web vitals and accessible design patterns."
-    },
-    { 
-      name: "Backend", 
-      skills: ["Node.js", "Python", "PostgreSQL", "Redis", "gRPC", "Docker"], 
-      icon: <Database size={32} />,
-      description: "Architecting resilient distributed systems and secure API layers designed for massive horizontal scale."
-    },
+  const techArsenal = [
+    { name: "Next.js 15", category: "FRONTEND", icon: <Zap size={18} />, desc: "App Router, RSC, Server Actions" },
+    { name: "React 19", category: "FRONTEND", icon: <Code2 size={18} />, desc: "Concurrent rendering, Hooks" },
+    { name: "TypeScript", category: "LANGUAGE", icon: <ShieldCheck size={18} />, desc: "Type-safe development" },
+    { name: "JavaScript (ES6+)", category: "LANGUAGE", icon: <Globe size={18} />, desc: "Modern web standard" },
+    { name: "Node.js", category: "BACKEND", icon: <Cpu size={18} />, desc: "Scalable server environments" },
+    { name: "Express.js", category: "BACKEND", icon: <Database size={18} />, desc: "Minimalist web framework" },
+    { name: "Firebase", category: "CLOUD/DB", icon: <Flame size={18} />, desc: "Real-time apps & Auth" },
+    { name: "MongoDB", category: "DATABASE", icon: <Layers size={18} />, desc: "NoSQL document storage" },
   ];
 
   return (
@@ -55,7 +53,7 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-10 max-w-5xl mx-auto leading-[0.9] animate-fade-in-up uppercase">
             Building digital <span className="text-gradient italic pr-3">products</span> that matter.
           </h1>
           
@@ -104,69 +102,43 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Technical Arsenal - High Fidelity Sticky Side Redesign */}
-      <section className="py-40 bg-white/[0.01] border-y border-white/5 relative">
+      {/* Technical Arsenal - Redesigned Grid */}
+      <section className="py-40 relative">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-20 items-start">
-            {/* Sticky Header Column */}
-            <div className="lg:col-span-5 space-y-10 lg:sticky lg:top-40">
-              <div className="space-y-6">
-                <Badge variant="outline" className="text-primary border-primary/20 py-2 px-6 rounded-full text-[10px] font-black uppercase tracking-[0.4em] bg-primary/5">
-                  Technical Arsenal
-                </Badge>
-                <h3 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.8] uppercase">
-                  The tools <br />
-                  <span className="text-muted-foreground italic">behind the craft.</span>
-                </h3>
-              </div>
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-md font-light">
-                A meticulously curated suite of technologies for architecting high-performance, secure, and resilient digital products.
-              </p>
-              <div className="pt-10 flex items-center gap-4 text-xs font-black uppercase tracking-widest text-primary/50">
-                <div className="h-px w-12 bg-primary/20" />
-                <span>Modern Stack 2024</span>
-              </div>
-            </div>
+          <div className="mb-16">
+            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em] bg-primary/5 mb-6">
+              Technical Arsenal
+            </Badge>
+            <h3 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight uppercase">
+              Technologies <br />
+              I use to <span className="text-primary italic">Build.</span>
+            </h3>
+          </div>
 
-            {/* Content Column */}
-            <div className="lg:col-span-7 space-y-8">
-              {techStack.map((category) => (
-                <div key={category.name} className="group relative">
-                  {/* Hover Glow Effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {techArsenal.map((tech) => (
+              <Card key={tech.name} className="glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2.5rem] bg-white/[0.02] overflow-hidden group">
+                <CardContent className="p-8 flex flex-col h-full">
+                  <div className="flex justify-between items-start mb-10">
+                    <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-xl">
+                      {tech.icon}
+                    </div>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                      {tech.category}
+                    </span>
+                  </div>
                   
-                  <Card className="glass-card relative border-white/5 group-hover:border-primary/50 transition-all duration-700 rounded-[4rem] overflow-hidden bg-white/[0.02]">
-                    <CardContent className="p-12 md:p-16 flex flex-col gap-12">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-                        <div className="h-24 w-24 rounded-[2.5rem] bg-white/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-700 shrink-0 shadow-2xl">
-                          {category.icon}
-                        </div>
-                        <div className="space-y-2 text-right md:text-right">
-                          <h4 className="font-black text-4xl uppercase tracking-tighter group-hover:text-primary transition-colors duration-500">
-                            {category.name}
-                          </h4>
-                          <p className="text-muted-foreground font-mono text-[10px] uppercase tracking-[0.3em]">Engineering Core</p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-10">
-                        <p className="text-lg text-muted-foreground font-light leading-relaxed">
-                          {category.description}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-3">
-                          {category.skills.map(skill => (
-                            <span key={skill} className="text-[11px] font-black uppercase tracking-[0.2em] text-white/70 px-6 py-3 bg-white/5 rounded-full border border-white/5 group-hover:border-primary/30 transition-all duration-500">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
+                  <div className="mt-auto">
+                    <h4 className="text-xl font-black uppercase tracking-tighter mb-1">
+                      {tech.name}
+                    </h4>
+                    <p className="text-xs text-muted-foreground font-light leading-relaxed">
+                      {tech.desc}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
