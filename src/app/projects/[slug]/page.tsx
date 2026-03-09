@@ -6,7 +6,7 @@ import { collection, query, where, limit } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
-import { ChevronLeft, Github, ExternalLink, Code, Loader2 } from "lucide-react";
+import { ChevronLeft, Github, ExternalLink, Code, Loader2, Target, Zap } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -57,7 +57,7 @@ export default function ProjectPage() {
                 {project.title}
                </h1>
                <div className="flex flex-wrap gap-3">
-                  {project.techStack?.map((tech: string) => (
+                  {project.technologies?.map((tech: string) => (
                     <span key={tech} className="text-[10px] font-black uppercase tracking-widest px-4 py-1.5 bg-white/5 border border-white/10 rounded-full">
                       {tech}
                     </span>
@@ -66,11 +66,11 @@ export default function ProjectPage() {
             </div>
             <div className="lg:col-span-4 flex flex-col justify-end gap-6 border-l border-white/10 pl-8">
                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Efficiency Gain</p>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Business Impact</p>
                   <p className="text-2xl font-bold">{project.businessImpact || "N/A"}</p>
                </div>
                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">ROI Delivered</p>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Core ROI</p>
                   <p className="text-2xl font-bold">{project.roiMetric || "N/A"}</p>
                </div>
             </div>
@@ -83,6 +83,7 @@ export default function ProjectPage() {
               fill
               className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
               priority
+              data-ai-hint="project showcase"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40" />
           </div>
@@ -94,9 +95,12 @@ export default function ProjectPage() {
                   <span className="text-xs font-black uppercase tracking-widest">01 // The Problem</span>
                   <div className="h-[1px] flex-1 bg-white/5" />
                 </div>
-                <p className="text-2xl font-light leading-relaxed text-foreground italic">
-                  "{project.problem || project.description}"
-                </p>
+                <div className="flex gap-6 items-start">
+                   <Target className="h-8 w-8 text-primary shrink-0 mt-1" />
+                   <p className="text-2xl font-light leading-relaxed text-foreground italic">
+                    "{project.problem || project.summary}"
+                   </p>
+                </div>
               </section>
 
               <section className="space-y-8 animate-in fade-in slide-in-from-left-4 [animation-delay:200ms] duration-500">
@@ -104,9 +108,12 @@ export default function ProjectPage() {
                   <span className="text-xs font-black uppercase tracking-widest">02 // The Solution</span>
                   <div className="h-[1px] flex-1 bg-white/5" />
                 </div>
-                <p className="text-xl font-medium leading-relaxed text-muted-foreground">
-                  {project.solution || "Architecting a custom solution focused on scalability and real-time performance."}
-                </p>
+                <div className="flex gap-6 items-start">
+                   <Zap className="h-8 w-8 text-accent shrink-0 mt-1" />
+                   <p className="text-xl font-medium leading-relaxed text-muted-foreground">
+                    {project.solution || "Implementing a custom high-performance solution focused on scalability."}
+                   </p>
+                </div>
               </section>
 
               <section className="space-y-10 p-12 bg-white/[0.02] rounded-[3rem] border border-white/5 relative overflow-hidden group">
@@ -119,9 +126,9 @@ export default function ProjectPage() {
                 </div>
                 <div className="space-y-8 relative z-10">
                   <div className="space-y-4">
-                    <h4 className="text-lg font-black uppercase tracking-tight">Core Logic</h4>
+                    <h4 className="text-lg font-black uppercase tracking-tight">Architecture Strategy</h4>
                     <p className="text-muted-foreground leading-relaxed">
-                      Implementing a modern event-driven architecture using a serverless approach to minimize latency and maximize throughput.
+                      Leveraging {project.technologies?.slice(0, 3).join(', ')} to architect a serverless, event-driven system that ensures maximum uptime and minimal operational overhead.
                     </p>
                   </div>
                 </div>
@@ -134,12 +141,16 @@ export default function ProjectPage() {
                <div className="space-y-8 p-10 bg-white/[0.02] rounded-[3rem] border border-white/5 shadow-xl">
                   <h3 className="text-xl font-black uppercase tracking-tighter">Project Resources</h3>
                   <div className="space-y-4">
-                    <Link href="#" className="flex items-center justify-between p-5 bg-white/5 hover:bg-primary hover:text-white rounded-2xl transition-all font-black text-xs uppercase tracking-widest shadow-lg">
-                      Source Repository <Github className="h-4 w-4" />
-                    </Link>
-                    <Link href="#" className="flex items-center justify-between p-5 bg-white/5 hover:bg-primary hover:text-white rounded-2xl transition-all font-black text-xs uppercase tracking-widest shadow-lg">
-                      Live Environment <ExternalLink className="h-4 w-4" />
-                    </Link>
+                    {project.projectLink && (
+                      <Link href={project.projectLink} target="_blank" className="flex items-center justify-between p-5 bg-white/5 hover:bg-primary hover:text-white rounded-2xl transition-all font-black text-xs uppercase tracking-widest shadow-lg">
+                        Live Demo <ExternalLink className="h-4 w-4" />
+                      </Link>
+                    )}
+                    {project.githubLink && (
+                      <Link href={project.githubLink} target="_blank" className="flex items-center justify-between p-5 bg-white/5 hover:bg-primary hover:text-white rounded-2xl transition-all font-black text-xs uppercase tracking-widest shadow-lg">
+                        Source Code <Github className="h-4 w-4" />
+                      </Link>
+                    )}
                   </div>
                </div>
             </aside>

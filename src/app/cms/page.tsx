@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,17 +10,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase } from "@/firebase";
 import { collection, doc, query, orderBy } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
-import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X } from "lucide-react";
+import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Link as LinkIcon, Github } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const OWNER_ID = "alex-rivera";
 
 export default function CMSPage() {
   const db = useFirestore();
-  const { user, isUserLoading } = useUser();
+  const { isUserLoading } = useUser();
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Queries
   const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db]);
   const experienceQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
   const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
@@ -53,18 +52,22 @@ export default function CMSPage() {
       id,
       title: formData.get('title') as string,
       slug: (formData.get('title') as string).toLowerCase().replace(/\s+/g, '-'),
+      summary: formData.get('summary') as string,
       description: formData.get('description') as string,
       problem: formData.get('problem') as string,
       solution: formData.get('solution') as string,
       roiMetric: formData.get('roiMetric') as string,
       businessImpact: formData.get('businessImpact') as string,
-      techStack: (formData.get('techStack') as string).split(',').map(s => s.trim()),
-      imageUrl: formData.get('imageUrl') as string || `https://picsum.photos/seed/${id}/1000/1000`,
+      projectLink: formData.get('projectLink') as string,
+      githubLink: formData.get('githubLink') as string,
+      technologies: (formData.get('technologies') as string).split(',').map(s => s.trim()),
+      imageUrl: formData.get('imageUrl') as string || `https://picsum.photos/seed/${id}/1200/630`,
+      publishedAt: new Date().toISOString(),
       order: editingId ? (projects?.find(p => p.id === id)?.order ?? 0) : (projects?.length || 0),
     };
 
     setDocumentNonBlocking(doc(db, 'users', OWNER_ID, 'projects', id), projectData, { merge: true });
-    toast({ title: editingId ? "Project updated!" : "Project added!" });
+    toast({ title: editingId ? "Project updated!" : "Project published!" });
     setEditingId(null);
     (e.target as HTMLFormElement).reset();
   };
@@ -78,8 +81,8 @@ export default function CMSPage() {
       id,
       company: formData.get('company') as string,
       role: formData.get('role') as string,
-      period: formData.get('period') as string,
-      desc: formData.get('desc') as string,
+      duration: formData.get('duration') as string,
+      points: (formData.get('points') as string).split('\n').filter(p => p.trim() !== ''),
       order: editingId ? (experiences?.find(ex => ex.id === id)?.order ?? 0) : (experiences?.length || 0)
     };
 
@@ -175,14 +178,27 @@ export default function CMSPage() {
                       <Input name="title" defaultValue={projects?.find(p => p.id === editingId)?.title} placeholder="Project Title" required className="bg-white/5 border-white/10 h-12" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Tech Stack (comma separated)</label>
-                      <Input name="techStack" defaultValue={projects?.find(p => p.id === editingId)?.techStack?.join(', ')} placeholder="React, Next.js, Node.js" required className="bg-white/5 border-white/10 h-12" />
+                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Technologies (comma separated)</label>
+                      <Input name="technologies" defaultValue={projects?.find(p => p.id === editingId)?.technologies?.join(', ')} placeholder="React, Next.js, Node.js" required className="bg-white/5 border-white/10 h-12" />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Short Description</label>
-                    <Textarea name="description" defaultValue={projects?.find(p => p.id === editingId)?.description} placeholder="A brief overview..." required className="bg-white/5 border-white/10" />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Demo Link</label>
+                      <Input name="projectLink" defaultValue={projects?.find(p => p.id === editingId)?.projectLink} placeholder="https://demo.example.com" className="bg-white/5 border-white/10 h-12" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">GitHub Link</label>
+                      <Input name="githubLink" defaultValue={projects?.find(p => p.id === editingId)?.githubLink} placeholder="https://github.com/..." className="bg-white/5 border-white/10 h-12" />
+                    </div>
                   </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Summary (One-liner)</label>
+                    <Input name="summary" defaultValue={projects?.find(p => p.id === editingId)?.summary} placeholder="A brief, impactful overview..." required className="bg-white/5 border-white/10 h-12" />
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Business Impact</label>
@@ -193,17 +209,20 @@ export default function CMSPage() {
                       <Input name="roiMetric" defaultValue={projects?.find(p => p.id === editingId)?.roiMetric} placeholder="e.g. $2M Volume Processed" className="bg-white/5 border-white/10 h-12" />
                     </div>
                   </div>
+
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">The Problem</label>
-                    <Textarea name="problem" defaultValue={projects?.find(p => p.id === editingId)?.problem} placeholder="Describe the challenge..." className="bg-white/5 border-white/10" />
+                    <Textarea name="problem" defaultValue={projects?.find(p => p.id === editingId)?.problem} placeholder="What was the core challenge?" className="bg-white/5 border-white/10 min-h-[100px]" />
                   </div>
+                  
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">The Solution</label>
-                    <Textarea name="solution" defaultValue={projects?.find(p => p.id === editingId)?.solution} placeholder="Describe your architectural solution..." className="bg-white/5 border-white/10" />
+                    <Textarea name="solution" defaultValue={projects?.find(p => p.id === editingId)?.solution} placeholder="How did you solve it technically?" className="bg-white/5 border-white/10 min-h-[100px]" />
                   </div>
+
                   <div className="flex gap-4">
                     <Button type="submit" className="flex-1 h-12 font-black uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20">
-                      {editingId ? "Update Project" : "Publish Project"}
+                      {editingId ? "Update Case Study" : "Publish Case Study"}
                     </Button>
                     {editingId && (
                       <Button type="button" variant="outline" onClick={() => setEditingId(null)} className="h-12 w-12 rounded-xl border-white/10">
@@ -264,12 +283,12 @@ export default function CMSPage() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Period</label>
-                    <Input name="period" defaultValue={experiences?.find(ex => ex.id === editingId)?.period} placeholder="e.g. Jan 2021 — Present" required className="bg-white/5 border-white/10 h-12" />
+                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Duration</label>
+                    <Input name="duration" defaultValue={experiences?.find(ex => ex.id === editingId)?.duration} placeholder="e.g. Jan 2021 — Present" required className="bg-white/5 border-white/10 h-12" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Description / Impact</label>
-                    <Textarea name="desc" defaultValue={experiences?.find(ex => ex.id === editingId)?.desc} placeholder="What did you build? What was the impact?" required className="bg-white/5 border-white/10 min-h-[120px]" />
+                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Impact Points (one per line)</label>
+                    <Textarea name="points" defaultValue={experiences?.find(ex => ex.id === editingId)?.points?.join('\n')} placeholder="Reduced latency by 40%..." required className="bg-white/5 border-white/10 min-h-[150px]" />
                   </div>
                   <div className="flex gap-4">
                     <Button type="submit" className="flex-1 h-12 font-black uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20">
@@ -292,13 +311,13 @@ export default function CMSPage() {
                   <div key={ex.id} className="glass-card p-4 rounded-2xl border-white/5 flex items-center justify-between group hover:border-primary/30 transition-all">
                     <div>
                       <h4 className="font-bold">{ex.role}</h4>
-                      <p className="text-xs text-primary font-medium">{ex.company} • {ex.period}</p>
+                      <p className="text-xs text-primary font-medium">{ex.company} • {ex.duration}</p>
                     </div>
                     <div className="flex gap-2">
                       <Button variant="ghost" size="icon" onClick={() => setEditingId(ex.id)} className="text-muted-foreground hover:text-primary rounded-lg">
                         <Edit3 size={18} />
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/experiences/${ex.id}`)} className="text-muted-foreground hover:text-destructive rounded-lg">
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/experiences/${p.id}`)} className="text-muted-foreground hover:text-destructive rounded-lg">
                         <Trash2 size={18} />
                       </Button>
                     </div>

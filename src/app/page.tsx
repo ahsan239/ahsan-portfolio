@@ -1,33 +1,28 @@
-
 'use client';
 
-import { useMemo } from "react";
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { 
-  ArrowRight, Code2, Database, Layers, Mail, Github, 
-  Linkedin, Briefcase, GraduationCap, User, Star, Terminal, Sparkles
+  ArrowRight, Database, Layers, Mail, Github, 
+  Linkedin, Briefcase, GraduationCap, User, Star, Terminal, Sparkles, CheckCircle2, Code2
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, orderBy } from "firebase/firestore";
+import { useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase";
+import { collection, query, orderBy, doc } from "firebase/firestore";
 
-const OWNER_ID = "alex-rivera"; // Fixed ID for the portfolio owner
+const OWNER_ID = "alex-rivera";
 
 export default function Home() {
   const db = useFirestore();
 
-  const projectsQuery = useMemoFirebase(() => {
-    return query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc'));
-  }, [db]);
+  const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
+  const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db]);
+  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
 
-  const experiencesQuery = useMemoFirebase(() => {
-    return query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc'));
-  }, [db]);
-
+  const { data: profile } = useDoc(profileRef);
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
   const { data: experiences, isLoading: experiencesLoading } = useCollection(experiencesQuery);
 
@@ -48,7 +43,7 @@ export default function Home() {
           <Badge variant="secondary" className="mb-8 py-1.5 px-4 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-              Available for strategic engineering roles
+              Available for Strategic AI & Engineering roles
             </span>
           </Badge>
           
@@ -57,8 +52,7 @@ export default function Home() {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed animate-fade-in-up [animation-delay:200ms]">
-            Senior Software Engineer & AI Architect. I build robust digital products 
-            using modern web technologies and intelligent automation systems.
+            {profile?.headline || "Senior Software Engineer & AI Architect. I build robust digital products using modern web technologies and intelligent automation systems."}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-24 animate-fade-in-up [animation-delay:400ms]">
@@ -71,9 +65,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-8 opacity-40 animate-fade-in-up [animation-delay:600ms]">
-            <Link href="https://github.com" className="hover:text-primary transition-colors"><Github size={24} /></Link>
-            <Link href="https://linkedin.com" className="hover:text-primary transition-colors"><Linkedin size={24} /></Link>
-            <Link href="mailto:hello@alexrivera.dev" className="hover:text-primary transition-colors"><Mail size={24} /></Link>
+            <Link href="https://github.com/alexrivera" target="_blank" className="hover:text-primary transition-colors"><Github size={24} /></Link>
+            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="hover:text-primary transition-colors"><Linkedin size={24} /></Link>
+            <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`} className="hover:text-primary transition-colors"><Mail size={24} /></Link>
           </div>
         </div>
       </section>
@@ -86,20 +80,18 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-xs">
                 <User size={14} /> About Me
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Full-Stack Craftsmanship <br />meets <span className="text-primary">AI Innovation.</span></h2>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Software Craftsmanship <br />meets <span className="text-primary">Business Intelligence.</span></h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm Alex, a software engineer obsessed with the intersection of elegant UI and powerful, 
-                scalable backends. With a decade of experience in the industry, I help companies 
-                modernize their stack and implement practical AI solutions that drive real results.
+                {profile?.bio || "I help companies modernize their stack and implement practical AI solutions that drive real results. With a focus on performance and SEO, I build tools that scale."}
               </p>
               <div className="grid grid-cols-2 gap-6 pt-4">
                  <div className="p-4 rounded-2xl glass-card border-white/5">
                     <p className="text-2xl font-bold">10+</p>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Years Experience</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Years Exp.</p>
                  </div>
                  <div className="p-4 rounded-2xl glass-card border-white/5">
                     <p className="text-2xl font-bold">50+</p>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Projects Shipped</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Shipped</p>
                  </div>
               </div>
             </div>
@@ -136,7 +128,7 @@ export default function Home() {
                 <Briefcase size={14} /> Projects
               </div>
               <h2 className="text-4xl font-bold tracking-tight">Proof of <span className="text-primary">Engineering</span></h2>
-              <p className="text-muted-foreground max-w-xl">A curated selection of complex systems I've architected and deployed recently.</p>
+              <p className="text-muted-foreground max-w-xl">Curated case studies highlighting complex systems and high-performance solutions.</p>
             </div>
           </div>
 
@@ -175,14 +167,21 @@ export default function Home() {
                       <div className="h-2 w-2 rounded-full bg-primary" />
                     </div>
                     <div className="glass-card p-8 rounded-3xl border-white/5 hover:border-white/10 transition-all">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
                           <h4 className="text-xl font-bold text-white">{exp.role}</h4>
                           <p className="text-primary font-medium">{exp.company}</p>
                         </div>
-                        <Badge variant="outline" className="w-fit h-7 border-white/10 text-muted-foreground">{exp.period}</Badge>
+                        <Badge variant="outline" className="w-fit h-7 border-white/10 text-muted-foreground">{exp.duration}</Badge>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed italic">{exp.desc}</p>
+                      <ul className="space-y-3">
+                         {exp.points?.map((point: string, pIdx: number) => (
+                           <li key={pIdx} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
+                              <CheckCircle2 size={16} className="text-primary shrink-0 mt-0.5" />
+                              <span>{point}</span>
+                           </li>
+                         ))}
+                      </ul>
                     </div>
                   </div>
                 ))
@@ -194,30 +193,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8">
-             {[
-               { name: "Sarah Chen", role: "CTO @ Nexus", content: "Alex is a rare talent who deeply understands both the business requirements and the technical complexity of modern apps." },
-               { name: "John Miller", role: "Product Manager @ Streamline", content: "The level of engineering polish Alex brings to every project is unmatched. He doesn't just ship; he crafts." },
-               { name: "Elena Rodriguez", role: "Founder @ AI Labs", content: "Our RAG implementation went from a prototype to a production-ready system in weeks thanks to Alex's expertise." }
-             ].map((t, idx) => (
-               <div key={idx} className="p-8 rounded-3xl glass-card border-white/5 space-y-6">
-                  <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5].map(s => <Star key={s} size={14} className="fill-primary text-primary" />)}
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed italic">"{t.content}"</p>
-                  <div className="pt-6 border-t border-white/5">
-                    <p className="font-bold">{t.name}</p>
-                    <p className="text-xs text-muted-foreground uppercase tracking-widest">{t.role}</p>
-                  </div>
-               </div>
-             ))}
-          </div>
-        </div>
-      </section>
-
       <section id="contact" className="py-32 relative">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto space-y-12">
@@ -225,11 +200,11 @@ export default function Home() {
               Let's engineer the <span className="text-primary">future</span> together.
             </h2>
             <p className="text-xl text-muted-foreground">
-              Currently accepting select consulting engagements and full-time leadership opportunities.
+              Currently accepting selective consulting engagements and high-impact leadership roles.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="rounded-xl px-10 h-16 font-bold text-lg">
-                <Link href="mailto:hello@alexrivera.dev">Send an Email <Mail size={20} className="ml-2" /></Link>
+                <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`}>Send an Email <Mail size={20} className="ml-2" /></Link>
               </Button>
               <Button variant="outline" asChild size="lg" className="glass-card rounded-xl px-10 h-16 font-bold text-lg border-white/10">
                 <Link href="/hire">View Services</Link>
@@ -247,11 +222,11 @@ export default function Home() {
             </div>
             <span className="font-bold tracking-tight">ALEX // DEV</span>
           </div>
-          <p className="text-xs text-muted-foreground font-mono">© 2024 Built with Next.js 15, Genkit & Firestore.</p>
+          <p className="text-xs text-muted-foreground font-mono">© 2024 Alex Rivera. Engineered with Next.js 15 & Firestore.</p>
           <div className="flex gap-8">
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">GitHub</Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">LinkedIn</Link>
-            <Link href="/cms" className="text-sm text-primary hover:underline transition-colors font-bold">CMS Login</Link>
+            <Link href="https://github.com/alexrivera" target="_blank" className="text-sm text-muted-foreground hover:text-primary transition-colors">GitHub</Link>
+            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="text-sm text-muted-foreground hover:text-primary transition-colors">LinkedIn</Link>
+            <Link href="/cms" className="text-sm text-primary hover:underline transition-colors font-bold">CMS</Link>
           </div>
         </div>
       </footer>

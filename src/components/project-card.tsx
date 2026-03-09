@@ -2,13 +2,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Project } from "@/app/lib/projects";
-import { ArrowUpRight, Code2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface ProjectCardProps {
-  project: Project;
+  project: {
+    id: string;
+    slug: string;
+    title: string;
+    summary: string;
+    imageUrl: string;
+    technologies: string[];
+    roiMetric: string;
+  };
   index: number;
 }
 
@@ -20,7 +26,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     >
       <div className="aspect-video relative overflow-hidden">
         <Image
-          src={project.imageUrl}
+          src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/630`}
           alt={project.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -34,7 +40,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       <div className="p-6 flex flex-col flex-1 space-y-4">
         <div className="flex flex-wrap gap-2">
-          {project.techStack.map(tech => (
+          {project.technologies?.slice(0, 3).map(tech => (
             <Badge key={tech} variant="secondary" className="bg-white/5 text-[10px] font-medium border-white/5">
               {tech}
             </Badge>
@@ -46,14 +52,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             {project.title}
           </h3>
           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-            {project.shortDescription}
+            {project.summary}
           </p>
         </div>
 
         <div className="pt-4 mt-auto border-t border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-2 text-[10px] font-bold text-primary uppercase tracking-wider">
             <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-            {project.roiMetric.split(' ')[0]} Improved
+            {project.roiMetric || "ROI Optimized"}
           </div>
           <span className="text-[10px] text-muted-foreground font-mono">0{index + 1}</span>
         </div>
