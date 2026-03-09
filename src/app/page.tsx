@@ -63,7 +63,7 @@ export default function Home() {
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-light animate-fade-in-up [animation-delay:200ms]">
-            {profile?.headline || "Senior Software Engineer & AI Architect. I design and engineer high-performance systems for the modern web."}
+            {profile?.headline || "Modern web developer focused on React, Next.js, Node.js, and Firebase, with expertise in Google Apps Script automation to streamline and optimize business processes."}
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:400ms] w-full sm:w-auto">
@@ -319,14 +319,11 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center">
           <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
             <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.85] italic uppercase text-gradient">
-              Great software is built with clarity, performance, and reliability at its core.
+              Let's build <br className="hidden md:block" /> something <span className="text-foreground">great.</span>
             </h2>
             <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto">
               <p className="text-lg md:text-2xl text-muted-foreground font-light leading-relaxed">
-                If you're looking for someone who can turn complex ideas into efficient, scalable solutions, you're in the right place.
-              </p>
-              <p className="text-xl md:text-3xl font-black uppercase tracking-widest text-foreground animate-pulse">
-                Let’s start building something great.
+                Available for select full-stack architecture, software engineering, and engineering leadership roles.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-6 md:pt-10 w-full sm:w-auto">
@@ -345,7 +342,7 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-              <Code2 className="h-4 w-4 md:h-5 md:w-5" />
+              <Code2 size={18} className="h-4 w-4 md:h-5 md:w-5" />
             </div>
             <span className="font-bold tracking-tighter uppercase text-lg md:text-xl">ALEX.DEV</span>
           </div>
