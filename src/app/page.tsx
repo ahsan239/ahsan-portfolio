@@ -47,13 +47,13 @@ export default function Home() {
   const defaultExperiences = [
     {
       id: "exp-1",
-      role: "Senior Software Engineer",
-      company: "InnovateTech Solutions",
-      duration: "Jan 2023 — Present",
+      role: "Google Apps Script Engineer & Web Developer",
+      company: "Cloudfort Technologies and Consultancy",
+      duration: "Nov 2024 — Present",
       points: [
-        "Architected scalable Next.js platforms increasing user engagement by 40%.",
-        "Engineered automated workflows with Google Apps Script, saving 15+ hours weekly in data processing.",
-        "Led a team of 5 developers in delivering production-ready AI integrated features."
+        "Architecting high-performance web applications using modern React and Next.js frameworks.",
+        "Engineering complex Google Apps Script automation solutions to streamline enterprise business processes.",
+        "Building scalable, secure, and production-ready digital products for diverse consultancy projects."
       ],
       type: "Full-Time"
     }
@@ -306,10 +306,11 @@ export default function Home() {
                   </div>
 
                   {/* Content Card */}
-                  <div className={cn(
-                    "w-full md:w-[45%] space-y-4 pl-12 md:pl-0",
-                    idx % 2 === 0 ? "md:text-right" : "md:text-left"
-                  )}>
+                  <div 
+                    className={cn(
+                      "w-full md:w-[45%] space-y-4 pl-12 md:pl-0",
+                      idx % 2 === 0 ? "md:text-right" : "md:text-left"
+                    )}>
                     <Card className="glass-card p-6 md:p-8 rounded-[2rem] border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-xl overflow-hidden relative">
                       <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                          {exp.type === "Internship" ? <Calendar size={60} /> : <Award size={60} />}
