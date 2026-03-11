@@ -3,11 +3,11 @@
 
 import { Navigation } from "@/components/navigation";
 import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, where, limit, getDocs } from "firebase/firestore";
+import { collection, query, where, limit } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
-import { ChevronLeft, Github, ExternalLink, Code, Loader2, Target, Zap, Activity } from "lucide-react";
+import { ChevronLeft, Github, ExternalLink, Code, Target, Zap, Activity } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -19,29 +19,30 @@ export default function ProjectPage() {
   const params = useParams();
   const db = useFirestore();
   const slug = params?.slug as string;
-  const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
+  const [activeOwnerId, setActiveOwnerId] = useState<string | null>(null);
+  const [hasResolvedOwner, setHasResolvedOwner] = useState(false);
 
-  // Robust Owner Discovery: Matches the logic used on the Home page to ensure 
-  // we find the correct UID where the projects are stored.
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(10)), [db]);
+  // Discover the active user profile from Firestore
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(20)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
-    if (users && users.length > 0) {
+    if (!usersLoading && users) {
       // Find the first user that has some profile data or just the first one in the list
       const activeUser = users.find(u => u.name || u.headline) || users[0];
       if (activeUser) {
         setActiveOwnerId(activeUser.id);
       }
+      setHasResolvedOwner(true);
     }
-  }, [users]);
+  }, [users, usersLoading]);
 
   // Project lookup by slug under the resolved active owner
   const projectQuery = useMemoFirebase(() => {
     if (!slug || !activeOwnerId) return null;
     return query(
       collection(db, 'users', activeOwnerId, 'projects'),
-      where('slug', '==', slug),
+      where('slug', '==', slug.toLowerCase()),
       limit(1)
     );
   }, [db, slug, activeOwnerId]);
@@ -50,16 +51,18 @@ export default function ProjectPage() {
   const project = projectResults?.[0];
 
   // Show loading state while discovering owner or fetching project
-  if (usersLoading || projectLoading) {
+  if (usersLoading || (activeOwnerId && projectLoading) || !hasResolvedOwner) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background gap-4">
         <Activity className="animate-spin text-primary h-10 w-10" />
-        <p className="text-muted-foreground text-xs uppercase font-black tracking-widest animate-pulse">Resolving Project Context...</p>
+        <p className="text-muted-foreground text-xs uppercase font-black tracking-widest animate-pulse">
+          Resolving Case Study...
+        </p>
       </div>
     );
   }
 
-  // If loading is done and no project was found, trigger 404
+  // If loading is done and no project was found after resolving owner, trigger 404
   if (!project) {
     notFound();
   }
@@ -101,7 +104,7 @@ export default function ProjectPage() {
 
           <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group animate-fade-in [animation-delay:200ms]">
             <Image
-              src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/600`}
+              src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/630`}
               alt={project.title}
               fill
               className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
