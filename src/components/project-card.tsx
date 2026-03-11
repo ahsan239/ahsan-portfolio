@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
   project: {
@@ -22,7 +23,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group relative flex flex-col glass-card rounded-[2.5rem] overflow-hidden hover:border-primary/50 transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] h-full shadow-lg hover:shadow-2xl"
+      className={cn(
+        "group relative flex flex-col glass-card rounded-[2.5rem] overflow-hidden hover:border-primary/50 transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] h-full shadow-lg hover:shadow-2xl animate-fade-in-up",
+      )}
+      style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="aspect-[1.2/1] relative overflow-hidden">
         <Image
