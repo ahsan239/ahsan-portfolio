@@ -49,7 +49,15 @@ export default function Home() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-start pt-48 md:pt-60 lg:pt-72 pb-20">
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-48 md:pt-60 lg:pt-72 pb-20 overflow-hidden">
+        {/* Animated Mesh Gradient Background */}
+        <div className="mesh-container">
+          <div className="mesh-blob mesh-blob-1" />
+          <div className="mesh-blob mesh-blob-2" />
+          <div className="mesh-blob mesh-blob-3" />
+          <div className="mesh-blob mesh-blob-4" />
+        </div>
+
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center z-10 flex flex-col items-center">
           <Badge variant="secondary" className="mb-8 md:mb-12 py-2.5 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm animate-fade-in-up">
             <span className="flex items-center gap-3">
