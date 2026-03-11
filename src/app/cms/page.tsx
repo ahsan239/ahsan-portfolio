@@ -10,8 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase } from "@/firebase";
 import { collection, doc, query, orderBy } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
-import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode } from "lucide-react";
+import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode, Sparkles, ExternalLink } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 const OWNER_ID = "ahsan";
 
@@ -107,152 +108,183 @@ export default function CMSPage() {
   return (
     <div className="min-h-screen bg-background dot-pattern pt-32 pb-20">
       <Navigation />
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="flex items-center gap-4 mb-12 animate-fade-in">
-          <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-            <LayoutDashboard size={24} />
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 animate-fade-in">
+          <div className="flex items-center gap-4">
+            <div className="h-14 w-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-2xl shadow-primary/20">
+              <LayoutDashboard size={28} />
+            </div>
+            <div>
+              <h1 className="text-3xl font-black tracking-tight uppercase">Admin Console</h1>
+              <p className="text-muted-foreground text-sm font-medium">Headless CMS Engine • Real-time Data Control</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-black tracking-tight uppercase">Dashboard CMS</h1>
-            <p className="text-muted-foreground text-sm font-medium">Manage your professional identity and portfolio content.</p>
+          <div className="flex gap-3">
+             <Button variant="outline" asChild className="rounded-xl border-white/10 bg-white/5 h-12">
+                <Link href="/"><ExternalLink size={16} className="mr-2" /> View Site</Link>
+             </Button>
           </div>
         </div>
 
         <Tabs defaultValue="projects" className="space-y-8 animate-fade-in-up">
-          <TabsList className="bg-white/5 border border-white/10 p-1 rounded-2xl">
-            <TabsTrigger value="profile" className="rounded-xl px-6 gap-2">
+          <TabsList className="bg-white/5 border border-white/10 p-1.5 h-14 rounded-2xl w-full md:w-fit">
+            <TabsTrigger value="profile" className="rounded-xl px-8 gap-2 data-[state=active]:bg-primary h-full">
               <User size={16} /> Profile
             </TabsTrigger>
-            <TabsTrigger value="projects" className="rounded-xl px-6 gap-2">
+            <TabsTrigger value="projects" className="rounded-xl px-8 gap-2 data-[state=active]:bg-primary h-full">
               <Code2 size={16} /> Projects
             </TabsTrigger>
-            <TabsTrigger value="experience" className="rounded-xl px-6 gap-2">
+            <TabsTrigger value="experience" className="rounded-xl px-8 gap-2 data-[state=active]:bg-primary h-full">
               <Briefcase size={16} /> Career
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="profile" className="animate-in fade-in slide-in-from-bottom-2">
-            <Card className="glass-card border-white/10 overflow-hidden rounded-3xl">
-              <CardHeader>
+            <Card className="glass-card border-white/10 overflow-hidden rounded-[2.5rem] shadow-2xl">
+              <CardHeader className="p-8 border-b border-white/5">
                 <CardTitle className="text-xl flex items-center gap-2 font-black uppercase tracking-tighter">
-                  <User size={20} className="text-primary" /> Global Profile Settings
+                  <User size={20} className="text-primary" /> Identity Settings
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSaveProfile} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CardContent className="p-8">
+                <form onSubmit={handleSaveProfile} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Name</label>
-                      <Input name="name" defaultValue={profile?.name} placeholder="Your Full Name" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Public Name</label>
+                      <Input name="name" defaultValue={profile?.name} placeholder="Your Full Name" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Email</label>
-                      <Input name="contactEmail" type="email" defaultValue={profile?.contactEmail} placeholder="hello@example.dev" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Direct Email</label>
+                      <Input name="contactEmail" type="email" defaultValue={profile?.contactEmail} placeholder="hello@example.dev" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Headline</label>
-                      <Input name="headline" defaultValue={profile?.headline} placeholder="Senior Software Engineer & AI Architect" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Professional Headline</label>
+                      <Input name="headline" defaultValue={profile?.headline} placeholder="Senior Software Engineer & AI Architect" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Resume URL</label>
-                      <Input name="resumeUrl" defaultValue={profile?.resumeUrl} placeholder="https://drive.google.com/..." className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Resume Link (PDF)</label>
+                      <Input name="resumeUrl" defaultValue={profile?.resumeUrl} placeholder="https://drive.google.com/..." className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Bio / About</label>
-                    <Textarea name="bio" defaultValue={profile?.bio} placeholder="Tell your story..." className="bg-white/5 border-white/10 min-h-[150px] rounded-2xl" />
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Biographical Narrative</label>
+                    <Textarea name="bio" defaultValue={profile?.bio} placeholder="Tell your story..." className="bg-white/5 border-white/10 min-h-[200px] rounded-3xl p-6 text-base leading-relaxed" />
                   </div>
-                  <Button type="submit" className="w-full h-12 font-black uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20">
-                    <Save size={18} className="mr-2" /> Save Profile Changes
+                  <Button type="submit" className="w-full h-16 font-black uppercase tracking-widest rounded-2xl shadow-2xl shadow-primary/20 text-sm">
+                    <Save size={20} className="mr-3" /> Commit Profile Changes
                   </Button>
                 </form>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="projects" className="space-y-8 animate-in fade-in slide-in-from-bottom-2">
-            <Card className="glass-card border-white/10 overflow-hidden rounded-3xl">
-              <CardHeader>
+          <TabsContent value="projects" className="space-y-12 animate-in fade-in slide-in-from-bottom-2">
+            <Card className="glass-card border-white/10 overflow-hidden rounded-[2.5rem] shadow-2xl">
+              <CardHeader className="p-8 border-b border-white/5">
                 <CardTitle className="text-xl flex items-center gap-2 font-black uppercase tracking-tighter">
                   {editingId ? <Edit3 size={20} className="text-primary" /> : <Plus size={20} className="text-primary" />}
-                  {editingId ? "Edit Case Study" : "Publish New Case Study"}
+                  {editingId ? "Modify Existing Case Study" : "Draft New Case Study"}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSaveProject} className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Title</label>
-                      <Input name="title" defaultValue={editingProject?.title} placeholder="Project Title" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+              <CardContent className="p-8">
+                <form onSubmit={handleSaveProject} className="space-y-12">
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4">
+                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">01 // Identity</span>
+                       <div className="h-[1px] flex-1 bg-white/5" />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Tech Stack (comma separated)</label>
-                      <Input name="technologies" defaultValue={editingProject?.technologies?.join(', ')} placeholder="React, Next.js, Firebase" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Project Title</label>
+                        <Input name="title" defaultValue={editingProject?.title} placeholder="e.g. Nexus SaaS Engine" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Technologies (Comma separated)</label>
+                        <Input name="technologies" defaultValue={editingProject?.technologies?.join(', ')} placeholder="React, Next.js, Firebase" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Demo URL</label>
-                      <Input name="projectLink" defaultValue={editingProject?.projectLink} placeholder="https://..." className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4">
+                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">02 // Assets & Links</span>
+                       <div className="h-[1px] flex-1 bg-white/5" />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Source URL</label>
-                      <Input name="githubLink" defaultValue={editingProject?.githubLink} placeholder="https://github.com/..." className="bg-white/5 border-white/10 h-12 rounded-xl" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Image URL</label>
-                      <Input name="imageUrl" defaultValue={editingProject?.imageUrl} placeholder="https://picsum.photos/..." className="bg-white/5 border-white/10 h-12 rounded-xl" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">One-Line Summary</label>
-                    <Input name="summary" defaultValue={editingProject?.summary} placeholder="The 'Elevator Pitch' for this project" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">The Challenge / Problem</label>
-                      <Textarea name="problem" defaultValue={editingProject?.problem} placeholder="What was the pain point?" className="bg-white/5 border-white/10 min-h-[120px] rounded-2xl" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">The Engineering Solution</label>
-                      <Textarea name="solution" defaultValue={editingProject?.solution} placeholder="How did you solve it technically?" className="bg-white/5 border-white/10 min-h-[120px] rounded-2xl" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Live URL</label>
+                        <Input name="projectLink" defaultValue={editingProject?.projectLink} placeholder="https://..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Repository URL</label>
+                        <Input name="githubLink" defaultValue={editingProject?.githubLink} placeholder="https://github.com/..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Cover Image URL</label>
+                        <Input name="imageUrl" defaultValue={editingProject?.imageUrl} placeholder="https://picsum.photos/..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Architecture Overview</label>
-                      <Textarea name="architecture" defaultValue={editingProject?.architecture} placeholder="Microservices, Serverless, Edge..." className="bg-white/5 border-white/10 min-h-[100px] rounded-2xl" />
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4">
+                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">03 // High Fidelity Content</span>
+                       <div className="h-[1px] flex-1 bg-white/5" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Code Snippet / Core Logic</label>
-                      <Textarea name="codeSnippet" defaultValue={editingProject?.codeSnippet} placeholder="export const config = { ... }" className="bg-white/5 border-white/10 font-mono text-xs min-h-[100px] rounded-2xl" />
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Value Statement (One Line)</label>
+                      <Input name="summary" defaultValue={editingProject?.summary} placeholder="The 'Elevator Pitch' for this project" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Core Problem</label>
+                        <Textarea name="problem" defaultValue={editingProject?.problem} placeholder="Describe the engineering challenge..." className="bg-white/5 border-white/10 min-h-[160px] rounded-3xl p-6 leading-relaxed" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Technical Solution</label>
+                        <Textarea name="solution" defaultValue={editingProject?.solution} placeholder="Describe your architectural approach..." className="bg-white/5 border-white/10 min-h-[160px] rounded-3xl p-6 leading-relaxed" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Architecture Diagram/Overview</label>
+                        <Textarea name="architecture" defaultValue={editingProject?.architecture} placeholder="Explain the system design..." className="bg-white/5 border-white/10 min-h-[140px] rounded-3xl p-6 font-mono text-xs" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Core Code Snippet</label>
+                        <Textarea name="codeSnippet" defaultValue={editingProject?.codeSnippet} placeholder="export const logic = () => ..." className="bg-white/5 border-white/10 min-h-[140px] rounded-3xl p-6 font-mono text-xs" />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Business Impact</label>
-                      <Input name="businessImpact" defaultValue={editingProject?.businessImpact} placeholder="e.g. 40% Increase in Retention" className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4">
+                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">04 // Measurable Impact</span>
+                       <div className="h-[1px] flex-1 bg-white/5" />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">ROI / Primary Metric</label>
-                      <Input name="roiMetric" defaultValue={editingProject?.roiMetric} placeholder="e.g. $500k ARR Saved" className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Business Outcome</label>
+                        <Input name="businessImpact" defaultValue={editingProject?.businessImpact} placeholder="e.g. 40% Increase in Retention" className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Core KPI / ROI Metric</label>
+                        <Input name="roiMetric" defaultValue={editingProject?.roiMetric} placeholder="e.g. $500k ARR Saved" className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
-                    <Button type="submit" className="flex-1 h-12 font-black uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20">
-                      <Save size={18} className="mr-2" /> {editingId ? "Update Case Study" : "Publish Case Study"}
+                  <div className="flex gap-4 pt-6">
+                    <Button type="submit" className="flex-1 h-16 font-black uppercase tracking-widest rounded-2xl shadow-2xl shadow-primary/20 text-sm">
+                      <Save size={20} className="mr-3" /> {editingId ? "Update Published Project" : "Publish to Production"}
                     </Button>
                     {editingId && (
-                      <Button type="button" variant="outline" onClick={() => setEditingId(null)} className="h-12 w-12 rounded-xl border-white/10 bg-white/5">
-                        <X size={20} />
+                      <Button type="button" variant="outline" onClick={() => setEditingId(null)} className="h-16 w-16 rounded-2xl border-white/10 bg-white/5">
+                        <X size={24} />
                       </Button>
                     )}
                   </div>
@@ -260,28 +292,32 @@ export default function CMSPage() {
               </CardContent>
             </Card>
 
-            <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                <Eye size={14} /> Live Inventory
+            <div className="space-y-6">
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-2">
+                <Sparkles size={14} className="text-primary" /> Active Content Inventory
               </h3>
-              <div className="grid gap-3">
+              <div className="grid gap-4">
                 {projects?.map(p => (
-                  <div key={p.id} className="glass-card p-4 rounded-2xl border-white/5 flex items-center justify-between group hover:border-primary/30 transition-all">
-                    <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-xl overflow-hidden bg-black/20 border border-white/5">
-                        <img src={p.imageUrl} alt="" className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all" />
+                  <div key={p.id} className="glass-card p-6 rounded-[2rem] border-white/5 flex items-center justify-between group hover:border-primary/30 transition-all shadow-xl">
+                    <div className="flex items-center gap-6">
+                      <div className="h-16 w-16 rounded-2xl overflow-hidden bg-black/20 border border-white/5">
+                        <img src={p.imageUrl} alt="" className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm uppercase tracking-tight">{p.title}</h4>
-                        <p className="text-[10px] text-primary uppercase font-black tracking-widest">{p.businessImpact || 'Impact Pending'}</p>
+                        <h4 className="font-bold text-lg uppercase tracking-tight">{p.title}</h4>
+                        <div className="flex items-center gap-3">
+                           <p className="text-[10px] text-primary uppercase font-black tracking-widest">{p.businessImpact || 'Impact Pending'}</p>
+                           <span className="text-white/10">•</span>
+                           <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">{p.technologies?.slice(0, 2).join(' + ')}</p>
+                        </div>
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <Button variant="ghost" size="icon" onClick={() => setEditingId(p.id)} className="text-muted-foreground hover:text-primary rounded-lg">
-                        <Edit3 size={18} />
+                      <Button variant="ghost" size="icon" onClick={() => setEditingId(p.id)} className="text-muted-foreground hover:text-primary hover:bg-primary/10 h-12 w-12 rounded-xl">
+                        <Edit3 size={20} />
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/projects/${p.id}`)} className="text-muted-foreground hover:text-destructive rounded-lg">
-                        <Trash2 size={18} />
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/projects/${p.id}`)} className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-12 w-12 rounded-xl">
+                        <Trash2 size={20} />
                       </Button>
                     </div>
                   </div>
@@ -290,41 +326,41 @@ export default function CMSPage() {
             </div>
           </TabsContent>
 
-          <TabsContent value="experience" className="space-y-8 animate-in fade-in slide-in-from-bottom-2">
-            <Card className="glass-card border-white/10 overflow-hidden rounded-3xl">
-              <CardHeader>
+          <TabsContent value="experience" className="space-y-12 animate-in fade-in slide-in-from-bottom-2">
+            <Card className="glass-card border-white/10 overflow-hidden rounded-[2.5rem] shadow-2xl">
+              <CardHeader className="p-8 border-b border-white/5">
                 <CardTitle className="text-xl flex items-center gap-2 font-black uppercase tracking-tighter">
                   {editingId ? <Edit3 size={20} className="text-primary" /> : <Plus size={20} className="text-primary" />}
-                  {editingId ? "Edit Career Entry" : "New Career Milestone"}
+                  {editingId ? "Modify Career Entry" : "Register Career Milestone"}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSaveExperience} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CardContent className="p-8">
+                <form onSubmit={handleSaveExperience} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Company</label>
-                      <Input name="company" defaultValue={experiences?.find(ex => ex.id === editingId)?.company} placeholder="e.g. Cloudfort" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Company / Institution</label>
+                      <Input name="company" defaultValue={experiences?.find(ex => ex.id === editingId)?.company} placeholder="e.g. Cloudfort" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Role</label>
-                      <Input name="role" defaultValue={experiences?.find(ex => ex.id === editingId)?.role} placeholder="e.g. Web Developer" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Professional Role</label>
+                      <Input name="role" defaultValue={experiences?.find(ex => ex.id === editingId)?.role} placeholder="e.g. Web Developer" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-bold" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Duration</label>
-                    <Input name="duration" defaultValue={experiences?.find(ex => ex.id === editingId)?.duration} placeholder="e.g. Nov 2024 — Present" required className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Duration (Label)</label>
+                    <Input name="duration" defaultValue={experiences?.find(ex => ex.id === editingId)?.duration} placeholder="e.g. Nov 2024 — Present" required className="bg-white/5 border-white/10 h-14 rounded-2xl" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Impact Highlights (one per line)</label>
-                    <Textarea name="points" defaultValue={experiences?.find(ex => ex.id === editingId)?.points?.join('\n')} placeholder="Architected scalable platforms..." required className="bg-white/5 border-white/10 min-h-[150px] rounded-2xl" />
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Impact Highlights (Markdown supported)</label>
+                    <Textarea name="points" defaultValue={experiences?.find(ex => ex.id === editingId)?.points?.join('\n')} placeholder="Architected scalable platforms..." required className="bg-white/5 border-white/10 min-h-[240px] rounded-3xl p-6 text-base leading-relaxed" />
                   </div>
-                  <div className="flex gap-4">
-                    <Button type="submit" className="flex-1 h-12 font-black uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20">
-                      <Save size={18} className="mr-2" /> {editingId ? "Update Milestone" : "Add to Timeline"}
+                  <div className="flex gap-4 pt-6">
+                    <Button type="submit" className="flex-1 h-16 font-black uppercase tracking-widest rounded-2xl shadow-2xl shadow-primary/20 text-sm">
+                      <Save size={20} className="mr-3" /> {editingId ? "Update Career Records" : "Commit to Timeline"}
                     </Button>
                     {editingId && (
-                      <Button type="button" variant="outline" onClick={() => setEditingId(null)} className="h-12 w-12 rounded-xl border-white/10 bg-white/5">
-                        <X size={20} />
+                      <Button type="button" variant="outline" onClick={() => setEditingId(null)} className="h-16 w-16 rounded-2xl border-white/10 bg-white/5">
+                        <X size={24} />
                       </Button>
                     )}
                   </div>
@@ -332,23 +368,28 @@ export default function CMSPage() {
               </CardContent>
             </Card>
 
-            <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                <Briefcase size={14} /> Professional History
+            <div className="space-y-6">
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-2">
+                <Briefcase size={14} className="text-primary" /> Career Records Track
               </h3>
-              <div className="grid gap-3">
+              <div className="grid gap-4">
                 {experiences?.map(ex => (
-                  <div key={ex.id} className="glass-card p-4 rounded-2xl border-white/5 flex items-center justify-between group hover:border-primary/30 transition-all">
-                    <div>
-                      <h4 className="font-bold text-sm uppercase tracking-tight">{ex.role}</h4>
-                      <p className="text-[10px] text-primary font-black uppercase tracking-widest">{ex.company} • {ex.duration}</p>
+                  <div key={ex.id} className="glass-card p-6 rounded-[2rem] border-white/5 flex items-center justify-between group hover:border-primary/30 transition-all shadow-xl">
+                    <div className="flex items-center gap-6">
+                      <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                         <Briefcase size={24} />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-lg uppercase tracking-tight">{ex.role}</h4>
+                        <p className="text-[10px] text-primary font-black uppercase tracking-widest">{ex.company} • {ex.duration}</p>
+                      </div>
                     </div>
                     <div className="flex gap-2">
-                      <Button variant="ghost" size="icon" onClick={() => setEditingId(ex.id)} className="text-muted-foreground hover:text-primary rounded-lg">
-                        <Edit3 size={18} />
+                      <Button variant="ghost" size="icon" onClick={() => setEditingId(ex.id)} className="text-muted-foreground hover:text-primary hover:bg-primary/10 h-12 w-12 rounded-xl">
+                        <Edit3 size={20} />
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/experiences/${ex.id}`)} className="text-muted-foreground hover:text-destructive rounded-lg">
-                        <Trash2 size={18} />
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(`users/${OWNER_ID}/experiences/${ex.id}`)} className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-12 w-12 rounded-xl">
+                        <Trash2 size={20} />
                       </Button>
                     </div>
                   </div>
