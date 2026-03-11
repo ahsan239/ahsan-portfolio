@@ -56,18 +56,6 @@ export default function Home() {
         "Led a team of 5 developers in delivering production-ready AI integrated features."
       ],
       type: "Full-Time"
-    },
-    {
-      id: "exp-2",
-      role: "Software Engineering Intern",
-      company: "CloudCore Systems",
-      duration: "June 2022 — Sept 2022 (4 Months)",
-      points: [
-        "Developed internal dashboard components using React and Tailwind CSS.",
-        "Optimized Firebase Firestore queries, reducing read costs by 25%.",
-        "Collaborated on agile development cycles and code review processes."
-      ],
-      type: "Internship"
     }
   ];
 

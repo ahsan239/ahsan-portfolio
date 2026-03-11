@@ -10,7 +10,7 @@ import {
   Globe, Coffee, Rocket, Mail, Code2, Cpu, 
   Database, Flame, Layers, Share2, Terminal, 
   Palette, Sparkles, BookOpen, Hammer, Search,
-  GraduationCap, School, Calendar, ArrowRight, Award
+  GraduationCap, School, Calendar, ArrowRight, Award, Briefcase
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase, useCollection } from "@/firebase";
 import { doc, collection, query, orderBy } from "firebase/firestore";
@@ -93,18 +93,6 @@ export default function AboutPage() {
         "Led a team of 5 developers in delivering production-ready AI integrated features."
       ],
       type: "Full-Time"
-    },
-    {
-      id: "exp-2",
-      role: "Software Engineering Intern",
-      company: "CloudCore Systems",
-      duration: "June 2022 — Sept 2022 (4 Months)",
-      points: [
-        "Developed internal dashboard components using React and Tailwind CSS.",
-        "Optimized Firebase Firestore queries, reducing read costs by 25%.",
-        "Collaborated on agile development cycles and code review processes."
-      ],
-      type: "Internship"
     }
   ];
 
