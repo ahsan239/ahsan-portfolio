@@ -1,9 +1,8 @@
-
 'use client';
 
 import { Navigation } from "@/components/navigation";
 import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, where, limit } from "firebase/firestore";
+import { collection, query, where, limit, orderBy } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
@@ -20,10 +19,11 @@ export default function ProjectPage() {
   const db = useFirestore();
   const slug = params?.slug as string;
   const [activeOwnerId, setActiveOwnerId] = useState<string | null>(null);
-  const [hasResolvedOwner, setHasResolvedOwner] = useState(false);
+  const [isResolvingOwner, setIsResolvingOwner] = useState(true);
 
   // Discover the active user profile from Firestore
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(20)), [db]);
+  // We look for profiles that have been recently updated to find the active portfolio owner
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(10)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
@@ -33,7 +33,9 @@ export default function ProjectPage() {
       if (activeUser) {
         setActiveOwnerId(activeUser.id);
       }
-      setHasResolvedOwner(true);
+      setIsResolvingOwner(false);
+    } else if (!usersLoading && !users) {
+      setIsResolvingOwner(false);
     }
   }, [users, usersLoading]);
 
@@ -50,8 +52,13 @@ export default function ProjectPage() {
   const { data: projectResults, isLoading: projectLoading } = useCollection(projectQuery);
   const project = projectResults?.[0];
 
-  // Show loading state while discovering owner or fetching project
-  if (usersLoading || (activeOwnerId && projectLoading) || !hasResolvedOwner) {
+  // We are "Loading" if:
+  // 1. Still fetching the list of users
+  // 2. Still trying to decide which user is the owner
+  // 3. Have an owner, but still fetching the specific project
+  const isGlobalLoading = usersLoading || isResolvingOwner || (activeOwnerId && projectLoading);
+
+  if (isGlobalLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background gap-4">
         <Activity className="animate-spin text-primary h-10 w-10" />
@@ -62,8 +69,8 @@ export default function ProjectPage() {
     );
   }
 
-  // If loading is done and no project was found after resolving owner, trigger 404
-  if (!project) {
+  // If loading is done and we either have no owner or the owner has no such project
+  if (!activeOwnerId || (!projectLoading && !project)) {
     notFound();
   }
 
