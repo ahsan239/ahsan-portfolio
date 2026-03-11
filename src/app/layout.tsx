@@ -1,11 +1,9 @@
-
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FirebaseClientProvider } from '@/firebase';
 import { Toaster } from '@/components/ui/toaster';
 import { Footer } from '@/components/footer';
-import { InteractiveBackground } from '@/components/interactive-background';
 
 export const metadata: Metadata = {
   title: {
@@ -89,7 +87,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
-            <InteractiveBackground />
             <div className="relative z-0">
               {children}
             </div>
