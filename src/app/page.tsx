@@ -205,8 +205,8 @@ export default function Home() {
 
       {/* Technical Arsenal */}
       <section id="arsenal" className="py-20 md:py-40 relative">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-12 md:mb-20 animate-fade-in-up">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
+          <div className="mb-12 md:mb-20">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Technical Arsenal
             </Badge>
@@ -254,8 +254,8 @@ export default function Home() {
 
       {/* Professional Journey (Experience) */}
       <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-12 md:mb-20 animate-fade-in-up">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
+          <div className="mb-12 md:mb-20">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Career Path
             </Badge>
@@ -300,8 +300,8 @@ export default function Home() {
 
       {/* Projects Grid */}
       <section id="projects" className="py-20 md:py-32">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-12 md:mb-20 max-w-3xl animate-fade-in-up">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
+          <div className="mb-12 md:mb-20 max-w-3xl">
             <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
             <h3 className="text-3xl md:text-6xl font-bold tracking-tight leading-none italic uppercase text-foreground">
               Proven results in <span className="text-muted-foreground">engineering.</span>
@@ -324,8 +324,8 @@ export default function Home() {
 
       {/* Contact Strategy */}
       <section id="contact" className="py-24 md:py-40 relative">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center">
-          <div className="max-w-5xl mx-auto space-y-10 md:space-y-12 animate-fade-in-up">
+        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center animate-fade-in-up">
+          <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
             <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.85] italic uppercase text-gradient">
               Let's build <br className="hidden md:block" /> something <span className="text-foreground">great.</span>
             </h2>

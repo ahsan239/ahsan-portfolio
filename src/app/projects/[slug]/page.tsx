@@ -41,16 +41,16 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
       <Navigation />
       
       <main className="pt-32 md:pt-40 pb-20 md:pb-32">
         <div className="container mx-auto px-6 max-w-7xl">
-          <Link href="/#projects" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-8">
+          <Link href="/#projects" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-8 animate-fade-in">
             <ChevronLeft className="h-3 w-3" /> Back to Engineering Portfolio
           </Link>
 
-          <header className="grid lg:grid-cols-12 gap-8 md:gap-12 mb-16 md:mb-20">
+          <header className="grid lg:grid-cols-12 gap-8 md:gap-12 mb-16 md:mb-20 animate-fade-in-up">
             <div className="lg:col-span-8 space-y-6">
                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[1] md:leading-[0.85] text-gradient">
                 {project.title}
@@ -75,7 +75,7 @@ export default function ProjectPage() {
             </div>
           </header>
 
-          <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group">
+          <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group animate-fade-in [animation-delay:200ms]">
             <Image
               src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/600`}
               alt={project.title}
@@ -88,7 +88,7 @@ export default function ProjectPage() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 md:gap-20 items-start">
-            <div className="lg:col-span-7 space-y-16">
+            <div className="lg:col-span-7 space-y-16 animate-fade-in-up [animation-delay:400ms]">
               <section className="space-y-6">
                 <div className="flex items-center gap-4 text-muted-foreground/50">
                   <span className="text-[10px] font-black uppercase tracking-widest">01 // The Problem</span>
@@ -129,7 +129,7 @@ export default function ProjectPage() {
               </section>
             </div>
 
-            <aside className="lg:col-span-5 lg:sticky lg:top-32 space-y-8">
+            <aside className="lg:col-span-5 lg:sticky lg:top-32 space-y-8 animate-fade-in-up [animation-delay:600ms]">
                <AIDemo />
                
                <div className="space-y-6 p-8 bg-white/[0.02] rounded-[2rem] border border-white/5 shadow-xl">

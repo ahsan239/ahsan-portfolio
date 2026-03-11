@@ -1,3 +1,5 @@
+"use client";
+
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -48,22 +50,22 @@ export default function HirePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground dot-pattern">
+    <div className="min-h-screen bg-background text-foreground dot-pattern selection:bg-primary/20">
       <Navigation />
       
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto space-y-6 mb-20">
+          <div className="text-center max-w-3xl mx-auto space-y-6 mb-20 animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-black tracking-tight">
               Turn your vision into <span className="text-gradient">Production</span> Code.
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl text-muted-foreground leading-relaxed animate-fade-in [animation-delay:200ms]">
               I partner with forward-thinking teams to build high-performance software 
               and implement strategic AI infrastructure that delivers measurable ROI.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-24 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 mb-24 max-w-5xl mx-auto animate-fade-in-up [animation-delay:400ms]">
             {services.map((service, idx) => (
               <Card key={idx} className={cn(
                 "glass-card overflow-hidden border-white/10 group relative transition-all hover:-translate-y-2",
@@ -105,7 +107,7 @@ export default function HirePage() {
             ))}
           </div>
 
-          <section className="mb-24">
+          <section className="mb-24 animate-fade-in-up [animation-delay:600ms]">
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                {valueProps.map((prop, idx) => (
                  <div key={idx} className="p-8 rounded-3xl glass-card border-white/5 space-y-4 text-center">
@@ -119,7 +121,7 @@ export default function HirePage() {
             </div>
           </section>
 
-          <section id="booking" className="max-w-4xl mx-auto">
+          <section id="booking" className="max-w-4xl mx-auto animate-fade-in-up [animation-delay:800ms]">
             <div className="bg-secondary/30 rounded-[3rem] p-12 border border-white/5 text-center space-y-12 shadow-2xl">
               <div className="space-y-4">
                 <div className="inline-flex h-12 w-12 rounded-full bg-primary/20 items-center justify-center mb-4">

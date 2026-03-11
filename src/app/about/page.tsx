@@ -111,7 +111,7 @@ export default function AboutPage() {
           </header>
 
           {/* Value Cards */}
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 md:mb-40">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 md:mb-40 animate-fade-in-up [animation-delay:400ms]">
             {values.map((value, idx) => (
               <Card key={idx} className={cn(
                 "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 group p-8 md:p-10 rounded-[2.5rem] overflow-hidden hover:-translate-y-2 shadow-xl",
@@ -130,7 +130,7 @@ export default function AboutPage() {
           {/* Detailed Narrative */}
           <section className="space-y-20 md:space-y-32 mb-24 md:mb-40">
             
-            <div className="space-y-10">
+            <div className="space-y-10 animate-fade-in-up">
               <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit">
                 <span className="flex items-center gap-3">
                   <BookOpen size={14} className="text-primary" />
@@ -155,7 +155,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="space-y-12 md:space-y-16">
+            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
               <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
                 Technical Arsenal
               </Badge>
@@ -189,7 +189,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="space-y-12 md:space-y-16">
+            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
               <div className="space-y-4 md:space-y-6">
                 <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none text-foreground">
                   Engineering <span className="text-primary italic">Philosophy</span>
@@ -246,7 +246,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="space-y-12 md:space-y-16">
+            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
               <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
                 Academic Foundation
               </Badge>
@@ -274,7 +274,7 @@ export default function AboutPage() {
             </div>
 
             {/* CTA Section */}
-            <section className="mt-24 md:mt-40">
+            <section className="mt-24 md:mt-40 animate-fade-in-up">
               <div className="rounded-[2.5rem] bg-primary p-12 md:p-24 text-center space-y-10 shadow-2xl relative overflow-hidden group">
                 <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-primary-foreground uppercase leading-[0.9] md:leading-[0.8] relative z-10">
                   Ready to build <br /> the <span className="italic opacity-80">Future?</span>
