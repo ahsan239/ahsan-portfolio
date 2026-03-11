@@ -17,6 +17,7 @@ import { useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase
 import { collection, query, orderBy, doc, limit } from "firebase/firestore";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { PROJECTS } from "@/app/lib/projects";
 
 /**
  * @fileOverview Landing page for the portfolio.
@@ -59,7 +60,20 @@ export default function Home() {
     }
   ];
 
+  // Map dummy projects from the library to the UI format
+  const dummyProjects = PROJECTS.map((p, idx) => ({
+    id: `dummy-${idx}`,
+    slug: p.slug,
+    title: p.title,
+    description: p.shortDescription,
+    imageUrl: p.imageUrl,
+    techStack: p.techStack,
+    roiMetric: p.roiMetric,
+    businessImpact: p.businessImpact
+  }));
+
   const displayExperiences = experiences && experiences.length > 0 ? experiences : defaultExperiences;
+  const displayProjects = projects && projects.length > 0 ? projects : dummyProjects;
 
   return (
     <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
@@ -294,8 +308,8 @@ export default function Home() {
                  <Activity className="animate-spin text-primary h-8 w-8" />
                  <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Syncing Projects...</p>
                </div>
-            ) : projects && projects.length > 0 ? (
-              projects.map((project, idx) => (
+            ) : displayProjects && displayProjects.length > 0 ? (
+              displayProjects.map((project, idx) => (
                 <ProjectCard key={project.id} project={project as any} index={idx} />
               ))
             ) : (
