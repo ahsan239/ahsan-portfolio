@@ -4,8 +4,8 @@ import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { 
-  BrainCircuit, Rocket, LineChart, Code2, Calendar, 
-  CheckCircle2, ArrowRight, Globe, Database, Cpu, 
+  Rocket, Code2, Calendar, 
+  CheckCircle2, ArrowRight, Terminal, 
   Sparkles, ShieldCheck, Zap
 } from "lucide-react";
 import Link from "next/link";
@@ -14,39 +14,41 @@ import { cn } from "@/lib/utils";
 export default function HirePage() {
   const services = [
     {
-      title: "Strategic Consulting",
-      subtitle: "AI Infrastructure & Architecture",
-      icon: <BrainCircuit className="h-6 w-6 text-accent" />,
+      title: "Web Development",
+      subtitle: "High-Performance Digital Products",
+      icon: <Code2 className="h-6 w-6 text-primary" />,
       features: [
-        "LLM Implementation Roadmaps",
-        "RAG Pipeline Engineering",
-        "Cost-Benefit AI Analysis",
-        "Architecture Security Audits"
-      ],
-      cta: "Book Discovery Session",
-      href: "#booking",
-      popular: false
-    },
-    {
-      title: "Full-Stack Development",
-      subtitle: "Production-Ready Digital Products",
-      icon: <Rocket className="h-6 w-6 text-primary" />,
-      features: [
-        "Scalable Next.js Platforms",
-        "Real-time Data Systems",
-        "High-Performance API Design",
-        "Cloud-Native Deployments"
+        "React 19 & Next.js 15 Platforms",
+        "Performance & SEO Optimization",
+        "Scalable Frontend Architecture",
+        "Production-Ready Engineering",
+        "Secure & Reliable Codebases"
       ],
       cta: "Inquire about Project",
       href: "mailto:ahsan000k@gmail.com",
       popular: true
+    },
+    {
+      title: "Process Automation",
+      subtitle: "Google Apps Script Engineering",
+      icon: <Terminal className="h-6 w-6 text-accent" />,
+      features: [
+        "Google Workspace Customization",
+        "Automated Business Workflows",
+        "Streamlined Operations",
+        "API & System Integrations",
+        "Maximum Process Efficiency"
+      ],
+      cta: "Book Discovery Session",
+      href: "#booking",
+      popular: false
     }
   ];
 
   const valueProps = [
     { icon: <Zap className="text-yellow-400" />, title: "Rapid Execution", desc: "Moving from prototype to production with velocity and precision." },
     { icon: <ShieldCheck className="text-green-400" />, title: "Production Grade", desc: "Zero-compromise approach to security, scalability, and testing." },
-    { icon: <Sparkles className="text-primary" />, title: "AI-Native", desc: "Infusing intelligence into workflows to automate the mundane." }
+    { icon: <Sparkles className="text-primary" />, title: "Modern Stack", desc: "Utilizing the latest technologies to build future-proof solutions." }
   ];
 
   return (
@@ -61,7 +63,7 @@ export default function HirePage() {
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed animate-fade-in [animation-delay:200ms]">
               I partner with forward-thinking teams to build high-performance software 
-              and implement strategic AI infrastructure that delivers measurable ROI.
+              and implement powerful automation systems that streamline business operations.
             </p>
           </div>
 
