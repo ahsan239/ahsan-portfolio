@@ -18,17 +18,25 @@ import { collection, query, orderBy, doc, limit } from "firebase/firestore";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
+/**
+ * @fileOverview Landing page for the portfolio.
+ * Dynamically discovers the active owner and showcases high-impact projects.
+ */
 export default function Home() {
   const db = useFirestore();
   const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
 
-  // Discover the active user profile from Firestore
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(1)), [db]);
+  // Discover the active user profile from Firestore: find the most recently active or any available profile
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(5)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
     if (users && users.length > 0) {
-      setActiveOwnerId(users[0].id);
+      // Find the first user that has some profile data or just the first one in the list
+      const activeUser = users.find(u => u.name || u.headline) || users[0];
+      if (activeUser) {
+        setActiveOwnerId(activeUser.id);
+      }
     }
   }, [users]);
 

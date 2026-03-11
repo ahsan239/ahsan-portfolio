@@ -7,22 +7,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/tabs";
 import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase, useAuth } from "@/firebase";
-import { collection, doc, query, orderBy } from "firebase/firestore";
+import { collection, doc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
 import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode, Sparkles, ExternalLink, ShieldAlert } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import Link from "next/link";
 
+/**
+ * @fileOverview Administrative Console (CMS) for managing portfolio content.
+ * Handles Profile, Projects, and Experience management with real-time Firestore sync.
+ */
 export default function CMSPage() {
   const db = useFirestore();
   const auth = useAuth();
   const { user, isUserLoading } = useUser();
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Use the authenticated user's ID, or fallback to "ahsan"
+  // Fallback to "ahsan" if not logged in, but the UI restricts access anyway
   const OWNER_ID = user?.uid || "ahsan";
 
   const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db, OWNER_ID]);
@@ -37,6 +41,15 @@ export default function CMSPage() {
     initiateAnonymousSignIn(auth);
   };
 
+  const ensureProfileExists = () => {
+    // Crucial for discovery query on home page: ensure the root user doc exists
+    setDocumentNonBlocking(profileRef, { 
+      id: OWNER_ID, 
+      lastUpdated: serverTimestamp(),
+      updatedBy: user?.email || 'Anonymous'
+    }, { merge: true });
+  };
+
   const handleSaveProfile = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
@@ -49,6 +62,7 @@ export default function CMSPage() {
       bio: formData.get('bio') as string,
       contactEmail: formData.get('contactEmail') as string,
       resumeUrl: formData.get('resumeUrl') as string,
+      lastUpdated: serverTimestamp(),
     };
     
     setDocumentNonBlocking(profileRef, data, { merge: true });
@@ -59,10 +73,7 @@ export default function CMSPage() {
     e.preventDefault();
     if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
 
-    // Ensure user document exists for discovery query
-    if (!profile) {
-      setDocumentNonBlocking(profileRef, { id: OWNER_ID, name: "Portfolio Owner" }, { merge: true });
-    }
+    ensureProfileExists();
 
     const formData = new FormData(e.currentTarget);
     const id = editingId || crypto.randomUUID();
@@ -83,6 +94,7 @@ export default function CMSPage() {
       techStack: (formData.get('technologies') as string).split(',').map(s => s.trim()),
       imageUrl: formData.get('imageUrl') as string || `https://picsum.photos/seed/${id}/1200/630`,
       order: editingId ? (projects?.find(p => p.id === id)?.order ?? 0) : (projects?.length || 0),
+      updatedAt: serverTimestamp(),
     };
 
     setDocumentNonBlocking(doc(db, 'users', OWNER_ID, 'projects', id), projectData, { merge: true });
@@ -95,10 +107,7 @@ export default function CMSPage() {
     e.preventDefault();
     if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
 
-    // Ensure user document exists for discovery query
-    if (!profile) {
-      setDocumentNonBlocking(profileRef, { id: OWNER_ID, name: "Portfolio Owner" }, { merge: true });
-    }
+    ensureProfileExists();
 
     const formData = new FormData(e.currentTarget);
     const id = editingId || crypto.randomUUID();
@@ -109,7 +118,8 @@ export default function CMSPage() {
       role: formData.get('role') as string,
       period: formData.get('period') as string,
       desc: formData.get('desc') as string,
-      order: editingId ? (experiences?.find(ex => ex.id === id)?.order ?? 0) : (experiences?.length || 0)
+      order: editingId ? (experiences?.find(ex => ex.id === id)?.order ?? 0) : (experiences?.length || 0),
+      updatedAt: serverTimestamp(),
     };
 
     setDocumentNonBlocking(doc(db, 'users', OWNER_ID, 'experiences', id), expData, { merge: true });
