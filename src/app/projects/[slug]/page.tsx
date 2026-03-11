@@ -3,32 +3,42 @@
 
 import { Navigation } from "@/components/navigation";
 import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, where, limit } from "firebase/firestore";
+import { collection, query, where, limit, getDocs } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
-import { ChevronLeft, Github, ExternalLink, Code, Loader2, Target, Zap } from "lucide-react";
+import { ChevronLeft, Github, ExternalLink, Code, Loader2, Target, Zap, Activity } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+/**
+ * @fileOverview Individual project case study view.
+ * Dynamically resolves the owner and fetches project details by slug.
+ */
 export default function ProjectPage() {
   const params = useParams();
   const db = useFirestore();
   const slug = params?.slug as string;
   const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
 
-  // Discover active user
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(1)), [db]);
-  const { data: users } = useCollection(usersQuery);
+  // Robust Owner Discovery: Matches the logic used on the Home page to ensure 
+  // we find the correct UID where the projects are stored.
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(10)), [db]);
+  const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
     if (users && users.length > 0) {
-      setActiveOwnerId(users[0].id);
+      // Find the first user that has some profile data or just the first one in the list
+      const activeUser = users.find(u => u.name || u.headline) || users[0];
+      if (activeUser) {
+        setActiveOwnerId(activeUser.id);
+      }
     }
   }, [users]);
 
+  // Project lookup by slug under the resolved active owner
   const projectQuery = useMemoFirebase(() => {
-    if (!slug) return null;
+    if (!slug || !activeOwnerId) return null;
     return query(
       collection(db, 'users', activeOwnerId, 'projects'),
       where('slug', '==', slug),
@@ -36,18 +46,21 @@ export default function ProjectPage() {
     );
   }, [db, slug, activeOwnerId]);
 
-  const { data: projectResults, isLoading } = useCollection(projectQuery);
+  const { data: projectResults, isLoading: projectLoading } = useCollection(projectQuery);
   const project = projectResults?.[0];
 
-  if (isLoading) {
+  // Show loading state while discovering owner or fetching project
+  if (usersLoading || projectLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="animate-spin text-primary h-8 w-8" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background gap-4">
+        <Activity className="animate-spin text-primary h-10 w-10" />
+        <p className="text-muted-foreground text-xs uppercase font-black tracking-widest animate-pulse">Resolving Project Context...</p>
       </div>
     );
   }
 
-  if (!isLoading && !project) {
+  // If loading is done and no project was found, trigger 404
+  if (!project) {
     notFound();
   }
 
@@ -77,11 +90,11 @@ export default function ProjectPage() {
             <div className="lg:col-span-4 flex flex-col justify-end gap-6 border-l border-white/10 pl-6">
                <div className="space-y-1">
                   <p className="text-[9px] font-black text-primary uppercase tracking-widest">Business Impact</p>
-                  <p className="text-xl md:text-2xl font-bold text-foreground">{project.businessImpact || "N/A"}</p>
+                  <p className="text-xl md:text-2xl font-bold text-foreground">{project.businessImpact || "Impact Measured"}</p>
                </div>
                <div className="space-y-1">
                   <p className="text-[9px] font-black text-primary uppercase tracking-widest">Core ROI</p>
-                  <p className="text-xl md:text-2xl font-bold text-foreground">{project.roiMetric || "N/A"}</p>
+                  <p className="text-xl md:text-2xl font-bold text-foreground">{project.roiMetric || "ROI Optimized"}</p>
                </div>
             </div>
           </header>
@@ -107,9 +120,11 @@ export default function ProjectPage() {
                 </div>
                 <div className="flex gap-4 items-start">
                    <Target className="h-6 w-6 text-primary shrink-0 mt-1" />
-                   <p className="text-lg md:text-2xl font-light leading-relaxed text-foreground italic">
-                    "{project.problem || project.description}"
-                   </p>
+                   <div className="space-y-4">
+                     <p className="text-lg md:text-2xl font-light leading-relaxed text-foreground italic">
+                      "{project.problem || project.description}"
+                     </p>
+                   </div>
                 </div>
               </section>
 
@@ -121,7 +136,7 @@ export default function ProjectPage() {
                 <div className="flex gap-4 items-start">
                    <Zap className="h-6 w-6 text-accent shrink-0 mt-1" />
                    <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
-                    {project.solution || "Implementing a custom high-performance solution focused on scalability."}
+                    {project.solution || "Implementing a custom high-performance solution focused on scalability and enterprise-grade reliability."}
                    </p>
                 </div>
               </section>
@@ -136,7 +151,7 @@ export default function ProjectPage() {
                     {project.architecture && (
                       <div className="space-y-4">
                         <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-foreground">Architecture Strategy</h4>
-                        <div className="text-sm md:text-base text-muted-foreground leading-relaxed whitespace-pre-wrap font-mono bg-black/20 p-4 rounded-xl">
+                        <div className="text-sm md:text-base text-muted-foreground leading-relaxed whitespace-pre-wrap font-mono bg-black/20 p-4 rounded-xl border border-white/5">
                           {project.architecture}
                         </div>
                       </div>
@@ -161,14 +176,19 @@ export default function ProjectPage() {
                   <h3 className="text-lg font-black uppercase tracking-tighter text-foreground">Project Resources</h3>
                   <div className="space-y-4">
                     {project.projectLink && (
-                      <Link href={project.projectLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest">
-                        Live Demo <ExternalLink className="h-4 w-4" />
+                      <Link href={project.projectLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
+                        Live Demo <ExternalLink className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
                     )}
                     {project.githubLink && (
-                      <Link href={project.githubLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest">
-                        Source Code <Github className="h-4 w-4" />
+                      <Link href={project.githubLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
+                        Source Code <Github className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
+                    )}
+                    {!project.projectLink && !project.githubLink && (
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center py-4 border border-dashed border-white/10 rounded-xl">
+                        Private Repository
+                      </p>
                     )}
                   </div>
                </div>
