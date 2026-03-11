@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: 'Ahsan | Senior Software Engineer & AI Architect',
     template: '%s | Ahsan'
   },
-  description: 'Software Engineer specializing in Next.js, AI infrastructure, and high-performance digital products. Architecting scalable solutions for the modern web.',
+  description: 'Software Engineer specializing in building scalable digital systems and intelligent automation workflows.',
   keywords: ['Software Engineer', 'AI Architect', 'Next.js', 'React', 'Full Stack Developer', 'LLM Engineering'],
   authors: [{ name: 'Ahsan' }],
   creator: 'Ahsan',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://ahsan.dev',
     title: 'Ahsan | Senior Software Engineer & AI Architect',
-    description: 'Architecting high-performance digital products and strategic AI infrastructure.',
+    description: 'Software Engineer specializing in building scalable digital systems and intelligent automation workflows.',
     siteName: 'Ahsan Portfolio',
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Ahsan | Senior Software Engineer',
-    description: 'Architecting high-performance digital products and strategic AI infrastructure.',
+    description: 'Software Engineer specializing in building scalable digital systems and intelligent automation workflows.',
     creator: '@ahsan_dev',
   },
   robots: {

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -95,7 +94,7 @@ export default function Home() {
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-normal tracking-tight animate-fade-in-up [animation-delay:300ms]">
-            {profile?.headline || "Senior Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
+            {profile?.headline || "Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:500ms] w-full sm:w-auto">
