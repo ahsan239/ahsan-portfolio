@@ -1,9 +1,11 @@
+
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FirebaseClientProvider } from '@/firebase';
 import { Toaster } from '@/components/ui/toaster';
 import { Footer } from '@/components/footer';
+import { InteractiveBackground } from '@/components/interactive-background';
 
 export const metadata: Metadata = {
   title: {
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: '#171717' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -87,7 +89,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
-            {children}
+            <InteractiveBackground />
+            <div className="relative z-0">
+              {children}
+            </div>
             <Footer />
             <Toaster />
           </FirebaseClientProvider>
