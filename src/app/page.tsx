@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -13,17 +14,27 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase";
-import { collection, query, orderBy, doc } from "firebase/firestore";
+import { collection, query, orderBy, doc, limit } from "firebase/firestore";
 import { cn } from "@/lib/utils";
-
-const OWNER_ID = "ahsan";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const db = useFirestore();
+  const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
 
-  const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
-  const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db]);
-  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
+  // Discover the active user ID from Firestore
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(1)), [db]);
+  const { data: users } = useCollection(usersQuery);
+
+  useEffect(() => {
+    if (users && users.length > 0) {
+      setActiveOwnerId(users[0].id);
+    }
+  }, [users]);
+
+  const profileRef = useMemoFirebase(() => doc(db, 'users', activeOwnerId), [db, activeOwnerId]);
+  const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', activeOwnerId, 'projects'), orderBy('order', 'asc')), [db, activeOwnerId]);
+  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', activeOwnerId, 'experiences'), orderBy('order', 'desc')), [db, activeOwnerId]);
 
   const { data: profile } = useDoc(profileRef);
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
@@ -49,13 +60,9 @@ export default function Home() {
       id: "exp-1",
       role: "Google Apps Script Engineer & Web Developer",
       company: "Cloudfort Technologies and Consultancy",
-      duration: "Nov 2024 — Present",
-      points: [
-        "Architecting high-performance web applications using modern React and Next.js frameworks.",
-        "Engineering complex Google Apps Script automation solutions to streamline enterprise business processes.",
-        "Building scalable, secure, and production-ready digital products for diverse consultancy projects."
-      ],
-      type: "Full-Time"
+      period: "Nov 2024 — Present",
+      desc: "Architecting high-performance web applications using modern React and Next.js frameworks.\nEngineering complex Google Apps Script automation solutions to streamline enterprise business processes.\nBuilding scalable, secure, and production-ready digital products for diverse consultancy projects.",
+      order: 0
     }
   ];
 
@@ -220,55 +227,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Technical Arsenal */}
-      <section id="arsenal" className="py-20 md:py-40 relative">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
-          <div className="mb-12 md:mb-20">
-            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
-              Technical Arsenal
-            </Badge>
-            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
-              Technologies <br className="hidden sm:block" />
-              I use to <span className="text-primary italic">Build.</span>
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techArsenal.map((tech, idx) => (
-              <Card key={tech.name} className={cn(
-                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 hover:scale-[1.02] shadow-xl animate-fade-in-up",
-                tech.glow
-              )} style={{ animationDelay: `${idx * 50}ms` }}>
-                <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">
-                  <div className="flex justify-between items-start mb-10 md:mb-12">
-                    <div className={cn(
-                      "h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:bg-white/10",
-                      tech.color
-                    )}>
-                      {tech.icon}
-                    </div>
-                    <span className="text-[8px] md:text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/40 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 group-hover:border-primary/30 group-hover:text-primary transition-colors">
-                      {tech.category}
-                    </span>
-                  </div>
-                  
-                  <div className="mt-auto space-y-2">
-                    <h4 className="text-lg md:text-xl font-semibold uppercase tracking-tighter group-hover:text-primary transition-colors text-foreground">
-                      {tech.name}
-                    </h4>
-                    <p className="text-[10px] md:text-[11px] text-muted-foreground font-normal leading-relaxed tracking-tight">
-                      {tech.desc}
-                    </p>
-                  </div>
-                  
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Professional Journey (Experience Timeline - FULL VIEW) */}
       <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
@@ -318,22 +276,19 @@ export default function Home() {
                             </p>
                           </div>
                           <Badge variant="outline" className="w-fit text-xs font-bold uppercase tracking-widest text-primary border-primary/20 bg-primary/5 py-1 px-4 h-fit">
-                              {exp.duration}
+                              {exp.period}
                           </Badge>
                         </div>
-                        <Badge variant="secondary" className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-3 py-1 rounded-full w-fit">
-                          {exp.type}
-                        </Badge>
                       </div>
 
-                      <ul className="space-y-4 max-w-3xl">
-                        {exp.points?.map((point: string, pIdx: number) => (
-                          <li key={pIdx} className="flex gap-4 text-sm md:text-base text-muted-foreground font-normal leading-relaxed tracking-tight">
+                      <div className="space-y-4 max-w-3xl">
+                        {exp.desc?.split('\n').map((point: string, pIdx: number) => (
+                          <div key={pIdx} className="flex gap-4 text-sm md:text-base text-muted-foreground font-normal leading-relaxed tracking-tight">
                             <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-2 shrink-0" />
                             <span>{point}</span>
-                          </li>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   </Card>
                 </div>

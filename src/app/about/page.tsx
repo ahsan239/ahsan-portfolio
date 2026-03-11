@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -13,15 +14,26 @@ import {
   GraduationCap, School, Calendar, ArrowRight, Award, Briefcase
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase, useCollection } from "@/firebase";
-import { doc, collection, query, orderBy } from "firebase/firestore";
+import { doc, collection, query, orderBy, limit } from "firebase/firestore";
 import { cn } from "@/lib/utils";
-
-const OWNER_ID = "ahsan";
+import { useEffect, useState } from "react";
 
 export default function AboutPage() {
   const db = useFirestore();
-  const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
-  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
+  const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
+
+  // Discover active user
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(1)), [db]);
+  const { data: users } = useCollection(usersQuery);
+
+  useEffect(() => {
+    if (users && users.length > 0) {
+      setActiveOwnerId(users[0].id);
+    }
+  }, [users]);
+
+  const profileRef = useMemoFirebase(() => doc(db, 'users', activeOwnerId), [db, activeOwnerId]);
+  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', activeOwnerId, 'experiences'), orderBy('order', 'desc')), [db, activeOwnerId]);
   
   const { data: profile } = useDoc(profileRef);
   const { data: experiences } = useCollection(experiencesQuery);
@@ -86,13 +98,8 @@ export default function AboutPage() {
       id: "exp-1",
       role: "Google Apps Script Engineer & Web Developer",
       company: "Cloudfort Technologies and Consultancy",
-      duration: "Nov 2024 — Present",
-      points: [
-        "Architecting high-performance web applications using modern React and Next.js frameworks.",
-        "Engineering complex Google Apps Script automation solutions to streamline enterprise business processes.",
-        "Building scalable, secure, and production-ready digital products for diverse consultancy projects."
-      ],
-      type: "Full-Time"
+      period: "Nov 2024 — Present",
+      desc: "Architecting high-performance web applications using modern React and Next.js frameworks.\nEngineering complex Google Apps Script automation solutions to streamline enterprise business processes.\nBuilding scalable, secure, and production-ready digital products for diverse consultancy projects.",
     }
   ];
 
@@ -160,22 +167,20 @@ export default function AboutPage() {
                           <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors leading-tight">{exp.role}</h3>
                           <div className="flex flex-wrap items-center gap-3">
                             <p className="text-base md:text-lg font-bold uppercase tracking-widest text-primary">{exp.company}</p>
-                            <span className="text-muted-foreground/40">•</span>
-                            <Badge variant="secondary" className="bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest px-3 py-1">{exp.type}</Badge>
                           </div>
                         </div>
                         <Badge variant="outline" className="w-fit text-primary border-primary/20 bg-primary/5 py-2 px-6 text-xs font-bold uppercase tracking-widest h-fit">
-                          {exp.duration}
+                          {exp.period}
                         </Badge>
                       </div>
-                      <ul className="space-y-6">
-                        {exp.points?.map((point: string, pIdx: number) => (
-                          <li key={pIdx} className="flex gap-4 text-base md:text-lg text-muted-foreground leading-relaxed font-normal tracking-tight">
+                      <div className="space-y-6">
+                        {exp.desc?.split('\n').map((point: string, pIdx: number) => (
+                          <div key={pIdx} className="flex gap-4 text-base md:text-lg text-muted-foreground leading-relaxed font-normal tracking-tight">
                             <div className="h-2 w-2 rounded-full bg-primary/40 mt-2 shrink-0" />
                             {point}
-                          </li>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   </div>
                 </Card>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Navigation } from "@/components/navigation";
@@ -8,22 +9,32 @@ import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
 import { ChevronLeft, Github, ExternalLink, Code, Loader2, Target, Zap } from "lucide-react";
 import Link from "next/link";
-
-const OWNER_ID = "ahsan";
+import { useEffect, useState } from "react";
 
 export default function ProjectPage() {
   const params = useParams();
   const db = useFirestore();
   const slug = params?.slug as string;
+  const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
+
+  // Discover active user
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(1)), [db]);
+  const { data: users } = useCollection(usersQuery);
+
+  useEffect(() => {
+    if (users && users.length > 0) {
+      setActiveOwnerId(users[0].id);
+    }
+  }, [users]);
 
   const projectQuery = useMemoFirebase(() => {
     if (!slug) return null;
     return query(
-      collection(db, 'users', OWNER_ID, 'projects'),
+      collection(db, 'users', activeOwnerId, 'projects'),
       where('slug', '==', slug),
       limit(1)
     );
-  }, [db, slug]);
+  }, [db, slug, activeOwnerId]);
 
   const { data: projectResults, isLoading } = useCollection(projectQuery);
   const project = projectResults?.[0];
@@ -56,7 +67,7 @@ export default function ProjectPage() {
                 {project.title}
                </h1>
                <div className="flex flex-wrap gap-2">
-                  {project.technologies?.map((tech: string) => (
+                  {project.techStack?.map((tech: string) => (
                     <span key={tech} className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-white/5 border border-white/10 rounded-full text-muted-foreground">
                       {tech}
                     </span>
@@ -97,7 +108,7 @@ export default function ProjectPage() {
                 <div className="flex gap-4 items-start">
                    <Target className="h-6 w-6 text-primary shrink-0 mt-1" />
                    <p className="text-lg md:text-2xl font-light leading-relaxed text-foreground italic">
-                    "{project.problem || project.summary}"
+                    "{project.problem || project.description}"
                    </p>
                 </div>
               </section>
@@ -115,18 +126,32 @@ export default function ProjectPage() {
                 </div>
               </section>
 
-              <section className="space-y-8 p-8 md:p-12 bg-white/[0.02] rounded-[2rem] border border-white/5 group">
-                <div className="flex items-center gap-4 text-primary">
-                  <Code className="h-5 w-5" />
-                  <span className="text-[10px] font-black uppercase tracking-widest">Technical Implementation</span>
-                </div>
-                <div className="space-y-4">
-                  <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-foreground">Architecture Strategy</h4>
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                    Leveraging {project.technologies?.slice(0, 3).join(', ')} to architect a serverless, event-driven system.
-                  </p>
-                </div>
-              </section>
+              {(project.architecture || project.codeSnippet) && (
+                <section className="space-y-8 p-8 md:p-12 bg-white/[0.02] rounded-[2rem] border border-white/5 group">
+                  <div className="flex items-center gap-4 text-primary">
+                    <Code className="h-5 w-5" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Technical Implementation</span>
+                  </div>
+                  <div className="space-y-8">
+                    {project.architecture && (
+                      <div className="space-y-4">
+                        <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-foreground">Architecture Strategy</h4>
+                        <div className="text-sm md:text-base text-muted-foreground leading-relaxed whitespace-pre-wrap font-mono bg-black/20 p-4 rounded-xl">
+                          {project.architecture}
+                        </div>
+                      </div>
+                    )}
+                    {project.codeSnippet && (
+                      <div className="space-y-4">
+                        <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-foreground">Core Logic Snippet</h4>
+                        <pre className="text-xs p-6 bg-black/40 rounded-2xl border border-white/5 overflow-x-auto font-mono text-primary/80">
+                          <code>{project.codeSnippet}</code>
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                </section>
+              )}
             </div>
 
             <aside className="lg:col-span-5 lg:sticky lg:top-32 space-y-8 animate-fade-in-up [animation-delay:600ms]">

@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -11,9 +12,9 @@ interface ProjectCardProps {
     id: string;
     slug: string;
     title: string;
-    summary: string;
+    description: string;
     imageUrl: string;
-    technologies: string[];
+    techStack: string[];
     roiMetric: string;
   };
   index: number;
@@ -51,7 +52,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       <div className="p-8 flex flex-col flex-1 space-y-6">
         <div className="flex flex-wrap gap-2">
-          {project.technologies?.slice(0, 3).map(tech => (
+          {project.techStack?.slice(0, 3).map(tech => (
             <Badge key={tech} variant="secondary" className="bg-white/5 text-[9px] font-black uppercase tracking-widest border-white/5 px-3 py-1 rounded-full group-hover:border-primary/30 transition-colors">
               {tech}
             </Badge>
@@ -63,7 +64,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             {project.title}
           </h3>
           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 font-light">
-            {project.summary}
+            {project.description}
           </p>
         </div>
 
