@@ -23,13 +23,13 @@ export default function ProjectPage() {
 
   // Discover the active user profile from Firestore
   // We look for profiles that have been recently updated to find the active portfolio owner
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(10)), [db]);
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), orderBy('lastUpdated', 'desc'), limit(10)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
     if (!usersLoading && users) {
       // Find the first user that has some profile data or just the first one in the list
-      const activeUser = users.find(u => u.name || u.headline) || users[0];
+      const activeUser = users.find(u => u.name || u.headline || u.id) || users[0];
       if (activeUser) {
         setActiveOwnerId(activeUser.id);
       }
@@ -55,7 +55,7 @@ export default function ProjectPage() {
   // We are "Loading" if:
   // 1. Still fetching the list of users
   // 2. Still trying to decide which user is the owner
-  // 3. Have an owner, but still fetching the specific project
+  // 3. Have an owner, but still fetching the specific project (if it exists)
   const isGlobalLoading = usersLoading || isResolvingOwner || (activeOwnerId && projectLoading);
 
   if (isGlobalLoading) {
@@ -69,8 +69,8 @@ export default function ProjectPage() {
     );
   }
 
-  // If loading is done and we either have no owner or the owner has no such project
-  if (!activeOwnerId || (!projectLoading && !project)) {
+  // Final check: if we've finished loading and found no project
+  if (!activeOwnerId || !project) {
     notFound();
   }
 
@@ -116,7 +116,6 @@ export default function ProjectPage() {
               fill
               className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
               priority
-              data-ai-hint="project showcase"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40" />
           </div>
