@@ -139,129 +139,129 @@ export default function AboutPage() {
             ))}
           </section>
 
-          {/* Career Timeline Integration */}
-          <section className="space-y-20 md:space-y-32 mb-24 md:mb-40">
-            
-            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
-              <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
-                Career History
-              </Badge>
-              <div className="space-y-8">
-                {displayExperiences.map((exp: any, idx) => (
-                  <Card key={exp.id || idx} className="glass-card border-white/5 p-8 md:p-12 rounded-[2.5rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                       {exp.type === "Internship" ? <Calendar size={80} /> : <Award size={80} />}
+          {/* Career History (Full View) */}
+          <section className="space-y-12 md:space-y-16 mb-24 md:mb-40 animate-fade-in-up">
+            <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
+              Career History
+            </Badge>
+            <div className="space-y-8 max-w-5xl">
+              {displayExperiences.map((exp: any, idx) => (
+                <Card key={exp.id || idx} className="glass-card border-white/5 p-8 md:p-12 rounded-[2.5rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                      <Award size={120} />
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                    <div className="h-16 w-16 shrink-0 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-lg border border-primary/20">
+                      <Briefcase size={28} />
                     </div>
-                    <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
-                      <div className="h-16 w-16 shrink-0 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-lg border border-primary/20">
-                        {exp.type === "Internship" ? <Calendar size={28} /> : <Briefcase size={28} />}
-                      </div>
-                      <div className="flex-1 space-y-6">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                          <div className="space-y-1">
-                            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors">{exp.role}</h3>
-                            <p className="text-sm font-bold uppercase tracking-widest text-primary">{exp.company} <span className="text-muted-foreground/40 px-2">•</span> {exp.type}</p>
+                    <div className="flex-1 space-y-8">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="space-y-2">
+                          <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors leading-tight">{exp.role}</h3>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <p className="text-base md:text-lg font-bold uppercase tracking-widest text-primary">{exp.company}</p>
+                            <span className="text-muted-foreground/40">•</span>
+                            <Badge variant="secondary" className="bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest px-3 py-1">{exp.type}</Badge>
                           </div>
-                          <Badge variant="outline" className="w-fit text-primary border-primary/20 bg-primary/5 py-1 px-4 text-xs font-bold uppercase tracking-widest h-fit">
-                            {exp.duration}
-                          </Badge>
                         </div>
-                        <ul className="space-y-4 max-w-4xl">
-                          {exp.points?.map((point: string, pIdx: number) => (
-                            <li key={pIdx} className="flex gap-4 text-sm md:text-base text-muted-foreground leading-relaxed font-normal tracking-tight">
-                              <div className="h-1.5 w-1.5 rounded-full bg-primary/40 mt-2 shrink-0" />
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
+                        <Badge variant="outline" className="w-fit text-primary border-primary/20 bg-primary/5 py-2 px-6 text-xs font-bold uppercase tracking-widest h-fit">
+                          {exp.duration}
+                        </Badge>
                       </div>
+                      <ul className="space-y-6">
+                        {exp.points?.map((point: string, pIdx: number) => (
+                          <li key={pIdx} className="flex gap-4 text-base md:text-lg text-muted-foreground leading-relaxed font-normal tracking-tight">
+                            <div className="h-2 w-2 rounded-full bg-primary/40 mt-2 shrink-0" />
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </Card>
-                ))}
-              </div>
+                  </div>
+                </Card>
+              ))}
             </div>
+          </section>
 
-            {/* Technical Arsenal */}
-            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
-              <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
-                Technical Arsenal
-              </Badge>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {techArsenal.map((tech) => (
-                  <Card key={tech.name} className={cn(
-                    "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 shadow-xl",
-                    tech.glow
-                  )}>
-                    <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">
-                      <div className="flex justify-between items-start mb-8">
-                        <div className={cn(
-                          "h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 shadow-lg group-hover:scale-110",
-                          tech.color
-                        )}>
-                          {tech.icon}
-                        </div>
-                        <span className="text-[8px] font-semibold uppercase tracking-widest text-muted-foreground/40 bg-white/5 px-2 py-1 rounded-full border border-white/5 group-hover:text-primary transition-colors">
-                          {tech.category}
-                        </span>
+          {/* Technical Arsenal */}
+          <section className="space-y-12 md:space-y-16 mb-24 md:mb-40 animate-fade-in-up">
+            <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
+              Technical Arsenal
+            </Badge>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {techArsenal.map((tech) => (
+                <Card key={tech.name} className={cn(
+                  "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 shadow-xl",
+                  tech.glow
+                )}>
+                  <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">
+                    <div className="flex justify-between items-start mb-8">
+                      <div className={cn(
+                        "h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 shadow-lg group-hover:scale-110",
+                        tech.color
+                      )}>
+                        {tech.icon}
                       </div>
-                      <h4 className="text-lg font-bold uppercase tracking-tighter group-hover:text-primary transition-colors text-foreground">
-                        {tech.name}
-                      </h4>
-                      <p className="text-[10px] text-muted-foreground font-normal leading-relaxed tracking-tight mt-1">
-                        {tech.desc}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Academic Foundation */}
-            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
-              <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
-                Academic Foundation
-              </Badge>
-              <div className="space-y-6">
-                {education.map((edu, idx) => (
-                  <Card key={idx} className="glass-card border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden">
-                    <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-                      <div className="h-16 w-16 shrink-0 rounded-full bg-white/5 flex items-center justify-center text-primary">
-                        {edu.icon}
-                      </div>
-                      <div className="flex-1 space-y-2">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                          <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-foreground">{edu.degree}</h3>
-                          <Badge variant="outline" className="w-fit text-primary border-primary/20">
-                            {edu.period}
-                          </Badge>
-                        </div>
-                        <p className="text-xs font-bold uppercase tracking-widest text-primary">{edu.institution} • {edu.score}</p>
-                        <p className="text-sm text-muted-foreground leading-relaxed mt-2">{edu.desc}</p>
-                      </div>
+                      <span className="text-[8px] font-semibold uppercase tracking-widest text-muted-foreground/40 bg-white/5 px-2 py-1 rounded-full border border-white/5 group-hover:text-primary transition-colors">
+                        {tech.category}
+                      </span>
                     </div>
-                  </Card>
-                ))}
-              </div>
+                    <h4 className="text-lg font-bold uppercase tracking-tighter group-hover:text-primary transition-colors text-foreground">
+                      {tech.name}
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground font-normal leading-relaxed tracking-tight mt-1">
+                      {tech.desc}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
+          </section>
 
-            {/* CTA Section */}
-            <section className="mt-24 md:mt-40 animate-fade-in-up">
-              <div className="rounded-[2.5rem] bg-primary p-12 md:p-24 text-center space-y-10 shadow-2xl relative overflow-hidden group">
-                <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-primary-foreground uppercase leading-[0.9] md:leading-[0.8] relative z-10">
-                  Ready to build <br /> the <span className="italic opacity-80">Future?</span>
-                </h2>
-                <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 relative z-10">
-                  <Button asChild size="lg" className="rounded-full px-12 h-16 bg-white text-primary hover:bg-white/90 font-black uppercase tracking-widest text-sm w-full sm:w-auto">
-                    <Link href={`mailto:${profile?.contactEmail || 'ahsan000k@gmail.com'}`}>Start a Conversation</Link>
-                  </Button>
-                  <Button variant="outline" asChild size="lg" className="rounded-full px-12 h-16 border-white/20 bg-white/10 text-white hover:bg-white/20 font-black uppercase tracking-widest text-sm backdrop-blur-md w-full sm:w-auto">
-                    <Link href="/#projects">View My Work <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                  </Button>
-                </div>
-                <div className="absolute top-0 right-0 h-full w-full bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
+          {/* Academic Foundation */}
+          <section className="space-y-12 md:space-y-16 mb-24 md:mb-40 animate-fade-in-up">
+            <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
+              Academic Foundation
+            </Badge>
+            <div className="space-y-6">
+              {education.map((edu, idx) => (
+                <Card key={idx} className="glass-card border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden">
+                  <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+                    <div className="h-16 w-16 shrink-0 rounded-full bg-white/5 flex items-center justify-center text-primary">
+                      {edu.icon}
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-foreground">{edu.degree}</h3>
+                        <Badge variant="outline" className="w-fit text-primary border-primary/20">
+                          {edu.period}
+                        </Badge>
+                      </div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-primary">{edu.institution} • {edu.score}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed mt-2">{edu.desc}</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="mt-24 md:mt-40 animate-fade-in-up">
+            <div className="rounded-[2.5rem] bg-primary p-12 md:p-24 text-center space-y-10 shadow-2xl relative overflow-hidden group">
+              <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-primary-foreground uppercase leading-[0.9] md:leading-[0.8] relative z-10">
+                Ready to build <br /> the <span className="italic opacity-80">Future?</span>
+              </h2>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 relative z-10">
+                <Button asChild size="lg" className="rounded-full px-12 h-16 bg-white text-primary hover:bg-white/90 font-black uppercase tracking-widest text-sm w-full sm:w-auto">
+                  <Link href={`mailto:${profile?.contactEmail || 'ahsan000k@gmail.com'}`}>Start a Conversation</Link>
+                </Button>
+                <Button variant="outline" asChild size="lg" className="rounded-full px-12 h-16 border-white/20 bg-white/10 text-white hover:bg-white/20 font-black uppercase tracking-widest text-sm backdrop-blur-md w-full sm:w-auto">
+                  <Link href="/#projects">View My Work <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                </Button>
               </div>
-            </section>
-
+              <div className="absolute top-0 right-0 h-full w-full bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
+            </div>
           </section>
         </div>
       </main>

@@ -269,92 +269,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Professional Journey (Experience Timeline) */}
+      {/* Professional Journey (Experience Timeline - FULL VIEW) */}
       <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
-          <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
-            <div className="space-y-6">
-              <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
-                Career Milestone
-              </Badge>
-              <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
-                Professional <br className="hidden sm:block" />
-                <span className="text-primary italic">Journey.</span>
-              </h3>
-            </div>
+          <div className="mb-16 md:mb-24">
+            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
+              Career Milestone
+            </Badge>
+            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
+              Professional <br className="hidden sm:block" />
+              <span className="text-primary italic">Journey.</span>
+            </h3>
           </div>
 
-          <div className="relative">
-            {/* Main Vertical Line */}
-            <div className="absolute left-[1.1rem] top-0 bottom-0 w-[1px] bg-gradient-to-b from-primary/50 via-white/10 to-transparent md:left-1/2 md:translate-x-[-0.5px]" />
+          <div className="relative max-w-4xl">
+            {/* Left Vertical Line */}
+            <div className="absolute left-[1.1rem] top-0 bottom-0 w-[1px] bg-gradient-to-b from-primary/50 via-white/10 to-transparent" />
 
-            <div className="space-y-16">
+            <div className="space-y-12">
               {expLoading ? (
                 <div className="flex items-center justify-center py-20">
                   <Activity className="animate-spin text-primary mr-2" />
                   <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Syncing Timeline...</p>
                 </div>
               ) : displayExperiences.map((exp: any, idx) => (
-                <div key={exp.id || idx} className={cn(
-                  "relative flex flex-col md:flex-row items-center gap-8 group animate-fade-in-up",
-                  idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                )} style={{ animationDelay: `${idx * 150}ms` }}>
+                <div key={exp.id || idx} className="relative pl-12 group animate-fade-in-up" style={{ animationDelay: `${idx * 150}ms` }}>
                   
                   {/* Timeline Point */}
-                  <div className="absolute left-[1.1rem] top-0 h-9 w-9 md:left-1/2 md:translate-x-[-1.125rem] z-10 flex items-center justify-center">
-                    <div className="h-3 w-3 rounded-full bg-primary shadow-[0_0_20px_rgba(var(--primary),0.8)] ring-4 ring-background group-hover:scale-150 transition-transform duration-500" />
+                  <div className="absolute left-[0.675rem] top-1 z-10 flex items-center justify-center">
+                    <div className="h-4 w-4 rounded-full bg-primary shadow-[0_0_20px_rgba(var(--primary),0.8)] ring-4 ring-background group-hover:scale-125 transition-transform duration-500" />
                   </div>
 
-                  {/* Content Card */}
-                  <div 
-                    className={cn(
-                      "w-full md:w-[45%] space-y-4 pl-12 md:pl-0",
-                      idx % 2 === 0 ? "md:text-right" : "md:text-left"
-                    )}>
-                    <Card className="glass-card p-6 md:p-8 rounded-[2rem] border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-xl overflow-hidden relative">
-                      <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                         {exp.type === "Internship" ? <Calendar size={60} /> : <Award size={60} />}
-                      </div>
-                      
-                      <div className={cn(
-                        "flex flex-col gap-2 mb-6",
-                        idx % 2 === 0 ? "md:items-end" : "md:items-start"
-                      )}>
-                        <div className="flex items-center gap-3">
-                           {idx % 2 === 0 && <span className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-full md:block hidden">{exp.type}</span>}
-                           <h4 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors leading-none">
-                             {exp.role}
-                           </h4>
-                           {idx % 2 !== 0 && <span className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-full md:block hidden">{exp.type}</span>}
-                           <span className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-full md:hidden">{exp.type}</span>
+                  {/* Content Card (Full View) */}
+                  <Card className="glass-card p-8 md:p-12 rounded-[2.5rem] border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-xl overflow-hidden relative">
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <Award size={100} />
+                    </div>
+                    
+                    <div className="flex flex-col gap-6 relative z-10">
+                      <div className="space-y-4">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                          <div className="space-y-1">
+                            <h4 className="text-2xl md:text-4xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors leading-tight">
+                              {exp.role}
+                            </h4>
+                            <p className="text-base md:text-lg font-bold text-primary uppercase tracking-widest">
+                              {exp.company}
+                            </p>
+                          </div>
+                          <Badge variant="outline" className="w-fit text-xs font-bold uppercase tracking-widest text-primary border-primary/20 bg-primary/5 py-1 px-4 h-fit">
+                              {exp.duration}
+                          </Badge>
                         </div>
-                        <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
-                          {exp.company}
-                        </p>
-                        <Badge variant="outline" className="w-fit text-[9px] font-bold uppercase tracking-widest text-primary border-primary/20 bg-primary/5">
-                           {exp.duration}
+                        <Badge variant="secondary" className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-3 py-1 rounded-full w-fit">
+                          {exp.type}
                         </Badge>
                       </div>
 
-                      <ul className={cn(
-                        "space-y-3",
-                        idx % 2 === 0 ? "md:items-end text-right" : "md:items-start text-left"
-                      )}>
+                      <ul className="space-y-4 max-w-3xl">
                         {exp.points?.map((point: string, pIdx: number) => (
-                          <li key={pIdx} className={cn(
-                            "flex gap-3 text-xs text-muted-foreground font-normal leading-relaxed tracking-tight",
-                            idx % 2 === 0 ? "md:flex-row-reverse" : "flex-row"
-                          )}>
-                            <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-1.5 shrink-0" />
+                          <li key={pIdx} className="flex gap-4 text-sm md:text-base text-muted-foreground font-normal leading-relaxed tracking-tight">
+                            <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-2 shrink-0" />
                             <span>{point}</span>
                           </li>
                         ))}
                       </ul>
-                    </Card>
-                  </div>
-
-                  {/* Empty space for the other side on desktop */}
-                  <div className="hidden md:block w-[45%]" />
+                    </div>
+                  </Card>
                 </div>
               ))}
             </div>
