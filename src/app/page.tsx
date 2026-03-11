@@ -1,13 +1,11 @@
-
 "use client";
 
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
 import { 
-  ArrowRight, Database, Layers, Mail, Github, 
-  Linkedin, Briefcase, Terminal, Sparkles, Code2,
-  Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette,
-  Activity, Target, Award
+  ArrowRight, Github, Mail, Linkedin, Code2,
+  Zap, ShieldCheck, Flame, Palette,
+  Activity, Target, Award, Terminal
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -43,22 +41,9 @@ export default function Home() {
 
   const profileRef = useMemoFirebase(() => doc(db, 'users', activeOwnerId), [db, activeOwnerId]);
   const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', activeOwnerId, 'projects'), orderBy('order', 'asc')), [db, activeOwnerId]);
-  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', activeOwnerId, 'experiences'), orderBy('order', 'desc')), [db, activeOwnerId]);
 
   const { data: profile } = useDoc(profileRef);
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
-  const { data: experiences, isLoading: expLoading } = useCollection(experiencesQuery);
-
-  const defaultExperiences = [
-    {
-      id: "exp-1",
-      role: "Google Apps Script Engineer & Web Developer",
-      company: "Cloudfort Technologies and Consultancy",
-      period: "Nov 2024 — Present",
-      desc: "Architecting high-performance web applications using modern React and Next.js frameworks.\nEngineering complex Google Apps Script automation solutions to streamline enterprise business processes.\nBuilding scalable, secure, and production-ready digital products for diverse consultancy projects.",
-      order: 0
-    }
-  ];
 
   // Map dummy projects from the library to the UI format
   const dummyProjects = PROJECTS.map((p, idx) => ({
@@ -72,7 +57,6 @@ export default function Home() {
     businessImpact: p.businessImpact
   }));
 
-  const displayExperiences = experiences && experiences.length > 0 ? experiences : defaultExperiences;
   const displayProjects = projects && projects.length > 0 ? projects : dummyProjects;
 
   return (
@@ -227,68 +211,6 @@ export default function Home() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
-        <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
-          <div className="mb-16 md:mb-24">
-            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
-              Career Milestone
-            </Badge>
-            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
-              Professional <br className="hidden sm:block" />
-              <span className="text-primary italic">Journey.</span>
-            </h3>
-          </div>
-
-          <div className="relative max-w-4xl">
-            <div className="absolute left-[1.1rem] top-0 bottom-0 w-[1px] bg-gradient-to-b from-primary/50 via-white/10 to-transparent" />
-            <div className="space-y-12">
-              {expLoading ? (
-                <div className="flex items-center justify-center py-20">
-                  <Activity className="animate-spin text-primary mr-2" />
-                  <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Syncing Timeline...</p>
-                </div>
-              ) : displayExperiences.map((exp: any, idx) => (
-                <div key={exp.id || idx} className="relative pl-12 group animate-fade-in-up" style={{ animationDelay: `${idx * 150}ms` }}>
-                  <div className="absolute left-[0.675rem] top-1 z-10 flex items-center justify-center">
-                    <div className="h-4 w-4 rounded-full bg-primary shadow-[0_0_20px_rgba(var(--primary),0.8)] ring-4 ring-background group-hover:scale-125 transition-transform duration-500" />
-                  </div>
-                  <Card className="glass-card p-8 md:p-12 rounded-[2.5rem] border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                        <Award size={100} />
-                    </div>
-                    <div className="flex flex-col gap-6 relative z-10">
-                      <div className="space-y-4">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                          <div className="space-y-1">
-                            <h4 className="text-2xl md:text-4xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors leading-tight">
-                              {exp.role}
-                            </h4>
-                            <p className="text-base md:text-lg font-bold text-primary uppercase tracking-widest">
-                              {exp.company}
-                            </p>
-                          </div>
-                          <Badge variant="outline" className="w-fit text-xs font-bold uppercase tracking-widest text-primary border-primary/20 bg-primary/5 py-1 px-4 h-fit">
-                              {exp.period}
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="space-y-4 max-w-3xl">
-                        {exp.desc?.split('\n').map((point: string, pIdx: number) => (
-                          <div key={pIdx} className="flex gap-4 text-sm md:text-base text-muted-foreground font-normal leading-relaxed tracking-tight">
-                            <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-2 shrink-0" />
-                            <span>{point}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-              ))}
             </div>
           </div>
         </div>

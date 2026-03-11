@@ -43,7 +43,7 @@ export function Footer() {
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Explore</h4>
             <ul className="space-y-4">
               <li>
-                <Link href="/#experience" className="text-sm font-bold hover:text-primary transition-colors">Experience</Link>
+                <Link href="/experience" className="text-sm font-bold hover:text-primary transition-colors">Experience</Link>
               </li>
               <li>
                 <Link href="/#projects" className="text-sm font-bold hover:text-primary transition-colors">Projects</Link>
