@@ -18,7 +18,7 @@ export function Footer() {
               <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
                 <Code2 size={20} />
               </div>
-              <span className="font-bold tracking-tighter uppercase text-xl">ALEX.DEV</span>
+              <span className="font-bold tracking-tighter uppercase text-xl">AHSAN.DEV</span>
             </div>
             <p className="text-muted-foreground text-sm max-w-xs leading-relaxed font-light">
               Architecting high-performance digital ecosystems for the modern web.
@@ -30,10 +30,10 @@ export function Footer() {
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Social</h4>
             <ul className="space-y-4">
               <li>
-                <Link href="https://github.com/alexrivera" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">GitHub</Link>
+                <Link href="https://github.com/ahsan" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">GitHub</Link>
               </li>
               <li>
-                <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">LinkedIn</Link>
+                <Link href="https://linkedin.com/in/ahsan" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">LinkedIn</Link>
               </li>
             </ul>
           </div>
@@ -58,7 +58,7 @@ export function Footer() {
         {/* Bottom Copyright */}
         <div className="text-center pt-12 border-t border-white/5">
           <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground/30">
-            © 2024 ALEX RIVERA. ALL RIGHTS RESERVED.
+            © 2024 AHSAN. ALL RIGHTS RESERVED.
           </p>
         </div>
       </div>

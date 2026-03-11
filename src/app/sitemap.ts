@@ -5,7 +5,7 @@ import { MetadataRoute } from 'next';
  * Aligns with PRD Section 3.6 (SEO & Performance).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://alexrivera.dev';
+  const baseUrl = 'https://ahsan.dev';
   
   return [
     {

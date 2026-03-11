@@ -16,7 +16,7 @@ import { useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase
 import { collection, query, orderBy, doc } from "firebase/firestore";
 import { cn } from "@/lib/utils";
 
-const OWNER_ID = "alex-rivera";
+const OWNER_ID = "ahsan";
 
 export default function Home() {
   const db = useFirestore();
@@ -63,7 +63,7 @@ export default function Home() {
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-normal tracking-tight animate-fade-in-up [animation-delay:200ms]">
-            {profile?.headline || "Senior Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
+            {profile?.headline || "Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:400ms] w-full sm:w-auto">
@@ -76,9 +76,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:600ms]">
-            <Link href="https://github.com/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
-            <Link href="https://linkedin.com/in/alexrivera" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
-            <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
+            <Link href="https://github.com/ahsan" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
+            <Link href="https://linkedin.com/in/ahsan" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
+            <Link href={`mailto:${profile?.contactEmail || 'hello@ahsan.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
           </div>
         </div>
       </section>
@@ -89,7 +89,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             <div className="lg:col-span-7 space-y-12 md:space-y-16">
               <div className="space-y-6 md:space-y-8">
-                <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
+                <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
                   Engineering Creed
                 </Badge>
                 <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1] md:leading-[0.85] uppercase text-foreground">
@@ -329,10 +329,10 @@ export default function Home() {
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-6 md:pt-10 w-full sm:w-auto">
               <Button asChild size="lg" className="rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-transform uppercase tracking-widest w-full sm:w-auto">
-                <Link href={`mailto:${profile?.contactEmail || 'hello@alexrivera.dev'}`}>Email Me</Link>
+                <Link href={`mailto:${profile?.contactEmail || 'hello@ahsan.dev'}`}>Email Me</Link>
               </Button>
               <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl border-white/10 hover:bg-white/5 transition-all uppercase tracking-widest w-full sm:w-auto">
-                <Link href="https://linkedin.com/in/alexrivera" target="_blank">LinkedIn</Link>
+                <Link href="https://linkedin.com/in/ahsan" target="_blank">LinkedIn</Link>
               </Button>
             </div>
           </div>

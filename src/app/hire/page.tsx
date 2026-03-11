@@ -36,7 +36,7 @@ export default function HirePage() {
         "Cloud-Native Deployments"
       ],
       cta: "Inquire about Project",
-      href: "mailto:hello@alexrivera.dev",
+      href: "mailto:hello@ahsan.dev",
       popular: true
     }
   ];

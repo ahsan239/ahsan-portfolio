@@ -11,6 +11,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/cms', '/api/'],
     },
-    sitemap: 'https://alexrivera.dev/sitemap.xml',
+    sitemap: 'https://ahsan.dev/sitemap.xml',
   };
 }

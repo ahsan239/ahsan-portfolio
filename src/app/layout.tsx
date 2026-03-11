@@ -7,34 +7,34 @@ import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Alex Rivera | Senior Software Engineer & AI Architect',
-    template: '%s | Alex Rivera'
+    default: 'Ahsan | Senior Software Engineer & AI Architect',
+    template: '%s | Ahsan'
   },
-  description: 'Senior Software Engineer specializing in Next.js, AI infrastructure, and high-performance digital products. Architecting scalable solutions for the modern web.',
+  description: 'Software Engineer specializing in Next.js, AI infrastructure, and high-performance digital products. Architecting scalable solutions for the modern web.',
   keywords: ['Software Engineer', 'AI Architect', 'Next.js', 'React', 'Full Stack Developer', 'LLM Engineering'],
-  authors: [{ name: 'Alex Rivera' }],
-  creator: 'Alex Rivera',
+  authors: [{ name: 'Ahsan' }],
+  creator: 'Ahsan',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://alexrivera.dev',
-    title: 'Alex Rivera | Senior Software Engineer & AI Architect',
+    url: 'https://ahsan.dev',
+    title: 'Ahsan | Senior Software Engineer & AI Architect',
     description: 'Architecting high-performance digital products and strategic AI infrastructure.',
-    siteName: 'Alex Rivera Portfolio',
+    siteName: 'Ahsan Portfolio',
     images: [
       {
-        url: 'https://picsum.photos/seed/alex-og/1200/630',
+        url: 'https://picsum.photos/seed/ahsan-og/1200/630',
         width: 1200,
         height: 630,
-        alt: 'Alex Rivera Portfolio',
+        alt: 'Ahsan Portfolio',
       }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Alex Rivera | Senior Software Engineer',
+    title: 'Ahsan | Senior Software Engineer',
     description: 'Architecting high-performance digital products and strategic AI infrastructure.',
-    creator: '@alexrivera_dev',
+    creator: '@ahsan_dev',
   },
   robots: {
     index: true,
@@ -68,12 +68,12 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              "name": "Alex Rivera",
+              "name": "Ahsan",
               "jobTitle": "Senior Software Engineer",
-              "url": "https://alexrivera.dev",
+              "url": "https://ahsan.dev",
               "sameAs": [
-                "https://github.com/alexrivera",
-                "https://linkedin.com/in/alexrivera"
+                "https://github.com/ahsan",
+                "https://linkedin.com/in/ahsan"
               ]
             })
           }}

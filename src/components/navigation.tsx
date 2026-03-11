@@ -65,7 +65,7 @@ export function Navigation() {
             {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </Button>
           <div className="hidden md:block h-4 w-[1px] bg-white/10 mx-1" />
-          <Link href="https://github.com/alexrivera" target="_blank" className="hidden md:flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all">
+          <Link href="https://github.com/ahsan" target="_blank" className="hidden md:flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all">
             <Github size={18} />
           </Link>
         </div>
@@ -87,7 +87,7 @@ export function Navigation() {
               </Link>
             ))}
             <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-              <Link href="https://github.com/alexrivera" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">
+              <Link href="https://github.com/ahsan" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">
                 <Github size={16} /> GitHub
               </Link>
             </div>

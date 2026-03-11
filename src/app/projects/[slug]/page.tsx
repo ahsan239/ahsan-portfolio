@@ -9,7 +9,7 @@ import { AIDemo } from "@/components/ai-demo";
 import { ChevronLeft, Github, ExternalLink, Code, Loader2, Target, Zap } from "lucide-react";
 import Link from "next/link";
 
-const OWNER_ID = "alex-rivera";
+const OWNER_ID = "ahsan";
 
 export default function ProjectPage() {
   const params = useParams();
