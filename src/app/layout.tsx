@@ -80,7 +80,6 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased bg-background text-foreground selection:bg-primary/30 selection:text-white transition-colors duration-300 relative">
-        <div className="bg-animated-mesh" />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

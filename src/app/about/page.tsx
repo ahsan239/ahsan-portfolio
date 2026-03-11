@@ -87,7 +87,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-transparent text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
+    <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
       <Navigation />
       
       <main className="pt-32 md:pt-48 pb-20 md:pb-32">
@@ -162,7 +162,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {techArsenal.map((tech) => (
                   <Card key={tech.name} className={cn(
-                    "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] overflow-hidden group hover:-translate-y-2 shadow-xl",
+                    "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 shadow-xl",
                     tech.glow
                   )}>
                     <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">

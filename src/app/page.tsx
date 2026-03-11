@@ -45,7 +45,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-transparent text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
+    <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
       <Navigation />
       
       {/* Hero Section */}
