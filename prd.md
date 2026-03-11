@@ -1,14 +1,14 @@
 # **📄 Product Requirements Document (PRD)**
 
-# **🚀 Professional Software Developer Portfolio (Next.js \+ Sanity \+ Vercel)**
+# **🚀 Professional Software Developer Portfolio (Next.js + Firebase + App Hosting)**
 
 ---
 
 ## **1️⃣ Project Overview**
 
-A high-performance, SEO-optimized, content-driven developer portfolio built using **Next.js (App Router)** and **Sanity.io**, deployed on **Vercel**.
+A high-performance, SEO-optimized, content-driven developer portfolio built using **Next.js (App Router)** and **Firebase Firestore**, deployed on **Firebase App Hosting**.
 
-The platform allows dynamic project and experience management via CMS without redeployment, while maintaining top-tier performance and clean UI.
+The platform allows dynamic project and experience management via a built-in Dashboard CMS without redeployment, while maintaining top-tier performance and clean UI.
 
 ---
 
@@ -16,8 +16,8 @@ The platform allows dynamic project and experience management via CMS without re
 
 * Showcase technical projects professionally  
 * Demonstrate modern full-stack architecture  
-* Achieve Lighthouse score \> 90  
-* Enable easy content management  
+* Achieve Lighthouse score > 90  
+* Enable easy content management via Firebase  
 * Ensure scalability and maintainability  
 * Impress recruiters with production-level stack
 
@@ -27,7 +27,7 @@ The platform allows dynamic project and experience management via CMS without re
 
 ## **🔹 3.1 Dynamic Project Showcase**
 
-* Fetch projects from Sanity CMS  
+* Fetch projects from **Firebase Firestore**  
 * Display:  
   * Title  
   * Thumbnail  
@@ -35,10 +35,7 @@ The platform allows dynamic project and experience management via CMS without re
   * Tech Stack (tags)  
   * Demo link  
   * GitHub link  
-* Each project must have a **dynamic route**:
-
-/projects/\[slug\]
-
+* Each project has a **dynamic route**: `/projects/[slug]`
 * Individual SEO-optimized project pages
 
 ---
@@ -80,22 +77,17 @@ The platform allows dynamic project and experience management via CMS without re
 * Email CTA  
 * LinkedIn  
 * GitHub  
-* Optional form (EmailJS or server action)
+* Professional social links
 
 ---
 
 ## **🔹 3.6 SEO & Performance**
 
-* Static Site Generation (SSG)  
+* Static Site Generation (SSG) / ISR  
 * Metadata API in Next.js App Router  
 * Dynamic OG tags per project  
 * Structured data (JSON-LD)  
 * Sitemap & robots.txt
-
-**Target:**
-
-* Lighthouse \> 90  
-* Core Web Vitals optimized
 
 ---
 
@@ -103,53 +95,42 @@ The platform allows dynamic project and experience management via CMS without re
 
 ## **🧠 Frontend**
 
-* Next.js 14/15 (App Router)  
+* Next.js 15 (App Router)  
 * React Server Components  
 * TypeScript  
 * Tailwind CSS  
 * Lucide React
 
-## **🗂 CMS**
+## **🗂 CMS / Database**
 
-* Sanity.io  
-* GROQ queries  
-* Portable Text  
-* Sanity Image URL Builder
-
-## **🌍 Deployment**
-
-Hosted on:
-
-**Vercel**
-
-Why:
-
-* Native Next.js optimization  
-* Zero-config deployment  
-* Built-in ISR  
-* Automatic SSL  
-* Edge Functions support  
-* Free tier suitable for portfolio
+* **Firebase Firestore**: Real-time NoSQL database serving as the content engine.
+* **Firebase Authentication**: Securing the Dashboard CMS.
+* **Firebase App Hosting**: Next-generation hosting for server-rendered apps.
 
 ---
 
-# **5️⃣ Sanity Schema Structure**
+# **5️⃣ Data Structure**
 
-## **📦 Project Schema**
+## **📦 Project Entity**
 
 * `title` – string  
 * `slug` – slug  
-* `mainImage` – image  
+* `imageUrl` – url  
 * `summary` – text  
-* `description` – portable text  
+* `problem` – text  
+* `solution` – text  
+* `roiMetric` – string
+* `businessImpact` – string
 * `technologies` – array of strings  
 * `projectLink` – url  
 * `githubLink` – url  
+* `architecture` - text
+* `codeSnippet` - text
 * `publishedAt` – datetime
 
 ---
 
-## **💼 Experience Schema**
+## **💼 Experience Entity**
 
 * `company`  
 * `role`  
@@ -159,49 +140,12 @@ Why:
 
 ---
 
-# **6️⃣ Folder Structure (Optimized for App Router)**
-
-/app  
-  /projects  
-    /\[slug\]  
-      page.tsx  
-    page.tsx  
-  /api  
-  layout.tsx  
-  page.tsx  
-/components  
-  Navbar.tsx  
-  Hero.tsx  
-  ProjectCard.tsx  
-  ProjectGrid.tsx  
-  Timeline.tsx  
-/lib  
-  sanity.ts  
-  queries.ts  
-  image.ts  
-/sanity  
-  schemaTypes  
-/public  
-/styles
-
----
-
-# **7️⃣ Image Optimization Strategy**
-
-* Use `next/image`  
-* Use Sanity Image Builder  
-* Convert images to WebP  
-* Responsive image sizes  
-* Lazy loading enabled
-
----
-
 # **8️⃣ Success Metrics**
 
 | Metric | Target |
 | ----- | ----- |
-| Lighthouse | \> 90 |
-| Time to Interactive | \< 2s |
+| Lighthouse | > 90 |
+| Time to Interactive | < 2s |
 | Mobile Performance | Optimized |
-| New Project Upload | \< 2 min |
+| New Project Upload | < 2 min |
 | SEO Indexing | Proper metadata |
