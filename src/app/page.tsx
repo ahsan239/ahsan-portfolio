@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -23,24 +24,30 @@ import { PROJECTS } from "@/app/lib/projects";
  */
 export default function Home() {
   const db = useFirestore();
-  const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
+  const [activeOwnerId, setActiveOwnerId] = useState<string | null>(null);
+  const [isResolvingOwner, setIsResolvingOwner] = useState(true);
 
-  // Discover the active user profile from Firestore: find the most recently active or any available profile
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(5)), [db]);
+  // Discover the active user profile from Firestore: find the most recently active profile
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), orderBy('lastUpdated', 'desc'), limit(1)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
-    if (users && users.length > 0) {
-      // Find the first user that has some profile data or just the first one in the list
-      const activeUser = users.find(u => u.name || u.headline) || users[0];
-      if (activeUser) {
-        setActiveOwnerId(activeUser.id);
+    if (!usersLoading) {
+      if (users && users.length > 0) {
+        setActiveOwnerId(users[0].id);
+      } else {
+        // Fallback to "ahsan" if no users exist yet in DB
+        setActiveOwnerId("ahsan");
       }
+      setIsResolvingOwner(false);
     }
-  }, [users]);
+  }, [users, usersLoading]);
 
-  const profileRef = useMemoFirebase(() => doc(db, 'users', activeOwnerId), [db, activeOwnerId]);
-  const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', activeOwnerId, 'projects'), orderBy('order', 'asc')), [db, activeOwnerId]);
+  const profileRef = useMemoFirebase(() => activeOwnerId ? doc(db, 'users', activeOwnerId) : null, [db, activeOwnerId]);
+  const projectsQuery = useMemoFirebase(() => {
+    if (!activeOwnerId) return null;
+    return query(collection(db, 'users', activeOwnerId, 'projects'), orderBy('order', 'asc'));
+  }, [db, activeOwnerId]);
 
   const { data: profile } = useDoc(profileRef);
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
@@ -57,7 +64,11 @@ export default function Home() {
     businessImpact: p.businessImpact
   }));
 
-  const displayProjects = projects && projects.length > 0 ? projects : dummyProjects;
+  // Show user projects if they exist, otherwise show dummy data
+  // Only show dummy data if we have finished loading and the owner is the default "ahsan" fallback or has no projects
+  const hasUserProjects = projects && projects.length > 0;
+  const displayProjects = hasUserProjects ? projects : (isResolvingOwner ? [] : dummyProjects);
+  const showLoading = usersLoading || isResolvingOwner || (activeOwnerId && projectsLoading);
 
   return (
     <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
@@ -99,7 +110,7 @@ export default function Home() {
           <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:700ms]">
             <Link href="https://github.com/ahsan239" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
             <Link href="https://www.linkedin.com/in/mohd-ahsan-5b40b31b1/" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
-            <Link href="mailto:ahsan000k@gmail.com" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
+            <Link href={`mailto:${profile?.contactEmail || 'ahsan000k@gmail.com'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
           </div>
         </div>
       </section>
@@ -225,7 +236,7 @@ export default function Home() {
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(projectsLoading || usersLoading) ? (
+            {showLoading ? (
                <div className="col-span-full py-20 flex flex-col items-center gap-4">
                  <Activity className="animate-spin text-primary h-8 w-8" />
                  <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Syncing Projects...</p>

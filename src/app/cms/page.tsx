@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -129,6 +130,8 @@ export default function CMSPage() {
     if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
     if (!confirm("Are you sure? This cannot be undone.")) return;
     deleteDocumentNonBlocking(doc(db, path));
+    // Also touch the profile so discovery knows content changed
+    ensureProfileExists();
     toast({ title: "Deleted successfully." });
   };
 
