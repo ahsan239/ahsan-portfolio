@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -99,7 +98,7 @@ export default function AboutPage() {
       role: "Google Apps Script Engineer & Web Developer",
       company: "Cloudfort Technologies and Consultancy",
       period: "Nov 2024 — Present",
-      desc: "Architecting high-performance web applications using modern React and Next.js frameworks.\nEngineering complex Google Apps Script automation solutions to streamline enterprise business processes.\nBuilding scalable, secure, and production-ready digital products for diverse consultancy projects.",
+      desc: "Developing modern web applications using React, Next.js, and JavaScript with a focus on performance and scalability.\nCreating powerful automation systems with Google Apps Script to streamline Google Workspace operations and business processes.\nBuilding scalable, secure, and production-ready digital products for diverse consultancy projects.",
     }
   ];
 
