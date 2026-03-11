@@ -6,7 +6,7 @@ import {
   ArrowRight, Database, Layers, Mail, Github, 
   Linkedin, Briefcase, Terminal, Sparkles, Code2,
   Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette,
-  Activity, Target
+  Activity, Target, Calendar, Award
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -44,6 +44,35 @@ export default function Home() {
     { name: "Generative AI", category: "AI", icon: <Sparkles size={24} />, color: "text-purple-400", glow: "hover:shadow-purple-400/20", desc: "LLM & GenAI integration" },
   ];
 
+  const defaultExperiences = [
+    {
+      id: "exp-1",
+      role: "Senior Software Engineer",
+      company: "InnovateTech Solutions",
+      duration: "Jan 2023 — Present",
+      points: [
+        "Architected scalable Next.js platforms increasing user engagement by 40%.",
+        "Engineered automated workflows with Google Apps Script, saving 15+ hours weekly in data processing.",
+        "Led a team of 5 developers in delivering production-ready AI integrated features."
+      ],
+      type: "Full-Time"
+    },
+    {
+      id: "exp-2",
+      role: "Software Engineering Intern",
+      company: "CloudCore Systems",
+      duration: "June 2022 — Sept 2022 (4 Months)",
+      points: [
+        "Developed internal dashboard components using React and Tailwind CSS.",
+        "Optimized Firebase Firestore queries, reducing read costs by 25%.",
+        "Collaborated on agile development cycles and code review processes."
+      ],
+      type: "Internship"
+    }
+  ];
+
+  const displayExperiences = experiences && experiences.length > 0 ? experiences : defaultExperiences;
+
   return (
     <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
       <Navigation />
@@ -70,7 +99,7 @@ export default function Home() {
           </h1>
           
           <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-normal tracking-tight animate-fade-in-up [animation-delay:300ms]">
-            {profile?.headline || "Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
+            {profile?.headline || "Senior Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:500ms] w-full sm:w-auto">
@@ -85,7 +114,7 @@ export default function Home() {
           <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:700ms]">
             <Link href="https://github.com/ahsan239" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
             <Link href="https://www.linkedin.com/in/mohd-ahsan-5b40b31b1/" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
-            <Link href={`mailto:${profile?.contactEmail || 'ahsan000k@gmail.com'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
+            <Link href="mailto:ahsan000k@gmail.com" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
           </div>
         </div>
       </section>
@@ -252,48 +281,97 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Professional Journey (Experience) */}
+      {/* Professional Journey (Experience Timeline) */}
       <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
-          <div className="mb-12 md:mb-20">
-            <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
-              Career Path
-            </Badge>
-            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
-              Professional <br className="hidden sm:block" />
-              <span className="text-primary italic">Journey.</span>
-            </h3>
+          <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="space-y-6">
+              <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5">
+                Career Milestone
+              </Badge>
+              <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight uppercase text-foreground">
+                Professional <br className="hidden sm:block" />
+                <span className="text-primary italic">Journey.</span>
+              </h3>
+            </div>
+            <p className="text-muted-foreground max-w-sm text-sm font-light leading-relaxed">
+              Tracing my path from foundational internships to high-impact senior engineering roles.
+            </p>
           </div>
 
-          <div className="space-y-12">
-            {expLoading ? (
-              <p className="text-muted-foreground italic">Syncing career history...</p>
-            ) : experiences && experiences.length > 0 ? (
-              experiences.map((exp, idx) => (
-                <div key={exp.id} className="relative pl-8 md:pl-12 border-l border-white/10 pb-12 last:pb-0 group animate-fade-in-up" style={{ animationDelay: `${idx * 100}ms` }}>
-                  <div className="absolute left-[-5px] top-0 h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)] group-hover:scale-150 transition-transform duration-300" />
-                  <div className="space-y-4 group-hover:translate-x-2 transition-transform duration-300">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                      <h4 className="text-2xl font-bold uppercase tracking-tight text-foreground group-hover:text-primary transition-colors">{exp.role}</h4>
-                      <span className="text-xs font-black uppercase tracking-widest text-primary bg-primary/5 px-3 py-1 rounded-full border border-primary/10 w-fit">
-                        {exp.duration}
-                      </span>
-                    </div>
-                    <p className="text-lg font-bold text-muted-foreground uppercase tracking-widest">{exp.company}</p>
-                    <ul className="space-y-3 mt-4">
-                      {exp.points?.map((point: string, pIdx: number) => (
-                        <li key={pIdx} className="flex gap-3 text-sm text-muted-foreground font-normal leading-relaxed tracking-tight">
-                          <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-1.5 shrink-0" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          <div className="relative">
+            {/* Main Vertical Line */}
+            <div className="absolute left-[1.1rem] top-0 bottom-0 w-[1px] bg-gradient-to-b from-primary/50 via-white/10 to-transparent md:left-1/2 md:translate-x-[-0.5px]" />
+
+            <div className="space-y-16">
+              {expLoading ? (
+                <div className="flex items-center justify-center py-20">
+                  <Activity className="animate-spin text-primary mr-2" />
+                  <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Syncing Timeline...</p>
                 </div>
-              ))
-            ) : (
-              <p className="text-muted-foreground italic">No career entries yet. Add them in the CMS.</p>
-            )}
+              ) : displayExperiences.map((exp: any, idx) => (
+                <div key={exp.id || idx} className={cn(
+                  "relative flex flex-col md:flex-row items-center gap-8 group animate-fade-in-up",
+                  idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                )} style={{ animationDelay: `${idx * 150}ms` }}>
+                  
+                  {/* Timeline Point */}
+                  <div className="absolute left-[1.1rem] top-0 h-9 w-9 md:left-1/2 md:translate-x-[-1.125rem] z-10 flex items-center justify-center">
+                    <div className="h-3 w-3 rounded-full bg-primary shadow-[0_0_20px_rgba(var(--primary),0.8)] ring-4 ring-background group-hover:scale-150 transition-transform duration-500" />
+                  </div>
+
+                  {/* Content Card */}
+                  <div className={cn(
+                    "w-full md:w-[45%] space-y-4 pl-12 md:pl-0",
+                    idx % 2 === 0 ? "md:text-right" : "md:text-left"
+                  )}>
+                    <Card className="glass-card p-6 md:p-8 rounded-[2rem] border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-xl overflow-hidden relative">
+                      <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                         {exp.type === "Internship" ? <Calendar size={60} /> : <Award size={60} />}
+                      </div>
+                      
+                      <div className={cn(
+                        "flex flex-col gap-2 mb-6",
+                        idx % 2 === 0 ? "md:items-end" : "md:items-start"
+                      )}>
+                        <div className="flex items-center gap-3">
+                           {idx % 2 === 0 && <span className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-full md:block hidden">{exp.type}</span>}
+                           <h4 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors leading-none">
+                             {exp.role}
+                           </h4>
+                           {idx % 2 !== 0 && <span className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-full md:block hidden">{exp.type}</span>}
+                           <span className="text-[10px] font-black uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-full md:hidden">{exp.type}</span>
+                        </div>
+                        <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
+                          {exp.company}
+                        </p>
+                        <Badge variant="outline" className="w-fit text-[9px] font-bold uppercase tracking-widest text-primary border-primary/20 bg-primary/5">
+                           {exp.duration}
+                        </Badge>
+                      </div>
+
+                      <ul className={cn(
+                        "space-y-3",
+                        idx % 2 === 0 ? "md:items-end text-right" : "md:items-start text-left"
+                      )}>
+                        {exp.points?.map((point: string, pIdx: number) => (
+                          <li key={pIdx} className={cn(
+                            "flex gap-3 text-xs text-muted-foreground font-normal leading-relaxed tracking-tight",
+                            idx % 2 === 0 ? "md:flex-row-reverse" : "flex-row"
+                          )}>
+                            <div className="h-1.5 w-1.5 rounded-full bg-primary/30 mt-1.5 shrink-0" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </Card>
+                  </div>
+
+                  {/* Empty space for the other side on desktop */}
+                  <div className="hidden md:block w-[45%]" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

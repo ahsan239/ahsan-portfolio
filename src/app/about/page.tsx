@@ -10,10 +10,10 @@ import {
   Globe, Coffee, Rocket, Mail, Code2, Cpu, 
   Database, Flame, Layers, Share2, Terminal, 
   Palette, Sparkles, BookOpen, Hammer, Search,
-  GraduationCap, School, Calendar, ArrowRight
+  GraduationCap, School, Calendar, ArrowRight, Award
 } from "lucide-react";
-import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
-import { doc } from "firebase/firestore";
+import { useFirestore, useDoc, useMemoFirebase, useCollection } from "@/firebase";
+import { doc, collection, query, orderBy } from "firebase/firestore";
 import { cn } from "@/lib/utils";
 
 const OWNER_ID = "ahsan";
@@ -21,7 +21,10 @@ const OWNER_ID = "ahsan";
 export default function AboutPage() {
   const db = useFirestore();
   const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
+  const experiencesQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
+  
   const { data: profile } = useDoc(profileRef);
+  const { data: experiences } = useCollection(experiencesQuery);
 
   const values = [
     { 
@@ -75,16 +78,37 @@ export default function AboutPage() {
       score: "71%",
       desc: "Completed higher secondary education with focus on core academic subjects while developing strong analytical skills.",
       icon: <School className="h-6 w-6" />
-    },
-    {
-      degree: "High School (Class X)",
-      institution: "Pioneer Montessori High School",
-      period: "2017",
-      score: "87%",
-      desc: "Successfully completed secondary education with a focus on science and mathematics.",
-      icon: <School className="h-6 w-6" />
     }
   ];
+
+  const defaultExperiences = [
+    {
+      id: "exp-1",
+      role: "Senior Software Engineer",
+      company: "InnovateTech Solutions",
+      duration: "Jan 2023 — Present",
+      points: [
+        "Architected scalable Next.js platforms increasing user engagement by 40%.",
+        "Engineered automated workflows with Google Apps Script, saving 15+ hours weekly in data processing.",
+        "Led a team of 5 developers in delivering production-ready AI integrated features."
+      ],
+      type: "Full-Time"
+    },
+    {
+      id: "exp-2",
+      role: "Software Engineering Intern",
+      company: "CloudCore Systems",
+      duration: "June 2022 — Sept 2022 (4 Months)",
+      points: [
+        "Developed internal dashboard components using React and Tailwind CSS.",
+        "Optimized Firebase Firestore queries, reducing read costs by 25%.",
+        "Collaborated on agile development cycles and code review processes."
+      ],
+      type: "Internship"
+    }
+  ];
+
+  const displayExperiences = experiences && experiences.length > 0 ? experiences : defaultExperiences;
 
   return (
     <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
@@ -127,34 +151,49 @@ export default function AboutPage() {
             ))}
           </section>
 
-          {/* Detailed Narrative */}
+          {/* Career Timeline Integration */}
           <section className="space-y-20 md:space-y-32 mb-24 md:mb-40">
             
-            <div className="space-y-10 animate-fade-in-up">
-              <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit">
-                <span className="flex items-center gap-3">
-                  <BookOpen size={14} className="text-primary" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">The Narrative</span>
-                </span>
+            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
+              <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
+                Career History
               </Badge>
-              <div className="space-y-8 md:space-y-12">
-                <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-gradient leading-tight">
-                  The Story Behind <br className="hidden sm:block" /> the Code
-                </h3>
-                <div className="space-y-6 md:space-y-8 text-lg md:text-xl text-muted-foreground leading-relaxed font-normal tracking-tight max-w-5xl">
-                  <p>
-                    My journey began with <strong className="text-foreground font-bold">full-stack web development</strong>, focusing on building complete web applications from intuitive frontends to reliable backends.
-                  </p>
-                  <p>
-                    I discovered <strong className="text-foreground font-bold">Google Apps Script</strong>, enabling me to build automation solutions within <strong className="text-foreground font-bold">Google Workspace</strong> that automate data processing and internal workflows.
-                  </p>
-                  <p className="text-foreground font-bold italic border-l-4 border-primary pl-4 md:pl-6 py-2">
-                    For me, coding is about building technology that solves real problems and makes work more efficient.
-                  </p>
-                </div>
+              <div className="space-y-8">
+                {displayExperiences.map((exp: any, idx) => (
+                  <Card key={exp.id || idx} className="glass-card border-white/5 p-8 md:p-12 rounded-[2.5rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                       {exp.type === "Internship" ? <Calendar size={80} /> : <Award size={80} />}
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                      <div className="h-16 w-16 shrink-0 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-lg border border-primary/20">
+                        {exp.type === "Internship" ? <Calendar size={28} /> : <Briefcase size={28} />}
+                      </div>
+                      <div className="flex-1 space-y-6">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                          <div className="space-y-1">
+                            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors">{exp.role}</h3>
+                            <p className="text-sm font-bold uppercase tracking-widest text-primary">{exp.company} <span className="text-muted-foreground/40 px-2">•</span> {exp.type}</p>
+                          </div>
+                          <Badge variant="outline" className="w-fit text-primary border-primary/20 bg-primary/5 py-1 px-4 text-xs font-bold uppercase tracking-widest h-fit">
+                            {exp.duration}
+                          </Badge>
+                        </div>
+                        <ul className="space-y-4 max-w-4xl">
+                          {exp.points?.map((point: string, pIdx: number) => (
+                            <li key={pIdx} className="flex gap-4 text-sm md:text-base text-muted-foreground leading-relaxed font-normal tracking-tight">
+                              <div className="h-1.5 w-1.5 rounded-full bg-primary/40 mt-2 shrink-0" />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
               </div>
             </div>
 
+            {/* Technical Arsenal */}
             <div className="space-y-12 md:space-y-16 animate-fade-in-up">
               <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
                 Technical Arsenal
@@ -189,63 +228,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="space-y-12 md:space-y-16 animate-fade-in-up">
-              <div className="space-y-4 md:space-y-6">
-                <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none text-foreground">
-                  Engineering <span className="text-primary italic">Philosophy</span>
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="md:col-span-2 glass-card p-8 md:p-10 rounded-[2rem] border-white/5 hover:border-primary/30 transition-all duration-500">
-                  <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8">
-                    <Layers size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold uppercase tracking-tight text-foreground">The Automation Mindset</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-4">
-                    I develop modern web applications using React, Next.js, Node.js, and Firebase while also building automation solutions with Google Apps Script to streamline business processes.
-                  </p>
-                </Card>
-
-                <Card className="glass-card p-8 md:p-10 rounded-[2rem] border-white/5 hover:border-blue-400/30 transition-all duration-500">
-                  <div className="h-12 w-12 rounded-2xl bg-blue-400/10 flex items-center justify-center text-blue-400 mb-8">
-                    <Search size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold uppercase tracking-tight text-foreground">SEO Optimization</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-4">
-                    I build with visibility in mind. Technical SEO is woven into the architecture of every project.
-                  </p>
-                </Card>
-
-                <Card className="glass-card p-8 md:p-10 rounded-[2rem] border-white/5 hover:border-purple-400/30 transition-all duration-500">
-                  <div className="h-12 w-12 rounded-2xl bg-purple-400/10 flex items-center justify-center text-purple-400 mb-8">
-                    <Zap size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold uppercase tracking-tight text-foreground">Velocity & Precision</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-4">
-                    High-performance is about delivery speed without sacrificing quality.
-                  </p>
-                </Card>
-
-                <Card className="md:col-span-2 glass-card p-8 md:p-10 rounded-[2rem] border-white/5 flex flex-col md:flex-row items-center justify-between group overflow-hidden relative hover:border-primary/30 transition-all duration-500">
-                  <div className="space-y-6 max-w-xl relative z-10">
-                    <div className="flex items-center gap-3 text-primary">
-                      <Sparkles size={14} />
-                      <span className="text-[10px] font-black uppercase tracking-[0.3em]">The AI Edge</span>
-                    </div>
-                    <h3 className="text-2xl font-bold uppercase tracking-tight text-foreground">AI-Augmented Engineering</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      I integrate Large Language Models (LLMs) to create smarter applications and context-aware web interfaces.
-                    </p>
-                  </div>
-                  <div className="h-24 w-24 shrink-0 rounded-full bg-primary/10 flex items-center justify-center text-primary relative z-10 mt-8 md:mt-0">
-                    <Cpu className="h-10 w-10" />
-                  </div>
-                  <div className="absolute top-0 right-0 h-full w-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
-                </Card>
-              </div>
-            </div>
-
+            {/* Academic Foundation */}
             <div className="space-y-12 md:space-y-16 animate-fade-in-up">
               <Badge variant="secondary" className="py-2 px-6 rounded-full border-primary/20 bg-primary/5 backdrop-blur-sm w-fit uppercase text-[10px] font-black tracking-widest text-primary">
                 Academic Foundation
