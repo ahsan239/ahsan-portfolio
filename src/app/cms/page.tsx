@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +11,7 @@ import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase, useAuth 
 import { collection, doc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
-import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode, Sparkles, ExternalLink, ShieldAlert, CheckCircle2 } from "lucide-react";
+import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Sparkles, ExternalLink, ShieldAlert } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import Link from "next/link";
 
@@ -26,7 +25,6 @@ export default function CMSPage() {
   const { user, isUserLoading } = useUser();
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Fallback to "ahsan" if not logged in, but the UI restricts access anyway
   const OWNER_ID = user?.uid || "ahsan";
 
   const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db, OWNER_ID]);
@@ -81,14 +79,7 @@ export default function CMSPage() {
       title: formData.get('title') as string,
       slug: (formData.get('title') as string).toLowerCase().replace(/\s+/g, '-'),
       description: formData.get('description') as string,
-      problem: (formData.get('problem') as string) || "",
-      solution: (formData.get('solution') as string) || "",
-      roiMetric: (formData.get('roiMetric') as string) || "",
-      businessImpact: (formData.get('businessImpact') as string) || "",
       projectLink: formData.get('projectLink') as string,
-      githubLink: (formData.get('githubLink') as string) || "",
-      architecture: (formData.get('architecture') as string) || "",
-      codeSnippet: (formData.get('codeSnippet') as string) || "",
       techStack: (formData.get('technologies') as string).split(',').map(s => s.trim()),
       imageUrl: formData.get('imageUrl') as string,
       order: editingId ? (projects?.find(p => p.id === id)?.order ?? 0) : (projects?.length || 0),
@@ -130,7 +121,6 @@ export default function CMSPage() {
     if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
     if (!confirm("Are you sure? This cannot be undone.")) return;
     deleteDocumentNonBlocking(doc(db, path));
-    // Also touch the profile so discovery knows content changed
     ensureProfileExists();
     toast({ title: "Deleted successfully." });
   };
@@ -246,10 +236,6 @@ export default function CMSPage() {
               <CardContent className="p-8">
                 <form onSubmit={handleSaveProject} className="space-y-12">
                   <div className="space-y-8">
-                    <div className="flex items-center gap-4">
-                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">01 // Identity</span>
-                       <div className="h-[1px] flex-1 bg-white/5" />
-                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Project Title</label>
@@ -260,13 +246,6 @@ export default function CMSPage() {
                         <Input name="technologies" defaultValue={editingProject?.techStack?.join(', ')} placeholder="Next.js, React, Firebase" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                       </div>
                     </div>
-                  </div>
-                  
-                  <div className="space-y-8">
-                    <div className="flex items-center gap-4">
-                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">02 // Assets & Links</span>
-                       <div className="h-[1px] flex-1 bg-white/5" />
-                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Live URL</label>
@@ -274,62 +253,12 @@ export default function CMSPage() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Cover Image URL</label>
-                        <Input name="imageUrl" defaultValue={editingProject?.imageUrl} placeholder="https://elite-care-nu.vercel.app/projects/elitecare-cover.png" required className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                        <Input name="imageUrl" defaultValue={editingProject?.imageUrl} placeholder="https://..." required className="bg-white/5 border-white/10 h-14 rounded-2xl" />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Repository URL (Optional)</label>
-                      <Input name="githubLink" defaultValue={editingProject?.githubLink} placeholder="https://github.com/..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-8">
-                    <div className="flex items-center gap-4">
-                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">03 // High Fidelity Content</span>
-                       <div className="h-[1px] flex-1 bg-white/5" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Value Statement (One Line)</label>
-                      <Input name="description" defaultValue={editingProject?.description} placeholder="A web platform for managing patient care workflows..." required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Core Problem (Optional)</label>
-                        <Textarea name="problem" defaultValue={editingProject?.problem} placeholder="Describe the engineering challenge..." className="bg-white/5 border-white/10 min-h-[160px] rounded-3xl p-6 leading-relaxed" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Technical Solution (Optional)</label>
-                        <Textarea name="solution" defaultValue={editingProject?.solution} placeholder="Describe your architectural approach..." className="bg-white/5 border-white/10 min-h-[160px] rounded-3xl p-6 leading-relaxed" />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Architecture Diagram/Overview (Optional)</label>
-                        <Textarea name="architecture" defaultValue={editingProject?.architecture} placeholder="Explain the system design..." className="bg-white/5 border-white/10 min-h-[140px] rounded-3xl p-6 font-mono text-xs" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Core Code Snippet (Optional)</label>
-                        <Textarea name="codeSnippet" defaultValue={editingProject?.codeSnippet} placeholder="export const logic = () => ..." className="bg-white/5 border-white/10 min-h-[140px] rounded-3xl p-6 font-mono text-xs" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-8">
-                    <div className="flex items-center gap-4">
-                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">04 // Measurable Impact (Optional)</span>
-                       <div className="h-[1px] flex-1 bg-white/5" />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Business Outcome</label>
-                        <Input name="businessImpact" defaultValue={editingProject?.businessImpact} placeholder="e.g. 40% Increase in Retention" className="bg-white/5 border-white/10 h-14 rounded-2xl" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Core KPI / ROI Metric</label>
-                        <Input name="roiMetric" defaultValue={editingProject?.roiMetric} placeholder="e.g. $500k ARR Saved" className="bg-white/5 border-white/10 h-14 rounded-2xl" />
-                      </div>
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Value Statement</label>
+                      <Input name="description" defaultValue={editingProject?.description} placeholder="Short description of the project..." required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                     </div>
                   </div>
 
@@ -360,11 +289,7 @@ export default function CMSPage() {
                       </div>
                       <div>
                         <h4 className="font-bold text-lg uppercase tracking-tight">{p.title}</h4>
-                        <div className="flex items-center gap-3">
-                           <p className="text-[10px] text-primary uppercase font-black tracking-widest">{p.businessImpact || 'Impact Pending'}</p>
-                           <span className="text-white/10">•</span>
-                           <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">{p.techStack?.slice(0, 2).join(' + ')}</p>
-                        </div>
+                        <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">{p.techStack?.slice(0, 2).join(' + ')}</p>
                       </div>
                     </div>
                     <div className="flex gap-2">

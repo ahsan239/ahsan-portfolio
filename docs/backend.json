@@ -1,4 +1,3 @@
-
 {
   "entities": {
     "UserProfile": {
@@ -22,23 +21,16 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Project",
       "type": "object",
-      "description": "Represents a detailed software project case study.",
+      "description": "Represents a software project showcase.",
       "properties": {
         "id": { "type": "string" },
         "title": { "type": "string" },
         "description": { "type": "string" },
         "slug": { "type": "string" },
-        "problem": { "type": "string" },
-        "solution": { "type": "string" },
-        "roiMetric": { "type": "string" },
-        "businessImpact": { "type": "string" },
         "imageUrl": { "type": "string", "format": "uri" },
         "techStack": { "type": "array", "items": { "type": "string" } },
-        "architecture": { "type": "string" },
-        "codeSnippet": { "type": "string" },
         "order": { "type": "number" },
-        "projectLink": { "type": "string", "format": "uri" },
-        "githubLink": { "type": "string", "format": "uri" }
+        "projectLink": { "type": "string", "format": "uri" }
       },
       "required": ["title", "slug", "description", "techStack", "projectLink", "imageUrl"]
     },
