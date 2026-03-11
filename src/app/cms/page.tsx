@@ -22,7 +22,7 @@ export default function CMSPage() {
   const { user, isUserLoading } = useUser();
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Use the authenticated user's ID, or fallback to "ahsan" for legacy data
+  // Use the authenticated user's ID, or fallback to "ahsan"
   const OWNER_ID = user?.uid || "ahsan";
 
   const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db, OWNER_ID]);
@@ -59,15 +59,19 @@ export default function CMSPage() {
     e.preventDefault();
     if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
 
+    // Ensure user document exists for discovery query
+    if (!profile) {
+      setDocumentNonBlocking(profileRef, { id: OWNER_ID, name: "Portfolio Owner" }, { merge: true });
+    }
+
     const formData = new FormData(e.currentTarget);
     const id = editingId || crypto.randomUUID();
     
-    // Aligned with Project entity in backend.json
     const projectData = {
       id,
       title: formData.get('title') as string,
       slug: (formData.get('title') as string).toLowerCase().replace(/\s+/g, '-'),
-      description: formData.get('description') as string, // Changed from summary to description
+      description: formData.get('description') as string,
       problem: formData.get('problem') as string,
       solution: formData.get('solution') as string,
       roiMetric: formData.get('roiMetric') as string,
@@ -76,7 +80,7 @@ export default function CMSPage() {
       githubLink: formData.get('githubLink') as string,
       architecture: formData.get('architecture') as string,
       codeSnippet: formData.get('codeSnippet') as string,
-      techStack: (formData.get('technologies') as string).split(',').map(s => s.trim()), // backend.json uses techStack
+      techStack: (formData.get('technologies') as string).split(',').map(s => s.trim()),
       imageUrl: formData.get('imageUrl') as string || `https://picsum.photos/seed/${id}/1200/630`,
       order: editingId ? (projects?.find(p => p.id === id)?.order ?? 0) : (projects?.length || 0),
     };
@@ -91,16 +95,20 @@ export default function CMSPage() {
     e.preventDefault();
     if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
 
+    // Ensure user document exists for discovery query
+    if (!profile) {
+      setDocumentNonBlocking(profileRef, { id: OWNER_ID, name: "Portfolio Owner" }, { merge: true });
+    }
+
     const formData = new FormData(e.currentTarget);
     const id = editingId || crypto.randomUUID();
 
-    // Aligned with Experience entity in backend.json
     const expData = {
       id,
       company: formData.get('company') as string,
       role: formData.get('role') as string,
-      period: formData.get('period') as string, // Changed from duration to period
-      desc: formData.get('desc') as string, // Changed from points to desc
+      period: formData.get('period') as string,
+      desc: formData.get('desc') as string,
       order: editingId ? (experiences?.find(ex => ex.id === id)?.order ?? 0) : (experiences?.length || 0)
     };
 

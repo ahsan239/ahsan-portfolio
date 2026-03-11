@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -23,7 +24,7 @@ export default function Home() {
 
   // Discover the active user profile from Firestore
   const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(1)), [db]);
-  const { data: users } = useCollection(usersQuery);
+  const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
     if (users && users.length > 0) {
@@ -280,14 +281,19 @@ export default function Home() {
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projectsLoading ? (
-               <p className="text-muted-foreground italic py-20">Syncing projects...</p>
+            {(projectsLoading || usersLoading) ? (
+               <div className="col-span-full py-20 flex flex-col items-center gap-4">
+                 <Activity className="animate-spin text-primary h-8 w-8" />
+                 <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Syncing Projects...</p>
+               </div>
             ) : projects && projects.length > 0 ? (
               projects.map((project, idx) => (
                 <ProjectCard key={project.id} project={project as any} index={idx} />
               ))
             ) : (
-              <p className="text-muted-foreground italic py-20">No projects found. Add them in the CMS.</p>
+              <div className="col-span-full py-20 border border-dashed border-white/10 rounded-[2rem] text-center">
+                <p className="text-muted-foreground italic">No projects discovered. Publish your work in the CMS.</p>
+              </div>
             )}
           </div>
         </div>
