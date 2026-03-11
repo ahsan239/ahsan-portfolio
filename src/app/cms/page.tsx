@@ -1,36 +1,46 @@
+
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase } from "@/firebase";
+import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase, useAuth } from "@/firebase";
 import { collection, doc, query, orderBy } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
-import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode, Sparkles, ExternalLink } from "lucide-react";
+import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
+import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode, Sparkles, ExternalLink, ShieldAlert } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import Link from "next/link";
 
-const OWNER_ID = "ahsan";
-
 export default function CMSPage() {
   const db = useFirestore();
-  const { isUserLoading } = useUser();
+  const auth = useAuth();
+  const { user, isUserLoading } = useUser();
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db]);
-  const experienceQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db]);
-  const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db]);
+  // Use the authenticated user's ID, or fallback to "ahsan" for legacy data
+  const OWNER_ID = user?.uid || "ahsan";
+
+  const projectsQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'projects'), orderBy('order', 'asc')), [db, OWNER_ID]);
+  const experienceQuery = useMemoFirebase(() => query(collection(db, 'users', OWNER_ID, 'experiences'), orderBy('order', 'desc')), [db, OWNER_ID]);
+  const profileRef = useMemoFirebase(() => doc(db, 'users', OWNER_ID), [db, OWNER_ID]);
 
   const { data: projects } = useCollection(projectsQuery);
   const { data: experiences } = useCollection(experienceQuery);
   const { data: profile } = useDoc(profileRef);
 
+  const handleLogin = () => {
+    initiateAnonymousSignIn(auth);
+  };
+
   const handleSaveProfile = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
+
     const formData = new FormData(e.currentTarget);
     const data = {
       id: OWNER_ID,
@@ -47,14 +57,17 @@ export default function CMSPage() {
 
   const handleSaveProject = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
+
     const formData = new FormData(e.currentTarget);
     const id = editingId || crypto.randomUUID();
     
+    // Aligned with Project entity in backend.json
     const projectData = {
       id,
       title: formData.get('title') as string,
       slug: (formData.get('title') as string).toLowerCase().replace(/\s+/g, '-'),
-      summary: formData.get('summary') as string,
+      description: formData.get('description') as string, // Changed from summary to description
       problem: formData.get('problem') as string,
       solution: formData.get('solution') as string,
       roiMetric: formData.get('roiMetric') as string,
@@ -63,9 +76,8 @@ export default function CMSPage() {
       githubLink: formData.get('githubLink') as string,
       architecture: formData.get('architecture') as string,
       codeSnippet: formData.get('codeSnippet') as string,
-      technologies: (formData.get('technologies') as string).split(',').map(s => s.trim()),
+      techStack: (formData.get('technologies') as string).split(',').map(s => s.trim()), // backend.json uses techStack
       imageUrl: formData.get('imageUrl') as string || `https://picsum.photos/seed/${id}/1200/630`,
-      publishedAt: formData.get('publishedAt') as string || new Date().toISOString(),
       order: editingId ? (projects?.find(p => p.id === id)?.order ?? 0) : (projects?.length || 0),
     };
 
@@ -77,15 +89,18 @@ export default function CMSPage() {
 
   const handleSaveExperience = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
+
     const formData = new FormData(e.currentTarget);
     const id = editingId || crypto.randomUUID();
 
+    // Aligned with Experience entity in backend.json
     const expData = {
       id,
       company: formData.get('company') as string,
       role: formData.get('role') as string,
-      duration: formData.get('duration') as string,
-      points: (formData.get('points') as string).split('\n').filter(p => p.trim() !== ''),
+      period: formData.get('period') as string, // Changed from duration to period
+      desc: formData.get('desc') as string, // Changed from points to desc
       order: editingId ? (experiences?.find(ex => ex.id === id)?.order ?? 0) : (experiences?.length || 0)
     };
 
@@ -96,14 +111,36 @@ export default function CMSPage() {
   };
 
   const handleDelete = (path: string) => {
+    if (!user) return toast({ title: "Please sign in first", variant: "destructive" });
     if (!confirm("Are you sure? This cannot be undone.")) return;
     deleteDocumentNonBlocking(doc(db, path));
     toast({ title: "Deleted successfully." });
   };
 
-  if (isUserLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-primary" /></div>;
+  if (isUserLoading) return <div className="min-h-screen flex items-center justify-center bg-background"><Loader2 className="animate-spin text-primary" /></div>;
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-background dot-pattern flex items-center justify-center p-6">
+        <Navigation />
+        <Card className="glass-card max-w-md w-full p-8 text-center space-y-6 rounded-[2.5rem] animate-fade-in-up">
+          <div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto text-primary">
+            <ShieldAlert size={40} />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-2xl font-black uppercase tracking-tight">Access Restricted</h1>
+            <p className="text-muted-foreground text-sm">Please sign in to your administrative account to manage portfolio content.</p>
+          </div>
+          <Button onClick={handleLogin} size="lg" className="w-full h-14 font-black uppercase tracking-widest rounded-2xl">
+            Authorize via Studio
+          </Button>
+        </Card>
+      </div>
+    );
+  }
 
   const editingProject = projects?.find(p => p.id === editingId);
+  const editingExperience = experiences?.find(ex => ex.id === editingId);
 
   return (
     <div className="min-h-screen bg-background dot-pattern pt-32 pb-20">
@@ -116,7 +153,7 @@ export default function CMSPage() {
             </div>
             <div>
               <h1 className="text-3xl font-black tracking-tight uppercase">Admin Console</h1>
-              <p className="text-muted-foreground text-sm font-medium">Headless CMS Engine • Real-time Data Control</p>
+              <p className="text-muted-foreground text-sm font-medium">Portfolio Content Engine • Connected as {user.email || 'Admin'}</p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -202,7 +239,7 @@ export default function CMSPage() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Technologies (Comma separated)</label>
-                        <Input name="technologies" defaultValue={editingProject?.technologies?.join(', ')} placeholder="React, Next.js, Firebase" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
+                        <Input name="technologies" defaultValue={editingProject?.techStack?.join(', ')} placeholder="React, Next.js, Firebase" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                       </div>
                     </div>
                   </div>
@@ -235,7 +272,7 @@ export default function CMSPage() {
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Value Statement (One Line)</label>
-                      <Input name="summary" defaultValue={editingProject?.summary} placeholder="The 'Elevator Pitch' for this project" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
+                      <Input name="description" defaultValue={editingProject?.description} placeholder="The 'Elevator Pitch' for this project" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -308,7 +345,7 @@ export default function CMSPage() {
                         <div className="flex items-center gap-3">
                            <p className="text-[10px] text-primary uppercase font-black tracking-widest">{p.businessImpact || 'Impact Pending'}</p>
                            <span className="text-white/10">•</span>
-                           <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">{p.technologies?.slice(0, 2).join(' + ')}</p>
+                           <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">{p.techStack?.slice(0, 2).join(' + ')}</p>
                         </div>
                       </div>
                     </div>
@@ -339,20 +376,20 @@ export default function CMSPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Company / Institution</label>
-                      <Input name="company" defaultValue={experiences?.find(ex => ex.id === editingId)?.company} placeholder="e.g. Cloudfort" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
+                      <Input name="company" defaultValue={editingExperience?.company} placeholder="e.g. Cloudfort" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Professional Role</label>
-                      <Input name="role" defaultValue={experiences?.find(ex => ex.id === editingId)?.role} placeholder="e.g. Web Developer" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-bold" />
+                      <Input name="role" defaultValue={editingExperience?.role} placeholder="e.g. Web Developer" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-bold" />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Duration (Label)</label>
-                    <Input name="duration" defaultValue={experiences?.find(ex => ex.id === editingId)?.duration} placeholder="e.g. Nov 2024 — Present" required className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                    <Input name="period" defaultValue={editingExperience?.period} placeholder="e.g. Nov 2024 — Present" required className="bg-white/5 border-white/10 h-14 rounded-2xl" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Impact Highlights (Markdown supported)</label>
-                    <Textarea name="points" defaultValue={experiences?.find(ex => ex.id === editingId)?.points?.join('\n')} placeholder="Architected scalable platforms..." required className="bg-white/5 border-white/10 min-h-[240px] rounded-3xl p-6 text-base leading-relaxed" />
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Impact Highlights</label>
+                    <Textarea name="desc" defaultValue={editingExperience?.desc} placeholder="Architected scalable platforms..." required className="bg-white/5 border-white/10 min-h-[240px] rounded-3xl p-6 text-base leading-relaxed" />
                   </div>
                   <div className="flex gap-4 pt-6">
                     <Button type="submit" className="flex-1 h-16 font-black uppercase tracking-widest rounded-2xl shadow-2xl shadow-primary/20 text-sm">
@@ -381,7 +418,7 @@ export default function CMSPage() {
                       </div>
                       <div>
                         <h4 className="font-bold text-lg uppercase tracking-tight">{ex.role}</h4>
-                        <p className="text-[10px] text-primary font-black uppercase tracking-widest">{ex.company} • {ex.duration}</p>
+                        <p className="text-[10px] text-primary font-black uppercase tracking-widest">{ex.company} • {ex.period}</p>
                       </div>
                     </div>
                     <div className="flex gap-2">
