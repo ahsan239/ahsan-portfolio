@@ -72,8 +72,8 @@ export default function RootLayout({
               "jobTitle": "Senior Software Engineer",
               "url": "https://ahsan.dev",
               "sameAs": [
-                "https://github.com/ahsan",
-                "https://linkedin.com/in/ahsan"
+                "https://github.com/ahsan239",
+                "https://www.linkedin.com/in/mohd-ahsan-5b40b31b1/"
               ]
             })
           }}

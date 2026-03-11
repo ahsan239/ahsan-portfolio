@@ -83,9 +83,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:700ms]">
-            <Link href="https://github.com/ahsan" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
-            <Link href="https://linkedin.com/in/ahsan" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
-            <Link href={`mailto:${profile?.contactEmail || 'hello@ahsan.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
+            <Link href="https://github.com/ahsan239" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
+            <Link href="https://www.linkedin.com/in/mohd-ahsan-5b40b31b1/" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
+            <Link href={`mailto:${profile?.contactEmail || 'ahsan000k@gmail.com'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
           </div>
         </div>
       </section>
@@ -326,7 +326,7 @@ export default function Home() {
       <section id="contact" className="py-24 md:py-40 relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center animate-fade-in-up">
           <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
-            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.85] italic uppercase text-gradient">
+            <h2 className="text-4xl sm:text-5_6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.85] italic uppercase text-gradient">
               Let's build <br className="hidden md:block" /> something <span className="text-foreground">great.</span>
             </h2>
             <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto">
@@ -336,10 +336,10 @@ export default function Home() {
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-6 md:pt-10 w-full sm:w-auto">
               <Button asChild size="lg" className="rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl shadow-2xl shadow-primary/30 hover:scale-[1.05] transition-all duration-300 uppercase tracking-widest w-full sm:w-auto">
-                <Link href={`mailto:${profile?.contactEmail || 'hello@ahsan.dev'}`}>Email Me</Link>
+                <Link href={`mailto:${profile?.contactEmail || 'ahsan000k@gmail.com'}`}>Email Me</Link>
               </Button>
               <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl border-white/10 hover:bg-white/5 hover:scale-[1.05] transition-all duration-300 uppercase tracking-widest w-full sm:w-auto">
-                <Link href="https://linkedin.com/in/ahsan" target="_blank">LinkedIn</Link>
+                <Link href="https://www.linkedin.com/in/mohd-ahsan-5b40b31b1/" target="_blank">LinkedIn</Link>
               </Button>
             </div>
           </div>

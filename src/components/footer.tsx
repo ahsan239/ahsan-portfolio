@@ -30,10 +30,10 @@ export function Footer() {
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Social</h4>
             <ul className="space-y-4">
               <li>
-                <Link href="https://github.com/ahsan" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">GitHub</Link>
+                <Link href="https://github.com/ahsan239" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">GitHub</Link>
               </li>
               <li>
-                <Link href="https://linkedin.com/in/ahsan" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">LinkedIn</Link>
+                <Link href="https://www.linkedin.com/in/mohd-ahsan-5b40b31b1/" target="_blank" className="text-sm font-bold hover:text-primary transition-colors">LinkedIn</Link>
               </li>
             </ul>
           </div>

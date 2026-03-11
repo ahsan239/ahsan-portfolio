@@ -281,7 +281,7 @@ export default function AboutPage() {
                 </h2>
                 <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 relative z-10">
                   <Button asChild size="lg" className="rounded-full px-12 h-16 bg-white text-primary hover:bg-white/90 font-black uppercase tracking-widest text-sm w-full sm:w-auto">
-                    <Link href={`mailto:${profile?.contactEmail || 'hello@ahsan.dev'}`}>Start a Conversation</Link>
+                    <Link href={`mailto:${profile?.contactEmail || 'ahsan000k@gmail.com'}`}>Start a Conversation</Link>
                   </Button>
                   <Button variant="outline" asChild size="lg" className="rounded-full px-12 h-16 border-white/20 bg-white/10 text-white hover:bg-white/20 font-black uppercase tracking-widest text-sm backdrop-blur-md w-full sm:w-auto">
                     <Link href="/#projects">View My Work <ArrowRight className="ml-2 h-4 w-4" /></Link>

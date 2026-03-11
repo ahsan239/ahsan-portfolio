@@ -38,7 +38,7 @@ export default function HirePage() {
         "Cloud-Native Deployments"
       ],
       cta: "Inquire about Project",
-      href: "mailto:hello@ahsan.dev",
+      href: "mailto:ahsan000k@gmail.com",
       popular: true
     }
   ];
