@@ -8,7 +8,7 @@
 
 A high-performance, SEO-optimized, content-driven developer portfolio built using **Next.js (App Router)** and **Firebase Firestore**, deployed on **Firebase App Hosting**.
 
-The platform allows dynamic project and experience management via a built-in Dashboard CMS without redeployment, while maintaining top-tier performance and clean UI.
+The platform allows dynamic project and experience management via a built-in **Editorial Studio CMS** (powered by Firebase) without redeployment, while maintaining top-tier performance and clean UI.
 
 ---
 
@@ -17,7 +17,7 @@ The platform allows dynamic project and experience management via a built-in Das
 * Showcase technical projects professionally  
 * Demonstrate modern full-stack architecture  
 * Achieve Lighthouse score > 90  
-* Enable easy content management via Firebase  
+* Enable easy content management via **Firebase Firestore**  
 * Ensure scalability and maintainability  
 * Impress recruiters with production-level stack
 
@@ -103,8 +103,8 @@ The platform allows dynamic project and experience management via a built-in Das
 
 ## **🗂 CMS / Database**
 
-* **Firebase Firestore**: Real-time NoSQL database serving as the content engine.
-* **Firebase Authentication**: Securing the Dashboard CMS.
+* **Firebase Firestore**: Real-time NoSQL database serving as the content engine and headless CMS.
+* **Firebase Authentication**: Securing the Editorial Studio CMS.
 * **Firebase App Hosting**: Next-generation hosting for server-rendered apps.
 
 ---

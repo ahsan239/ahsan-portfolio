@@ -11,7 +11,7 @@ import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase, useAuth 
 import { collection, doc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
-import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode, Sparkles, ExternalLink, ShieldAlert } from "lucide-react";
+import { Plus, Trash2, LayoutDashboard, Briefcase, Code2, Loader2, User, Save, Edit3, X, Eye, FileCode, Sparkles, ExternalLink, ShieldAlert, CheckCircle2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import Link from "next/link";
 
@@ -41,11 +41,9 @@ export default function CMSPage() {
   };
 
   const ensureProfileExists = () => {
-    // Crucial for discovery query on home page: ensure the root user doc exists
     setDocumentNonBlocking(profileRef, { 
       id: OWNER_ID, 
       lastUpdated: serverTimestamp(),
-      updatedBy: user?.email || 'Anonymous'
     }, { merge: true });
   };
 
@@ -169,8 +167,8 @@ export default function CMSPage() {
               <LayoutDashboard size={28} />
             </div>
             <div>
-              <h1 className="text-3xl font-black tracking-tight uppercase">Admin Console</h1>
-              <p className="text-muted-foreground text-sm font-medium">Portfolio Content Engine • Connected as {user.email || 'Admin'}</p>
+              <h1 className="text-3xl font-black tracking-tight uppercase">Editorial Studio</h1>
+              <p className="text-muted-foreground text-sm font-medium">Firebase Content Engine • Connected as {user.email || 'Admin'}</p>
             </div>
           </div>
           <div className="flex gap-3">
