@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -7,7 +6,7 @@ import {
   ArrowRight, Database, Layers, Mail, Github, 
   Linkedin, Briefcase, Terminal, Sparkles, Code2,
   Zap, ShieldCheck, Globe, Cpu, Flame, Share2, Palette,
-  Activity, Target, Calendar, Award
+  Activity, Target, Award
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +21,7 @@ export default function Home() {
   const db = useFirestore();
   const [activeOwnerId, setActiveOwnerId] = useState<string>("ahsan");
 
-  // Discover the active user ID from Firestore
+  // Discover the active user profile from Firestore
   const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(1)), [db]);
   const { data: users } = useCollection(usersQuery);
 
@@ -39,21 +38,6 @@ export default function Home() {
   const { data: profile } = useDoc(profileRef);
   const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
   const { data: experiences, isLoading: expLoading } = useCollection(experiencesQuery);
-
-  const techArsenal = [
-    { name: "Next.js 15", category: "FRONTEND", icon: <Zap size={24} />, color: "text-blue-400", glow: "hover:shadow-blue-500/20", desc: "App Router, RSC, Server Actions" },
-    { name: "React 19", category: "FRONTEND", icon: <Code2 size={24} />, color: "text-cyan-400", glow: "hover:shadow-cyan-400/20", desc: "Concurrent rendering, Hooks" },
-    { name: "TypeScript", category: "LANGUAGE", icon: <ShieldCheck size={24} />, color: "text-blue-500", glow: "hover:shadow-blue-500/20", desc: "Type-safe development" },
-    { name: "JavaScript", category: "LANGUAGE", icon: <Globe size={24} />, color: "text-yellow-400", glow: "hover:shadow-yellow-400/20", desc: "Modern web standard" },
-    { name: "Node.js", category: "BACKEND", icon: <Cpu size={24} />, color: "text-green-500", glow: "hover:shadow-green-500/20", desc: "Scalable server environments" },
-    { name: "Express.js", category: "BACKEND", icon: <Database size={24} />, color: "text-emerald-400", glow: "hover:shadow-emerald-400/20", desc: "Minimalist web framework" },
-    { name: "Firebase", category: "CLOUD/DB", icon: <Flame size={24} />, color: "text-orange-500", glow: "hover:shadow-orange-500/20", desc: "Real-time apps & Auth" },
-    { name: "MongoDB", category: "DATABASE", icon: <Layers size={24} />, color: "text-green-600", glow: "hover:shadow-green-600/20", desc: "NoSQL document storage" },
-    { name: "GraphQL", category: "API", icon: <Share2 size={24} />, color: "text-pink-500", glow: "hover:shadow-pink-500/20", desc: "Flexible data fetching" },
-    { name: "Google Apps Script", category: "AUTOMATION", icon: <Terminal size={24} />, color: "text-blue-600", glow: "hover:shadow-blue-600/20", desc: "Productivity workflows" },
-    { name: "Tailwind CSS", category: "STYLING", icon: <Palette size={24} />, color: "text-sky-400", glow: "hover:shadow-sky-400/20", desc: "Utility-first CSS framework" },
-    { name: "Generative AI", category: "AI", icon: <Sparkles size={24} />, color: "text-purple-400", glow: "hover:shadow-purple-400/20", desc: "LLM & GenAI integration" },
-  ];
 
   const defaultExperiences = [
     {
@@ -72,7 +56,6 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
       <Navigation />
       
-      {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-start pt-48 md:pt-60 lg:pt-72 pb-20 overflow-hidden">
         <div className="mesh-container">
           <div className="mesh-blob mesh-blob-1" />
@@ -114,7 +97,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The Philosophy Section */}
       <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
@@ -227,7 +209,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Professional Journey (Experience Timeline - FULL VIEW) */}
       <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
           <div className="mb-16 md:mb-24">
@@ -241,9 +222,7 @@ export default function Home() {
           </div>
 
           <div className="relative max-w-4xl">
-            {/* Left Vertical Line */}
             <div className="absolute left-[1.1rem] top-0 bottom-0 w-[1px] bg-gradient-to-b from-primary/50 via-white/10 to-transparent" />
-
             <div className="space-y-12">
               {expLoading ? (
                 <div className="flex items-center justify-center py-20">
@@ -252,18 +231,13 @@ export default function Home() {
                 </div>
               ) : displayExperiences.map((exp: any, idx) => (
                 <div key={exp.id || idx} className="relative pl-12 group animate-fade-in-up" style={{ animationDelay: `${idx * 150}ms` }}>
-                  
-                  {/* Timeline Point */}
                   <div className="absolute left-[0.675rem] top-1 z-10 flex items-center justify-center">
                     <div className="h-4 w-4 rounded-full bg-primary shadow-[0_0_20px_rgba(var(--primary),0.8)] ring-4 ring-background group-hover:scale-125 transition-transform duration-500" />
                   </div>
-
-                  {/* Content Card (Full View) */}
                   <Card className="glass-card p-8 md:p-12 rounded-[2.5rem] border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-xl overflow-hidden relative">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                         <Award size={100} />
                     </div>
-                    
                     <div className="flex flex-col gap-6 relative z-10">
                       <div className="space-y-4">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -280,7 +254,6 @@ export default function Home() {
                           </Badge>
                         </div>
                       </div>
-
                       <div className="space-y-4 max-w-3xl">
                         {exp.desc?.split('\n').map((point: string, pIdx: number) => (
                           <div key={pIdx} className="flex gap-4 text-sm md:text-base text-muted-foreground font-normal leading-relaxed tracking-tight">
@@ -298,7 +271,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Grid */}
       <section id="projects" className="py-20 md:py-32">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 animate-fade-in-up">
           <div className="mb-12 md:mb-20 max-w-3xl">
@@ -307,7 +279,6 @@ export default function Home() {
               Proven results in <span className="text-muted-foreground">engineering.</span>
             </h3>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projectsLoading ? (
                <p className="text-muted-foreground italic py-20">Syncing projects...</p>
@@ -322,7 +293,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Strategy */}
       <section id="contact" className="py-24 md:py-40 relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center animate-fade-in-up">
           <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
