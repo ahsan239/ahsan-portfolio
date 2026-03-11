@@ -45,7 +45,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground dot-pattern mesh-gradient overflow-hidden selection:bg-primary/20">
+    <div className="min-h-screen bg-transparent text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
       <Navigation />
       
       {/* Hero Section */}
@@ -84,7 +84,7 @@ export default function Home() {
       </section>
 
       {/* The Philosophy Section */}
-      <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5 bg-white/[0.01]">
+      <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             <div className="lg:col-span-7 space-y-12 md:space-y-16">
@@ -212,7 +212,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {techArsenal.map((tech) => (
               <Card key={tech.name} className={cn(
-                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] bg-white/[0.02] overflow-hidden group hover:-translate-y-2 shadow-xl",
+                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 shadow-xl",
                 tech.glow
               )}>
                 <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">
