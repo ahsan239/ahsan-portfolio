@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { name: "Home", href: "/", icon: <LayoutGrid size={14} /> },
   { name: "About", href: "/about", icon: <User size={14} /> },
-  { name: "Experience", href: "/#experience", icon: <Briefcase size={14} /> },
   { name: "Projects", href: "/#projects", icon: <Code2 size={14} /> },
+  { name: "Experience", href: "/#experience", icon: <Briefcase size={14} /> },
 ];
 
 export function Navigation() {
