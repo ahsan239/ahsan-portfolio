@@ -22,7 +22,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group relative flex flex-col glass-card rounded-[2.5rem] overflow-hidden hover:border-primary/50 transition-all duration-700 hover:-translate-y-2 h-full"
+      className="group relative flex flex-col glass-card rounded-[2.5rem] overflow-hidden hover:border-primary/50 transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] h-full shadow-lg hover:shadow-2xl"
     >
       <div className="aspect-[1.2/1] relative overflow-hidden">
         <Image
@@ -40,7 +40,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         {/* Arrow Button */}
-        <div className="absolute bottom-6 right-6 h-12 w-12 rounded-full bg-white text-black flex items-center justify-center translate-y-20 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
+        <div className="absolute bottom-6 right-6 h-12 w-12 rounded-full bg-white text-black flex items-center justify-center translate-y-20 group-hover:translate-y-0 transition-all duration-500 shadow-2xl">
            <ArrowUpRight className="h-6 w-6" />
         </div>
       </div>
@@ -48,7 +48,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <div className="p-8 flex flex-col flex-1 space-y-6">
         <div className="flex flex-wrap gap-2">
           {project.technologies?.slice(0, 3).map(tech => (
-            <Badge key={tech} variant="secondary" className="bg-white/5 text-[9px] font-black uppercase tracking-widest border-white/5 px-3 py-1 rounded-full">
+            <Badge key={tech} variant="secondary" className="bg-white/5 text-[9px] font-black uppercase tracking-widest border-white/5 px-3 py-1 rounded-full group-hover:border-primary/30 transition-colors">
               {tech}
             </Badge>
           ))}
@@ -65,7 +65,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
         <div className="pt-6 mt-auto border-t border-white/5">
           <div className="flex items-center gap-2 text-[10px] font-black text-primary uppercase tracking-[0.2em]">
-            <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             {project.roiMetric || "ROI Optimized"}
           </div>
         </div>

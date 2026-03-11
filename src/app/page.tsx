@@ -75,10 +75,10 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:400ms] w-full sm:w-auto">
-            <Button asChild size="lg" className="rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm shadow-2xl shadow-primary/20 hover:scale-105 transition-transform w-full sm:w-auto">
+            <Button asChild size="lg" className="rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm shadow-2xl shadow-primary/20 hover:scale-[1.05] transition-all duration-300 w-full sm:w-auto">
               <Link href="/#projects">View Projects <ArrowRight size={18} className="ml-2" /></Link>
             </Button>
-            <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm border-white/10 hover:bg-white/5 transition-all w-full sm:w-auto">
+            <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm border-white/10 hover:bg-white/5 hover:scale-[1.05] transition-all duration-300 w-full sm:w-auto">
               <Link href="/about">My Story</Link>
             </Button>
           </div>
@@ -92,7 +92,7 @@ export default function Home() {
       </section>
 
       {/* The Philosophy Section */}
-      <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5">
+      <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5 animate-fade-in-up">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             <div className="lg:col-span-7 space-y-12 md:space-y-16">
@@ -137,7 +137,7 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
-              <Card className="glass-card border-white/5 rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden group hover:border-primary/20 transition-all duration-700 shadow-2xl">
+              <Card className="glass-card border-white/5 rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden group hover:border-primary/20 hover:scale-[1.02] transition-all duration-700 shadow-2xl">
                 <CardContent className="p-6 md:p-8 lg:p-12 space-y-10 md:space-y-12">
                   <div className="space-y-8 md:space-y-10">
                     <div className="flex items-center justify-between">
@@ -205,7 +205,7 @@ export default function Home() {
       </section>
 
       {/* Technical Arsenal */}
-      <section id="arsenal" className="py-20 md:py-40 relative">
+      <section id="arsenal" className="py-20 md:py-40 relative animate-fade-in-up">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="mb-12 md:mb-20">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
@@ -220,7 +220,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {techArsenal.map((tech) => (
               <Card key={tech.name} className={cn(
-                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 shadow-xl",
+                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 hover:scale-[1.02] shadow-xl",
                 tech.glow
               )}>
                 <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">
@@ -254,7 +254,7 @@ export default function Home() {
       </section>
 
       {/* Professional Journey (Experience) */}
-      <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
+      <section id="experience" className="py-20 md:py-40 relative border-t border-white/5 animate-fade-in-up">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="mb-12 md:mb-20">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
@@ -271,11 +271,11 @@ export default function Home() {
               <p className="text-muted-foreground italic">Syncing career history...</p>
             ) : experiences && experiences.length > 0 ? (
               experiences.map((exp, idx) => (
-                <div key={exp.id} className="relative pl-8 md:pl-12 border-l border-white/10 pb-12 last:pb-0">
-                  <div className="absolute left-[-5px] top-0 h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
-                  <div className="space-y-4">
+                <div key={exp.id} className="relative pl-8 md:pl-12 border-l border-white/10 pb-12 last:pb-0 group">
+                  <div className="absolute left-[-5px] top-0 h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)] group-hover:scale-150 transition-transform duration-300" />
+                  <div className="space-y-4 group-hover:translate-x-2 transition-transform duration-300">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                      <h4 className="text-2xl font-bold uppercase tracking-tight text-foreground">{exp.role}</h4>
+                      <h4 className="text-2xl font-bold uppercase tracking-tight text-foreground group-hover:text-primary transition-colors">{exp.role}</h4>
                       <span className="text-xs font-black uppercase tracking-widest text-primary bg-primary/5 px-3 py-1 rounded-full border border-primary/10 w-fit">
                         {exp.duration}
                       </span>
@@ -300,7 +300,7 @@ export default function Home() {
       </section>
 
       {/* Projects Grid */}
-      <section id="projects" className="py-20 md:py-32">
+      <section id="projects" className="py-20 md:py-32 animate-fade-in-up">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="mb-12 md:mb-20 max-w-3xl">
             <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
@@ -324,7 +324,7 @@ export default function Home() {
       </section>
 
       {/* Contact Strategy */}
-      <section id="contact" className="py-24 md:py-40 relative">
+      <section id="contact" className="py-24 md:py-40 relative animate-fade-in-up">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center">
           <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
             <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.85] italic uppercase text-gradient">
@@ -336,10 +336,10 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-6 md:pt-10 w-full sm:w-auto">
-              <Button asChild size="lg" className="rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-transform uppercase tracking-widest w-full sm:w-auto">
+              <Button asChild size="lg" className="rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl shadow-2xl shadow-primary/30 hover:scale-[1.05] transition-all duration-300 uppercase tracking-widest w-full sm:w-auto">
                 <Link href={`mailto:${profile?.contactEmail || 'hello@ahsan.dev'}`}>Email Me</Link>
               </Button>
-              <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl border-white/10 hover:bg-white/5 transition-all uppercase tracking-widest w-full sm:w-auto">
+              <Button variant="outline" asChild size="lg" className="glass-card rounded-full px-12 h-16 md:h-20 font-bold text-lg md:text-xl border-white/10 hover:bg-white/5 hover:scale-[1.05] transition-all duration-300 uppercase tracking-widest w-full sm:w-auto">
                 <Link href="https://linkedin.com/in/ahsan" target="_blank">LinkedIn</Link>
               </Button>
             </div>
