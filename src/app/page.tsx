@@ -294,9 +294,6 @@ export default function Home() {
                 <span className="text-primary italic">Journey.</span>
               </h3>
             </div>
-            <p className="text-muted-foreground max-w-sm text-sm font-light leading-relaxed">
-              Tracing my path from foundational internships to high-impact senior engineering roles.
-            </p>
           </div>
 
           <div className="relative">
