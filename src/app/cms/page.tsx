@@ -81,16 +81,16 @@ export default function CMSPage() {
       title: formData.get('title') as string,
       slug: (formData.get('title') as string).toLowerCase().replace(/\s+/g, '-'),
       description: formData.get('description') as string,
-      problem: formData.get('problem') as string,
-      solution: formData.get('solution') as string,
-      roiMetric: formData.get('roiMetric') as string,
-      businessImpact: formData.get('businessImpact') as string,
+      problem: (formData.get('problem') as string) || "",
+      solution: (formData.get('solution') as string) || "",
+      roiMetric: (formData.get('roiMetric') as string) || "",
+      businessImpact: (formData.get('businessImpact') as string) || "",
       projectLink: formData.get('projectLink') as string,
-      githubLink: formData.get('githubLink') as string,
-      architecture: formData.get('architecture') as string,
-      codeSnippet: formData.get('codeSnippet') as string,
+      githubLink: (formData.get('githubLink') as string) || "",
+      architecture: (formData.get('architecture') as string) || "",
+      codeSnippet: (formData.get('codeSnippet') as string) || "",
       techStack: (formData.get('technologies') as string).split(',').map(s => s.trim()),
-      imageUrl: formData.get('imageUrl') as string || `https://picsum.photos/seed/${id}/1200/630`,
+      imageUrl: formData.get('imageUrl') as string,
       order: editingId ? (projects?.find(p => p.id === id)?.order ?? 0) : (projects?.length || 0),
       updatedAt: serverTimestamp(),
     };
@@ -253,11 +253,11 @@ export default function CMSPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Project Title</label>
-                        <Input name="title" defaultValue={editingProject?.title} placeholder="e.g. Nexus SaaS Engine" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
+                        <Input name="title" defaultValue={editingProject?.title} placeholder="e.g. EliteCare Healthcare Platform" required className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-bold" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Technologies (Comma separated)</label>
-                        <Input name="technologies" defaultValue={editingProject?.techStack?.join(', ')} placeholder="React, Next.js, Firebase" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
+                        <Input name="technologies" defaultValue={editingProject?.techStack?.join(', ')} placeholder="Next.js, React, Firebase" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                       </div>
                     </div>
                   </div>
@@ -267,19 +267,19 @@ export default function CMSPage() {
                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">02 // Assets & Links</span>
                        <div className="h-[1px] flex-1 bg-white/5" />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Live URL</label>
-                        <Input name="projectLink" defaultValue={editingProject?.projectLink} placeholder="https://..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Repository URL</label>
-                        <Input name="githubLink" defaultValue={editingProject?.githubLink} placeholder="https://github.com/..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                        <Input name="projectLink" defaultValue={editingProject?.projectLink} placeholder="https://elite-care-nu.vercel.app/" required className="bg-white/5 border-white/10 h-14 rounded-2xl" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Cover Image URL</label>
-                        <Input name="imageUrl" defaultValue={editingProject?.imageUrl} placeholder="https://picsum.photos/..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
+                        <Input name="imageUrl" defaultValue={editingProject?.imageUrl} placeholder="https://elite-care-nu.vercel.app/projects/elitecare-cover.png" required className="bg-white/5 border-white/10 h-14 rounded-2xl" />
                       </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Repository URL (Optional)</label>
+                      <Input name="githubLink" defaultValue={editingProject?.githubLink} placeholder="https://github.com/..." className="bg-white/5 border-white/10 h-14 rounded-2xl" />
                     </div>
                   </div>
 
@@ -290,27 +290,27 @@ export default function CMSPage() {
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Value Statement (One Line)</label>
-                      <Input name="description" defaultValue={editingProject?.description} placeholder="The 'Elevator Pitch' for this project" required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
+                      <Input name="description" defaultValue={editingProject?.description} placeholder="A web platform for managing patient care workflows..." required className="bg-white/5 border-white/10 h-14 rounded-2xl font-medium" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Core Problem</label>
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Core Problem (Optional)</label>
                         <Textarea name="problem" defaultValue={editingProject?.problem} placeholder="Describe the engineering challenge..." className="bg-white/5 border-white/10 min-h-[160px] rounded-3xl p-6 leading-relaxed" />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Technical Solution</label>
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Technical Solution (Optional)</label>
                         <Textarea name="solution" defaultValue={editingProject?.solution} placeholder="Describe your architectural approach..." className="bg-white/5 border-white/10 min-h-[160px] rounded-3xl p-6 leading-relaxed" />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Architecture Diagram/Overview</label>
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Architecture Diagram/Overview (Optional)</label>
                         <Textarea name="architecture" defaultValue={editingProject?.architecture} placeholder="Explain the system design..." className="bg-white/5 border-white/10 min-h-[140px] rounded-3xl p-6 font-mono text-xs" />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Core Code Snippet</label>
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Core Code Snippet (Optional)</label>
                         <Textarea name="codeSnippet" defaultValue={editingProject?.codeSnippet} placeholder="export const logic = () => ..." className="bg-white/5 border-white/10 min-h-[140px] rounded-3xl p-6 font-mono text-xs" />
                       </div>
                     </div>
@@ -318,7 +318,7 @@ export default function CMSPage() {
 
                   <div className="space-y-8">
                     <div className="flex items-center gap-4">
-                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">04 // Measurable Impact</span>
+                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">04 // Measurable Impact (Optional)</span>
                        <div className="h-[1px] flex-1 bg-white/5" />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

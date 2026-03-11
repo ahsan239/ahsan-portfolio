@@ -36,9 +36,11 @@
         "techStack": { "type": "array", "items": { "type": "string" } },
         "architecture": { "type": "string" },
         "codeSnippet": { "type": "string" },
-        "order": { "type": "number" }
+        "order": { "type": "number" },
+        "projectLink": { "type": "string", "format": "uri" },
+        "githubLink": { "type": "string", "format": "uri" }
       },
-      "required": ["title", "slug", "description"]
+      "required": ["title", "slug", "description", "techStack", "projectLink", "imageUrl"]
     },
     "Experience": {
       "$schema": "http://json-schema.org/draft-07/schema#",
