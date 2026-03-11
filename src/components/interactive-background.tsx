@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
@@ -26,7 +25,7 @@ export function InteractiveBackground() {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 -z-20 overflow-hidden pointer-events-none bg-[#0a0a0a]"
+      className="fixed inset-0 -z-20 overflow-hidden pointer-events-none bg-background"
       aria-hidden="true"
     >
       {/* Primary Interactive Gradient */}
