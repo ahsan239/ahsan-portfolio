@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -6,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { 
-  Briefcase, Award, ArrowRight, Loader2, Sparkles, Terminal, Activity
+  Briefcase, Award, ArrowRight, Loader2, Sparkles, Terminal, Activity, Code2
 } from "lucide-react";
 import { useFirestore, useDoc, useMemoFirebase, useCollection } from "@/firebase";
 import { doc, collection, query, orderBy, limit } from "firebase/firestore";
@@ -117,23 +118,23 @@ export default function ExperiencePage() {
           <section className="mt-32 md:mt-48 grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in-up">
             <Card className="glass-card p-10 md:p-16 rounded-[3rem] border-white/5 space-y-8 group">
                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20 group-hover:scale-110 transition-transform">
-                  <Terminal size={32} />
+                  <Code2 size={32} />
                </div>
                <div className="space-y-4">
-                  <h3 className="text-3xl font-black uppercase tracking-tighter">Systems Architecture</h3>
+                  <h3 className="text-3xl font-black uppercase tracking-tighter">Web Development</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Designing resilient digital ecosystems that scale. From distributed state management to serverless backends, I focus on architectural integrity and long-term maintainability.
+                    Developing modern web applications using React, Next.js, and JavaScript with a focus on performance and scalability. Engineering reliable, secure, and production-ready solutions.
                   </p>
                </div>
             </Card>
             <Card className="glass-card p-10 md:p-16 rounded-[3rem] border-white/5 space-y-8 group">
                <div className="h-16 w-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent border border-accent/20 group-hover:scale-110 transition-transform">
-                  <Sparkles size={32} />
+                  <Terminal size={32} />
                </div>
                <div className="space-y-4">
-                  <h3 className="text-3xl font-black uppercase tracking-tighter">AI Integration</h3>
+                  <h3 className="text-3xl font-black uppercase tracking-tighter">Process Automation</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Weaponizing LLMs and GenAI to automate business critical workflows. Expert in building RAG pipelines, agentic flows, and intelligent search engines.
+                    Creating powerful automation systems with Google Apps Script to streamline Google Workspace operations and business processes for maximum efficiency.
                   </p>
                </div>
             </Card>
