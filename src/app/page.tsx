@@ -50,7 +50,6 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-start pt-48 md:pt-60 lg:pt-72 pb-20 overflow-hidden">
-        {/* Animated Mesh Gradient Background */}
         <div className="mesh-container">
           <div className="mesh-blob mesh-blob-1" />
           <div className="mesh-blob mesh-blob-2" />
@@ -66,15 +65,15 @@ export default function Home() {
             </span>
           </Badge>
           
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 md:mb-10 max-w-4xl mx-auto leading-[1] md:leading-[0.9] animate-fade-in-up uppercase text-foreground">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 md:mb-10 max-w-4xl mx-auto leading-[1] md:leading-[0.9] animate-fade-in-up [animation-delay:100ms] uppercase text-foreground">
             Building digital <span className="text-gradient italic pr-2">products</span> that matter.
           </h1>
           
-          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-normal tracking-tight animate-fade-in-up [animation-delay:200ms]">
+          <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 md:mb-14 leading-relaxed font-normal tracking-tight animate-fade-in-up [animation-delay:300ms]">
             {profile?.headline || "Software Engineer specializing in building scalable digital systems and intelligent automation workflows."}
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:400ms] w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 mb-16 md:mb-24 animate-fade-in-up [animation-delay:500ms] w-full sm:w-auto">
             <Button asChild size="lg" className="rounded-full px-12 h-16 font-bold uppercase tracking-widest text-sm shadow-2xl shadow-primary/20 hover:scale-[1.05] transition-all duration-300 w-full sm:w-auto">
               <Link href="/#projects">View Projects <ArrowRight size={18} className="ml-2" /></Link>
             </Button>
@@ -83,7 +82,7 @@ export default function Home() {
             </Button>
           </div>
 
-          <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:600ms]">
+          <div className="flex items-center justify-center gap-8 md:gap-10 opacity-30 animate-fade-in-up [animation-delay:700ms]">
             <Link href="https://github.com/ahsan" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Github size={24} /></Link>
             <Link href="https://linkedin.com/in/ahsan" target="_blank" className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Linkedin size={24} /></Link>
             <Link href={`mailto:${profile?.contactEmail || 'hello@ahsan.dev'}`} className="hover:text-primary hover:opacity-100 transition-all hover:scale-110"><Mail size={24} /></Link>
@@ -92,10 +91,10 @@ export default function Home() {
       </section>
 
       {/* The Philosophy Section */}
-      <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5 animate-fade-in-up">
+      <section id="philosophy" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
-            <div className="lg:col-span-7 space-y-12 md:space-y-16">
+            <div className="lg:col-span-7 space-y-12 md:space-y-16 animate-fade-in-up">
               <div className="space-y-6 md:space-y-8">
                 <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
                   Engineering Creed
@@ -136,7 +135,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
+            <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32 animate-fade-in-up [animation-delay:200ms]">
               <Card className="glass-card border-white/5 rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden group hover:border-primary/20 hover:scale-[1.02] transition-all duration-700 shadow-2xl">
                 <CardContent className="p-6 md:p-8 lg:p-12 space-y-10 md:space-y-12">
                   <div className="space-y-8 md:space-y-10">
@@ -205,9 +204,9 @@ export default function Home() {
       </section>
 
       {/* Technical Arsenal */}
-      <section id="arsenal" className="py-20 md:py-40 relative animate-fade-in-up">
+      <section id="arsenal" className="py-20 md:py-40 relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-12 md:mb-20">
+          <div className="mb-12 md:mb-20 animate-fade-in-up">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Technical Arsenal
             </Badge>
@@ -218,11 +217,11 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techArsenal.map((tech) => (
+            {techArsenal.map((tech, idx) => (
               <Card key={tech.name} className={cn(
-                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 hover:scale-[1.02] shadow-xl",
+                "glass-card border-white/5 hover:border-primary/50 transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:-translate-y-2 hover:scale-[1.02] shadow-xl animate-fade-in-up",
                 tech.glow
-              )}>
+              )} style={{ animationDelay: `${idx * 50}ms` }}>
                 <CardContent className="p-6 md:p-8 flex flex-col h-full relative z-10">
                   <div className="flex justify-between items-start mb-10 md:mb-12">
                     <div className={cn(
@@ -254,9 +253,9 @@ export default function Home() {
       </section>
 
       {/* Professional Journey (Experience) */}
-      <section id="experience" className="py-20 md:py-40 relative border-t border-white/5 animate-fade-in-up">
+      <section id="experience" className="py-20 md:py-40 relative border-t border-white/5">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-12 md:mb-20">
+          <div className="mb-12 md:mb-20 animate-fade-in-up">
             <Badge variant="outline" className="text-primary border-primary/20 py-1.5 px-4 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] bg-primary/5 mb-6">
               Career Path
             </Badge>
@@ -271,7 +270,7 @@ export default function Home() {
               <p className="text-muted-foreground italic">Syncing career history...</p>
             ) : experiences && experiences.length > 0 ? (
               experiences.map((exp, idx) => (
-                <div key={exp.id} className="relative pl-8 md:pl-12 border-l border-white/10 pb-12 last:pb-0 group">
+                <div key={exp.id} className="relative pl-8 md:pl-12 border-l border-white/10 pb-12 last:pb-0 group animate-fade-in-up" style={{ animationDelay: `${idx * 100}ms` }}>
                   <div className="absolute left-[-5px] top-0 h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)] group-hover:scale-150 transition-transform duration-300" />
                   <div className="space-y-4 group-hover:translate-x-2 transition-transform duration-300">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -300,9 +299,9 @@ export default function Home() {
       </section>
 
       {/* Projects Grid */}
-      <section id="projects" className="py-20 md:py-32 animate-fade-in-up">
+      <section id="projects" className="py-20 md:py-32">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
-          <div className="mb-12 md:mb-20 max-w-3xl">
+          <div className="mb-12 md:mb-20 max-w-3xl animate-fade-in-up">
             <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-primary mb-4">Selected Work</h2>
             <h3 className="text-3xl md:text-6xl font-bold tracking-tight leading-none italic uppercase text-foreground">
               Proven results in <span className="text-muted-foreground">engineering.</span>
@@ -324,9 +323,9 @@ export default function Home() {
       </section>
 
       {/* Contact Strategy */}
-      <section id="contact" className="py-24 md:py-40 relative animate-fade-in-up">
+      <section id="contact" className="py-24 md:py-40 relative">
         <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48 text-center">
-          <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
+          <div className="max-w-5xl mx-auto space-y-10 md:space-y-12 animate-fade-in-up">
             <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.85] italic uppercase text-gradient">
               Let's build <br className="hidden md:block" /> something <span className="text-foreground">great.</span>
             </h2>
