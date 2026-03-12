@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -28,15 +29,15 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       )}
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className="aspect-[1.2/1] relative overflow-hidden">
+      <div className="aspect-[1.2/1] relative overflow-hidden bg-white/[0.02]">
         <Image
           src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/630`}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-1000 group-hover:scale-110"
+          className="object-contain transition-transform duration-1000 group-hover:scale-110"
           data-ai-hint="project visual"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60 pointer-events-none" />
         
         {/* Floating ID badge */}
         <div className="absolute top-6 left-6 h-8 w-8 rounded-full bg-background/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-[10px] font-black font-mono">
@@ -44,7 +45,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         {/* Arrow Button */}
-        <div className="absolute bottom-6 right-6 h-12 w-12 rounded-full bg-white text-black flex items-center justify-center translate-y-20 group-hover:translate-y-0 transition-all duration-500 shadow-2xl">
+        <div className="absolute bottom-6 right-6 h-12 w-12 rounded-full bg-white text-black flex items-center justify-center translate-y-20 group-hover:translate-y-0 transition-all duration-500 shadow-2xl z-10">
            <ArrowUpRight className="h-6 w-6" />
         </div>
       </div>

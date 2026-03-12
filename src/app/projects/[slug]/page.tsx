@@ -142,8 +142,8 @@ export default function ProjectPage() {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {project.gallery.map((img: any, idx: number) => (
-                      <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5">
-                        <Image src={img.url} alt={`Artifact ${idx}`} fill className="object-cover" />
+                      <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 bg-white/[0.02]">
+                        <Image src={img.url} alt={`Artifact ${idx}`} fill className="object-contain" />
                       </div>
                     ))}
                   </div>
