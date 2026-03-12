@@ -2,12 +2,21 @@
 
 import Link from "next/link";
 import { Code2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 /**
  * @fileOverview Global footer component.
  * Aligns with high-fidelity editorial design standards.
+ * Conditionally hides itself on Sanity Studio routes.
  */
 export function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on studio routes to prevent UI overlap
+  if (pathname?.startsWith('/studio')) {
+    return null;
+  }
+
   return (
     <footer className="border-t border-white/5 bg-background/50 backdrop-blur-sm pt-24 pb-12 mt-20">
       <div className="container mx-auto px-6 md:px-16 lg:px-24 xl:px-48">
