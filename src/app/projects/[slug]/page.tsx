@@ -6,7 +6,6 @@ import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-import { AIDemo } from "@/components/ai-demo";
 import { ChevronLeft, Github, ExternalLink, Code, Target, Zap, Activity, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -171,8 +170,6 @@ export default function ProjectPage() {
             </div>
 
             <aside className="lg:col-span-5 lg:sticky lg:top-32 space-y-8 animate-fade-in-up [animation-delay:600ms]">
-               <AIDemo />
-               
                <div className="space-y-6 p-8 bg-white/[0.02] rounded-[2rem] border border-white/5 shadow-xl">
                   <h3 className="text-lg font-black uppercase tracking-tighter text-foreground">Project Resources</h3>
                   <div className="space-y-4">
