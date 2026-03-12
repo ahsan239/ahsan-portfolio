@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -35,9 +34,11 @@ export default function Home() {
       
       try {
         const projects = await client.fetch(PROJECTS_QUERY);
-        setSanityProjects(projects);
+        setSanityProjects(projects || []);
       } catch (error) {
-        console.error("Failed to fetch projects from Sanity:", error);
+        console.error("Sanity connection error:", error);
+        // Fallback to empty to stop loading state
+        setSanityProjects([]);
       } finally {
         setIsSanityLoading(false);
       }
@@ -222,7 +223,7 @@ export default function Home() {
                <div className="space-y-2">
                  <h4 className="text-xl font-bold uppercase tracking-tighter">Sanity Configuration Required</h4>
                  <p className="text-muted-foreground text-sm max-w-md mx-auto">
-                    To display your projects, please update the <strong>NEXT_PUBLIC_SANITY_PROJECT_ID</strong> in your environment variables.
+                    Please ensure your Sanity Project ID (<strong>61no71y9</strong>) is correctly configured.
                  </p>
                </div>
                <Button asChild variant="outline" className="rounded-xl">
@@ -250,6 +251,7 @@ export default function Home() {
           ) : (
             <div className="py-20 border border-dashed border-white/10 rounded-[2rem] text-center">
               <p className="text-muted-foreground italic">No projects found in Sanity. Add some to get started.</p>
+              <p className="text-[10px] text-muted-foreground/50 mt-2 uppercase tracking-widest">Note: Ensure projects are "Published" in the Studio.</p>
             </div>
           )}
         </div>
