@@ -61,9 +61,9 @@ export default function ProjectPage() {
             This project is managed via Sanity.io. Please configure your Project ID in the environment variables to view case studies.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/">Back to Home</Link>
-        </Button>
+        <button className="bg-primary text-primary-foreground px-6 py-2 rounded-md font-medium" onClick={() => window.location.href = '/'}>
+          Back to Home
+        </button>
       </div>
     );
   }
@@ -107,15 +107,14 @@ export default function ProjectPage() {
             </div>
           </header>
 
-          <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group animate-fade-in [animation-delay:200ms]">
+          <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group animate-fade-in [animation-delay:200ms] bg-white/[0.02]">
             <Image
               src={project.imageUrl || `https://picsum.photos/seed/${project._id}/1200/630`}
               alt={project.title}
               fill
-              className="object-cover transition-all duration-1000 scale-105 group-hover:scale-100"
+              className="object-contain transition-all duration-500"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40" />
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 md:gap-20 items-start">
