@@ -1,87 +1,49 @@
+
 'use client';
 
 import { Navigation } from "@/components/navigation";
-import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, where, limit } from "firebase/firestore";
+import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
+import { doc } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
 import { ChevronLeft, Github, ExternalLink, Code, Target, Zap, Activity } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { PROJECTS } from "@/app/lib/projects";
+import { client, PROJECT_BY_SLUG_QUERY } from "@/lib/sanity";
 
-/**
- * @fileOverview Individual project case study view.
- * Dynamically resolves the owner and fetches project details by slug.
- */
 export default function ProjectPage() {
   const params = useParams();
   const db = useFirestore();
   const slug = params?.slug as string;
-  const [activeOwnerId, setActiveOwnerId] = useState<string | null>(null);
-  const [isResolvingOwner, setIsResolvingOwner] = useState(true);
+  const [project, setProject] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Discover the active user profile from Firestore: find any user to display content
-  // We remove orderBy to ensure discovery works even without pre-existing indices
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(10)), [db]);
-  const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
+  // Still use Firestore for the user profile/contact info
+  const profileRef = useMemoFirebase(() => doc(db, 'users', 'ahsan'), [db]);
+  const { data: profile } = useDoc(profileRef);
 
   useEffect(() => {
-    if (!usersLoading) {
-      if (users && users.length > 0) {
-        // Find the first user that has some data, or just the first one
-        const activeUser = users.find(u => u.name || u.id) || users[0];
-        setActiveOwnerId(activeUser.id);
-      } else {
-        // Fallback to "ahsan" if no users exist yet in DB
-        setActiveOwnerId("ahsan");
+    async function fetchProject() {
+      if (!slug) return;
+      try {
+        const data = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
+        setProject(data);
+      } catch (error) {
+        console.error("Sanity fetch error:", error);
+      } finally {
+        setIsLoading(false);
       }
-      setIsResolvingOwner(false);
     }
-  }, [users, usersLoading]);
+    fetchProject();
+  }, [slug]);
 
-  // Project lookup by slug under the resolved active owner
-  const projectQuery = useMemoFirebase(() => {
-    if (!slug || !activeOwnerId) return null;
-    return query(
-      collection(db, 'users', activeOwnerId, 'projects'),
-      where('slug', '==', slug.toLowerCase()),
-      limit(1)
-    );
-  }, [db, slug, activeOwnerId]);
-
-  const { data: projectResults, isLoading: projectLoading } = useCollection(projectQuery);
-  
-  // Find project in Firestore results or fall back to dummy library
-  const firestoreProject = projectResults?.[0];
-  const dummyProject = PROJECTS.find(p => p.slug === slug.toLowerCase());
-  
-  // Map project data to the UI format
-  const project = firestoreProject || (dummyProject ? {
-    id: dummyProject.slug,
-    title: dummyProject.title,
-    description: dummyProject.shortDescription,
-    techStack: dummyProject.techStack,
-    imageUrl: dummyProject.imageUrl,
-    businessImpact: dummyProject.businessImpact,
-    roiMetric: dummyProject.roiMetric,
-    problem: dummyProject.problem,
-    solution: dummyProject.solution,
-    architecture: dummyProject.technicalDeepDive?.architecture,
-    codeSnippet: dummyProject.technicalDeepDive?.codeSnippet,
-    projectLink: "#",
-    githubLink: "#"
-  } : null);
-
-  const isGlobalLoading = usersLoading || isResolvingOwner || (activeOwnerId && projectLoading);
-
-  if (isGlobalLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background gap-4">
         <Activity className="animate-spin text-primary h-10 w-10" />
         <p className="text-muted-foreground text-xs uppercase font-black tracking-widest animate-pulse">
-          Resolving Case Study...
+          Syncing with Sanity...
         </p>
       </div>
     );
@@ -107,7 +69,7 @@ export default function ProjectPage() {
                 {project.title}
                </h1>
                <div className="flex flex-wrap gap-2">
-                  {project.techStack?.map((tech: string) => (
+                  {project.technologies?.map((tech: string) => (
                     <span key={tech} className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-white/5 border border-white/10 rounded-full text-muted-foreground">
                       {tech}
                     </span>
@@ -116,19 +78,19 @@ export default function ProjectPage() {
             </div>
             <div className="lg:col-span-4 flex flex-col justify-end gap-6 border-l border-white/10 pl-6">
                <div className="space-y-1">
-                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Business Impact</p>
-                  <p className="text-xl md:text-2xl font-bold text-foreground">{project.businessImpact || "Impact Measured"}</p>
+                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Business Value</p>
+                  <p className="text-xl md:text-2xl font-bold text-foreground">Measured Result</p>
                </div>
                <div className="space-y-1">
-                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Core ROI</p>
-                  <p className="text-xl md:text-2xl font-bold text-foreground">{project.roiMetric || "ROI Optimized"}</p>
+                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Integration</p>
+                  <p className="text-xl md:text-2xl font-bold text-foreground">Production Ready</p>
                </div>
             </div>
           </header>
 
           <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group animate-fade-in [animation-delay:200ms]">
             <Image
-              src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/630`}
+              src={project.imageUrl || `https://picsum.photos/seed/${project._id}/1200/630`}
               alt={project.title}
               fill
               className="object-cover transition-all duration-1000 scale-105 group-hover:scale-100"
@@ -148,65 +110,40 @@ export default function ProjectPage() {
                    <Target className="h-6 w-6 text-primary shrink-0 mt-1" />
                    <div className="space-y-4">
                      <p className="text-lg md:text-2xl font-light leading-relaxed text-foreground italic">
-                      "{project.description}"
+                      "{project.shortDescription}"
                      </p>
                    </div>
                 </div>
               </section>
 
-              {project.problem && (
+              {project.fullDescription && (
                 <section className="space-y-6">
                   <div className="flex items-center gap-4 text-muted-foreground/50">
-                    <span className="text-[10px] font-black uppercase tracking-widest">02 // The Problem</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest">02 // Deep Dive</span>
                     <div className="h-[1px] flex-1 bg-white/5" />
                   </div>
                   <div className="flex gap-4 items-start">
                      <Zap className="h-6 w-6 text-primary shrink-0 mt-1" />
-                     <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
-                      {project.problem}
-                     </p>
+                     <div className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground prose prose-invert">
+                        {/* Render rich text here if using PortableText component */}
+                        {typeof project.fullDescription === 'string' ? project.fullDescription : "Detailed analysis available via project console."}
+                     </div>
                   </div>
                 </section>
               )}
-
-              {project.solution && (
-                <section className="space-y-6">
+              
+              {project.gallery && project.gallery.length > 0 && (
+                <section className="space-y-8">
                   <div className="flex items-center gap-4 text-muted-foreground/50">
-                    <span className="text-[10px] font-black uppercase tracking-widest">03 // The Solution</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest">03 // Artifacts</span>
                     <div className="h-[1px] flex-1 bg-white/5" />
                   </div>
-                  <div className="flex gap-4 items-start">
-                     <Zap className="h-6 w-6 text-accent shrink-0 mt-1" />
-                     <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
-                      {project.solution}
-                     </p>
-                  </div>
-                </section>
-              )}
-
-              {(project.architecture || project.codeSnippet) && (
-                <section className="space-y-8 p-8 md:p-12 bg-white/[0.02] rounded-[2rem] border border-white/5 group">
-                  <div className="flex items-center gap-4 text-primary">
-                    <Code className="h-5 w-5" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Technical Implementation</span>
-                  </div>
-                  <div className="space-y-8">
-                    {project.architecture && (
-                      <div className="space-y-4">
-                        <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-foreground">Architecture Strategy</h4>
-                        <div className="text-sm md:text-base text-muted-foreground leading-relaxed whitespace-pre-wrap font-mono bg-black/20 p-4 rounded-xl border border-white/5">
-                          {project.architecture}
-                        </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.gallery.map((img: any, idx: number) => (
+                      <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5">
+                        <Image src={img.url} alt={`Screenshot ${idx}`} fill className="object-cover" />
                       </div>
-                    )}
-                    {project.codeSnippet && (
-                      <div className="space-y-4">
-                        <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-foreground">Core Logic Snippet</h4>
-                        <pre className="text-xs p-6 bg-black/40 rounded-2xl border border-white/5 overflow-x-auto font-mono text-primary/80">
-                          <code>{project.codeSnippet}</code>
-                        </pre>
-                      </div>
-                    )}
+                    ))}
                   </div>
                 </section>
               )}
@@ -218,20 +155,15 @@ export default function ProjectPage() {
                <div className="space-y-6 p-8 bg-white/[0.02] rounded-[2rem] border border-white/5 shadow-xl">
                   <h3 className="text-lg font-black uppercase tracking-tighter text-foreground">Project Resources</h3>
                   <div className="space-y-4">
-                    {project.projectLink && project.projectLink !== "#" && (
-                      <Link href={project.projectLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
+                    {project.liveLink && (
+                      <Link href={project.liveLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
                         Live Demo <ExternalLink className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
                     )}
-                    {project.githubLink && project.githubLink !== "#" && (
+                    {project.githubLink && (
                       <Link href={project.githubLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
                         Source Code <Github className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
-                    )}
-                    {((!project.projectLink || project.projectLink === "#") && (!project.githubLink || project.githubLink === "#")) && (
-                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center py-4 border border-dashed border-white/10 rounded-xl">
-                        Private Repository
-                      </p>
                     )}
                   </div>
                </div>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Navigation } from "@/components/navigation";
@@ -5,70 +6,39 @@ import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Github, Mail, Linkedin, Code2,
   Zap, ShieldCheck, Flame, Palette,
-  Activity, Target, Award, Terminal
+  Activity, Target, Terminal
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase";
-import { collection, query, orderBy, doc, limit } from "firebase/firestore";
-import { cn } from "@/lib/utils";
+import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
+import { doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { PROJECTS } from "@/app/lib/projects";
+import { client, PROJECTS_QUERY } from "@/lib/sanity";
 
-/**
- * @fileOverview Landing page for the portfolio.
- * Dynamically discovers the active owner and showcases high-impact projects.
- */
 export default function Home() {
   const db = useFirestore();
-  const [activeOwnerId, setActiveOwnerId] = useState<string | null>(null);
-  const [isResolvingOwner, setIsResolvingOwner] = useState(true);
+  const [sanityProjects, setSanityProjects] = useState<any[]>([]);
+  const [isSanityLoading, setIsSanityLoading] = useState(true);
 
-  // Discover the active user profile from Firestore: find any user to display content
-  // We use a simple limit query to avoid dependency on field-specific indices for discovery
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(5)), [db]);
-  const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
+  // Still use Firestore for the user profile
+  const profileRef = useMemoFirebase(() => doc(db, 'users', 'ahsan'), [db]);
+  const { data: profile } = useDoc(profileRef);
 
   useEffect(() => {
-    if (!usersLoading) {
-      if (users && users.length > 0) {
-        // Prefer the most recently active or just pick the first discovered
-        setActiveOwnerId(users[0].id);
-      } else {
-        // Fallback to "ahsan" if no users exist yet in DB
-        setActiveOwnerId("ahsan");
+    async function fetchProjects() {
+      try {
+        const projects = await client.fetch(PROJECTS_QUERY);
+        setSanityProjects(projects);
+      } catch (error) {
+        console.error("Failed to fetch projects from Sanity:", error);
+      } finally {
+        setIsSanityLoading(false);
       }
-      setIsResolvingOwner(false);
     }
-  }, [users, usersLoading]);
-
-  const profileRef = useMemoFirebase(() => activeOwnerId ? doc(db, 'users', activeOwnerId) : null, [db, activeOwnerId]);
-  const projectsQuery = useMemoFirebase(() => {
-    if (!activeOwnerId) return null;
-    return query(collection(db, 'users', activeOwnerId, 'projects'), orderBy('order', 'asc'));
-  }, [db, activeOwnerId]);
-
-  const { data: profile } = useDoc(profileRef);
-  const { data: projects, isLoading: projectsLoading } = useCollection(projectsQuery);
-
-  // Map dummy projects from the library to the UI format
-  const dummyProjects = PROJECTS.map((p, idx) => ({
-    id: `dummy-${idx}`,
-    slug: p.slug,
-    title: p.title,
-    description: p.shortDescription,
-    imageUrl: p.imageUrl,
-    techStack: p.techStack,
-    roiMetric: p.roiMetric,
-    businessImpact: p.businessImpact
-  }));
-
-  // Show user projects if they exist, otherwise show dummy data
-  const hasUserProjects = projects && projects.length > 0;
-  const displayProjects = hasUserProjects ? projects : (isResolvingOwner ? [] : dummyProjects);
-  const showLoading = usersLoading || isResolvingOwner || (activeOwnerId && projectsLoading);
+    fetchProjects();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground dot-pattern overflow-x-hidden selection:bg-primary/20">
@@ -236,18 +206,30 @@ export default function Home() {
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {showLoading ? (
+            {isSanityLoading ? (
                <div className="col-span-full py-20 flex flex-col items-center gap-4">
                  <Activity className="animate-spin text-primary h-8 w-8" />
-                 <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Syncing Projects...</p>
+                 <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Fetching from Sanity...</p>
                </div>
-            ) : displayProjects && displayProjects.length > 0 ? (
-              displayProjects.map((project, idx) => (
-                <ProjectCard key={project.id} project={project as any} index={idx} />
+            ) : sanityProjects.length > 0 ? (
+              sanityProjects.map((project, idx) => (
+                <ProjectCard 
+                  key={project._id} 
+                  project={{
+                    id: project._id,
+                    slug: project.slug,
+                    title: project.title,
+                    description: project.shortDescription,
+                    imageUrl: project.imageUrl,
+                    techStack: project.technologies,
+                    roiMetric: project.featured ? "Featured Project" : ""
+                  }} 
+                  index={idx} 
+                />
               ))
             ) : (
               <div className="col-span-full py-20 border border-dashed border-white/10 rounded-[2rem] text-center">
-                <p className="text-muted-foreground italic">No projects discovered. Publish your work in the CMS.</p>
+                <p className="text-muted-foreground italic">No projects found in Sanity. Add some to get started.</p>
               </div>
             )}
           </div>
