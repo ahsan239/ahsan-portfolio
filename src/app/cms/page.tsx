@@ -277,8 +277,13 @@ export default function CMSPage() {
             </Card>
 
             <div className="space-y-6">
-              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-2">
-                <Sparkles size={14} className="text-primary" /> Active Content Inventory
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                   <Sparkles size={14} className="text-primary" /> Active Content Inventory
+                </span>
+                <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-[10px] border border-primary/20">
+                  {projects?.length || 0} Projects in Database
+                </span>
               </h3>
               <div className="grid gap-4">
                 {projects?.map(p => (

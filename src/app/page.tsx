@@ -26,13 +26,15 @@ export default function Home() {
   const [activeOwnerId, setActiveOwnerId] = useState<string | null>(null);
   const [isResolvingOwner, setIsResolvingOwner] = useState(true);
 
-  // Discover the active user profile from Firestore: find the most recently active profile
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), orderBy('lastUpdated', 'desc'), limit(1)), [db]);
+  // Discover the active user profile from Firestore: find any user to display content
+  // We use a simple limit query to avoid dependency on field-specific indices for discovery
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(5)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
     if (!usersLoading) {
       if (users && users.length > 0) {
+        // Prefer the most recently active or just pick the first discovered
         setActiveOwnerId(users[0].id);
       } else {
         // Fallback to "ahsan" if no users exist yet in DB
@@ -64,7 +66,6 @@ export default function Home() {
   }));
 
   // Show user projects if they exist, otherwise show dummy data
-  // Only show dummy data if we have finished loading and the owner is the default "ahsan" fallback or has no projects
   const hasUserProjects = projects && projects.length > 0;
   const displayProjects = hasUserProjects ? projects : (isResolvingOwner ? [] : dummyProjects);
   const showLoading = usersLoading || isResolvingOwner || (activeOwnerId && projectsLoading);
