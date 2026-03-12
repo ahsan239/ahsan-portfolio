@@ -5,7 +5,7 @@ import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-import { ChevronLeft, Github, ExternalLink, Target, Activity, AlertCircle } from "lucide-react";
+import { ChevronLeft, Github, ExternalLink, Target, Activity, CircleAlert } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { client, PROJECT_BY_SLUG_QUERY, isSanityConfigured } from "@/lib/sanity";
@@ -53,7 +53,7 @@ export default function ProjectPage() {
   if (!isSanityConfigured) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6 text-center space-y-6">
-        <AlertCircle className="h-16 w-16 text-yellow-500/50" />
+        <CircleAlert className="h-16 w-16 text-yellow-500/50" />
         <div className="space-y-2">
           <h1 className="text-3xl font-black uppercase tracking-tight">Sanity Not Configured</h1>
           <p className="text-muted-foreground max-w-md">

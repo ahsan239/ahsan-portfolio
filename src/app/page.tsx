@@ -5,7 +5,7 @@ import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Github, Mail, Linkedin, Code2,
   Zap, ShieldCheck, Flame, Palette,
-  Activity, Target, Terminal, AlertCircle
+  Activity, Target, Terminal, CircleAlert
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -21,7 +21,6 @@ export default function Home() {
   const [sanityProjects, setSanityProjects] = useState<any[]>([]);
   const [isSanityLoading, setIsSanityLoading] = useState(true);
 
-  // Still use Firestore for the user profile
   const profileRef = useMemoFirebase(() => doc(db, 'users', 'ahsan'), [db]);
   const { data: profile } = useDoc(profileRef);
 
@@ -37,7 +36,6 @@ export default function Home() {
         setSanityProjects(projects || []);
       } catch (error) {
         console.error("Sanity connection error:", error);
-        // Fallback to empty to stop loading state
         setSanityProjects([]);
       } finally {
         setIsSanityLoading(false);
@@ -219,7 +217,7 @@ export default function Home() {
              </div>
           ) : !isSanityConfigured ? (
             <div className="py-20 border border-dashed border-white/10 rounded-[2rem] text-center max-w-2xl mx-auto space-y-6">
-               <AlertCircle className="mx-auto h-12 w-12 text-yellow-500/50" />
+               <CircleAlert className="mx-auto h-12 w-12 text-yellow-500/50" />
                <div className="space-y-2">
                  <h4 className="text-xl font-bold uppercase tracking-tighter">Sanity Configuration Required</h4>
                  <p className="text-muted-foreground text-sm max-w-md mx-auto">
