@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from "react";
@@ -12,7 +13,7 @@ import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase, useAuth 
 import { collection, doc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { setDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
-import { Plus, Trash2, LayoutDashboard, Briefcase, Loader2, User, Save, Edit3, X, ExternalLink, ShieldAlert, Database } from "lucide-react";
+import { Plus, Trash2, LayoutDashboard, Briefcase, Loader2, User, Save, Edit3, X, ExternalLink, ShieldAlert, Database, Sparkles } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import Link from "next/link";
 
@@ -138,13 +139,13 @@ export default function CMSPage() {
           </div>
         </div>
 
-        <Tabs defaultValue="experience" className="space-y-8 animate-fade-in-up">
+        <Tabs defaultValue="projects" className="space-y-8 animate-fade-in-up">
           <TabsList className="bg-white/5 border border-white/10 p-1.5 h-14 rounded-2xl w-full md:w-fit">
+            <TabsTrigger value="projects" className="rounded-xl px-8 gap-2 data-[state=active]:bg-primary h-full">
+              <Database size={16} /> Projects
+            </TabsTrigger>
             <TabsTrigger value="profile" className="rounded-xl px-8 gap-2 data-[state=active]:bg-primary h-full">
               <User size={16} /> Profile
-            </TabsTrigger>
-            <TabsTrigger value="projects" className="rounded-xl px-8 gap-2 data-[state=active]:bg-primary h-full">
-              <Database size={16} /> Projects (Sanity)
             </TabsTrigger>
             <TabsTrigger value="experience" className="rounded-xl px-8 gap-2 data-[state=active]:bg-primary h-full">
               <Briefcase size={16} /> Career
@@ -198,21 +199,28 @@ export default function CMSPage() {
                   <Database size={40} />
                 </div>
                 <div className="space-y-4 max-w-lg mx-auto">
-                  <h2 className="text-3xl font-black uppercase tracking-tighter">Manage via Sanity</h2>
+                  <h2 className="text-3xl font-black uppercase tracking-tighter">Embedded Sanity Studio</h2>
                   <p className="text-muted-foreground">
-                    Project management has been migrated to **Sanity.io** for superior rich-text editing and asset management. 
-                    Use Sanity Studio to add, edit, or remove project case studies.
+                    Your project dashboard is now embedded directly within your application. 
+                    Manage case studies, upload assets, and publish live updates from a professional interface.
                   </p>
                 </div>
-                <Button asChild size="lg" className="h-16 px-12 rounded-2xl font-black uppercase tracking-widest shadow-xl">
-                  <Link href="https://www.sanity.io/manage" target="_blank">
-                    Open Sanity Studio <ExternalLink className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <Button asChild size="lg" className="h-16 px-12 rounded-2xl font-black uppercase tracking-widest shadow-xl">
+                    <Link href="/studio">
+                      Open Embedded Studio <Sparkles className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button variant="outline" asChild size="lg" className="h-16 px-12 rounded-2xl font-black uppercase tracking-widest border-white/10 bg-white/5">
+                    <Link href="https://www.sanity.io/manage" target="_blank">
+                      Cloud Manager <ExternalLink className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                </div>
                 <div className="pt-8 border-t border-white/5 flex flex-wrap justify-center gap-4">
-                  <Badge variant="outline" className="border-white/10 text-[10px] uppercase font-bold py-1 px-4">GROQ Queries Active</Badge>
-                  <Badge variant="outline" className="border-white/10 text-[10px] uppercase font-bold py-1 px-4">Image Optimization Ready</Badge>
-                  <Badge variant="outline" className="border-white/10 text-[10px] uppercase font-bold py-1 px-4">CDN Integration Enabled</Badge>
+                  <Badge variant="outline" className="border-white/10 text-[10px] uppercase font-bold py-1 px-4">Local Auth Active</Badge>
+                  <Badge variant="outline" className="border-white/10 text-[10px] uppercase font-bold py-1 px-4">Real-time Previews</Badge>
+                  <Badge variant="outline" className="border-white/10 text-[10px] uppercase font-bold py-1 px-4">Asset Pipeline Ready</Badge>
                 </div>
              </Card>
           </TabsContent>
