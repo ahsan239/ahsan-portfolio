@@ -9,6 +9,7 @@ import { AIDemo } from "@/components/ai-demo";
 import { ChevronLeft, Github, ExternalLink, Code, Target, Zap, Activity } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { PROJECTS } from "@/app/lib/projects";
 
 /**
  * @fileOverview Individual project case study view.
@@ -22,19 +23,18 @@ export default function ProjectPage() {
   const [isResolvingOwner, setIsResolvingOwner] = useState(true);
 
   // Discover the active user profile from Firestore
-  // We look for profiles that have been recently updated to find the active portfolio owner
   const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), orderBy('lastUpdated', 'desc'), limit(10)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
-    if (!usersLoading && users) {
-      // Find the first user that has some profile data or just the first one in the list
-      const activeUser = users.find(u => u.name || u.headline || u.id) || users[0];
-      if (activeUser) {
+    if (!usersLoading) {
+      if (users && users.length > 0) {
+        const activeUser = users.find(u => u.name || u.headline || u.id) || users[0];
         setActiveOwnerId(activeUser.id);
+      } else {
+        // Fallback to "ahsan" if no users exist yet in DB
+        setActiveOwnerId("ahsan");
       }
-      setIsResolvingOwner(false);
-    } else if (!usersLoading && !users) {
       setIsResolvingOwner(false);
     }
   }, [users, usersLoading]);
@@ -50,12 +50,28 @@ export default function ProjectPage() {
   }, [db, slug, activeOwnerId]);
 
   const { data: projectResults, isLoading: projectLoading } = useCollection(projectQuery);
-  const project = projectResults?.[0];
+  
+  // Find project in Firestore results or fall back to dummy library
+  const firestoreProject = projectResults?.[0];
+  const dummyProject = PROJECTS.find(p => p.slug === slug);
+  
+  // Map dummy project to the same shape as Firestore project if needed
+  const project = firestoreProject || (dummyProject ? {
+    id: dummyProject.slug,
+    title: dummyProject.title,
+    description: dummyProject.shortDescription,
+    techStack: dummyProject.techStack,
+    imageUrl: dummyProject.imageUrl,
+    businessImpact: dummyProject.businessImpact,
+    roiMetric: dummyProject.roiMetric,
+    problem: dummyProject.problem,
+    solution: dummyProject.solution,
+    architecture: dummyProject.technicalDeepDive?.architecture,
+    codeSnippet: dummyProject.technicalDeepDive?.codeSnippet,
+    projectLink: "#",
+    githubLink: "#"
+  } : null);
 
-  // We are "Loading" if:
-  // 1. Still fetching the list of users
-  // 2. Still trying to decide which user is the owner
-  // 3. Have an owner, but still fetching the specific project (if it exists)
   const isGlobalLoading = usersLoading || isResolvingOwner || (activeOwnerId && projectLoading);
 
   if (isGlobalLoading) {
@@ -69,8 +85,7 @@ export default function ProjectPage() {
     );
   }
 
-  // Final check: if we've finished loading and found no project
-  if (!activeOwnerId || !project) {
+  if (!project) {
     notFound();
   }
 
@@ -184,17 +199,17 @@ export default function ProjectPage() {
                <div className="space-y-6 p-8 bg-white/[0.02] rounded-[2rem] border border-white/5 shadow-xl">
                   <h3 className="text-lg font-black uppercase tracking-tighter text-foreground">Project Resources</h3>
                   <div className="space-y-4">
-                    {project.projectLink && (
+                    {project.projectLink && project.projectLink !== "#" && (
                       <Link href={project.projectLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
                         Live Demo <ExternalLink className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
                     )}
-                    {project.githubLink && (
+                    {project.githubLink && project.githubLink !== "#" && (
                       <Link href={project.githubLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
                         Source Code <Github className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
                     )}
-                    {!project.projectLink && !project.githubLink && (
+                    {((!project.projectLink || project.projectLink === "#") && (!project.githubLink || project.githubLink === "#")) && (
                       <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center py-4 border border-dashed border-white/10 rounded-xl">
                         Private Repository
                       </p>
