@@ -109,7 +109,7 @@ export default function ProjectPage() {
 
           <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group animate-fade-in [animation-delay:200ms]">
             <Image
-              src={project.heroImageUrl || `https://picsum.photos/seed/${project._id}/1200/630`}
+              src={project.imageUrl || `https://picsum.photos/seed/${project._id}/1200/630`}
               alt={project.title}
               fill
               className="object-cover transition-all duration-1000 scale-105 group-hover:scale-100"

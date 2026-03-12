@@ -239,7 +239,7 @@ export default function Home() {
                     slug: project.slug,
                     title: project.title,
                     description: project.shortDescription,
-                    imageUrl: project.cardImageUrl, // Uses the specialized Card Image field
+                    imageUrl: project.imageUrl,
                     techStack: project.technologies,
                     roiMetric: project.featured ? "Featured Project" : ""
                   }} 
