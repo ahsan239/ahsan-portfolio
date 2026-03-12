@@ -6,7 +6,7 @@ import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-import { ChevronLeft, Github, ExternalLink, Code, Target, Zap, Activity, AlertCircle } from "lucide-react";
+import { ChevronLeft, Github, ExternalLink, Target, Activity, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { client, PROJECT_BY_SLUG_QUERY, isSanityConfigured } from "@/lib/sanity";
@@ -135,27 +135,11 @@ export default function ProjectPage() {
                    </div>
                 </div>
               </section>
-
-              {project.fullDescription && (
-                <section className="space-y-6">
-                  <div className="flex items-center gap-4 text-muted-foreground/50">
-                    <span className="text-[10px] font-black uppercase tracking-widest">02 // Deep Dive</span>
-                    <div className="h-[1px] flex-1 bg-white/5" />
-                  </div>
-                  <div className="flex gap-4 items-start">
-                     <Zap className="h-6 w-6 text-primary shrink-0 mt-1" />
-                     <div className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground prose prose-invert">
-                        {/* Render rich text here if using PortableText component */}
-                        {typeof project.fullDescription === 'string' ? project.fullDescription : "Detailed analysis available via project console."}
-                     </div>
-                  </div>
-                </section>
-              )}
               
               {project.gallery && project.gallery.length > 0 && (
                 <section className="space-y-8">
                   <div className="flex items-center gap-4 text-muted-foreground/50">
-                    <span className="text-[10px] font-black uppercase tracking-widest">03 // Artifacts</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest">02 // Artifacts</span>
                     <div className="h-[1px] flex-1 bg-white/5" />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
