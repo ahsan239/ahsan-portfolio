@@ -2,7 +2,7 @@
 
 import { Navigation } from "@/components/navigation";
 import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, where, limit, orderBy } from "firebase/firestore";
+import { collection, query, where, limit } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
@@ -22,14 +22,16 @@ export default function ProjectPage() {
   const [activeOwnerId, setActiveOwnerId] = useState<string | null>(null);
   const [isResolvingOwner, setIsResolvingOwner] = useState(true);
 
-  // Discover the active user profile from Firestore
-  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), orderBy('lastUpdated', 'desc'), limit(10)), [db]);
+  // Discover the active user profile from Firestore: find any user to display content
+  // We remove orderBy to ensure discovery works even without pre-existing indices
+  const usersQuery = useMemoFirebase(() => query(collection(db, 'users'), limit(10)), [db]);
   const { data: users, isLoading: usersLoading } = useCollection(usersQuery);
 
   useEffect(() => {
     if (!usersLoading) {
       if (users && users.length > 0) {
-        const activeUser = users.find(u => u.name || u.headline || u.id) || users[0];
+        // Find the first user that has some data, or just the first one
+        const activeUser = users.find(u => u.name || u.id) || users[0];
         setActiveOwnerId(activeUser.id);
       } else {
         // Fallback to "ahsan" if no users exist yet in DB
@@ -53,9 +55,9 @@ export default function ProjectPage() {
   
   // Find project in Firestore results or fall back to dummy library
   const firestoreProject = projectResults?.[0];
-  const dummyProject = PROJECTS.find(p => p.slug === slug);
+  const dummyProject = PROJECTS.find(p => p.slug === slug.toLowerCase());
   
-  // Map dummy project to the same shape as Firestore project if needed
+  // Map project data to the UI format
   const project = firestoreProject || (dummyProject ? {
     id: dummyProject.slug,
     title: dummyProject.title,
@@ -139,31 +141,48 @@ export default function ProjectPage() {
             <div className="lg:col-span-7 space-y-16 animate-fade-in-up [animation-delay:400ms]">
               <section className="space-y-6">
                 <div className="flex items-center gap-4 text-muted-foreground/50">
-                  <span className="text-[10px] font-black uppercase tracking-widest">01 // The Problem</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest">01 // Description</span>
                   <div className="h-[1px] flex-1 bg-white/5" />
                 </div>
                 <div className="flex gap-4 items-start">
                    <Target className="h-6 w-6 text-primary shrink-0 mt-1" />
                    <div className="space-y-4">
                      <p className="text-lg md:text-2xl font-light leading-relaxed text-foreground italic">
-                      "{project.problem || project.description}"
+                      "{project.description}"
                      </p>
                    </div>
                 </div>
               </section>
 
-              <section className="space-y-6">
-                <div className="flex items-center gap-4 text-muted-foreground/50">
-                  <span className="text-[10px] font-black uppercase tracking-widest">02 // The Solution</span>
-                  <div className="h-[1px] flex-1 bg-white/5" />
-                </div>
-                <div className="flex gap-4 items-start">
-                   <Zap className="h-6 w-6 text-accent shrink-0 mt-1" />
-                   <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
-                    {project.solution || "Implementing a custom high-performance solution focused on scalability and enterprise-grade reliability."}
-                   </p>
-                </div>
-              </section>
+              {project.problem && (
+                <section className="space-y-6">
+                  <div className="flex items-center gap-4 text-muted-foreground/50">
+                    <span className="text-[10px] font-black uppercase tracking-widest">02 // The Problem</span>
+                    <div className="h-[1px] flex-1 bg-white/5" />
+                  </div>
+                  <div className="flex gap-4 items-start">
+                     <Zap className="h-6 w-6 text-primary shrink-0 mt-1" />
+                     <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
+                      {project.problem}
+                     </p>
+                  </div>
+                </section>
+              )}
+
+              {project.solution && (
+                <section className="space-y-6">
+                  <div className="flex items-center gap-4 text-muted-foreground/50">
+                    <span className="text-[10px] font-black uppercase tracking-widest">03 // The Solution</span>
+                    <div className="h-[1px] flex-1 bg-white/5" />
+                  </div>
+                  <div className="flex gap-4 items-start">
+                     <Zap className="h-6 w-6 text-accent shrink-0 mt-1" />
+                     <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
+                      {project.solution}
+                     </p>
+                  </div>
+                </section>
+              )}
 
               {(project.architecture || project.codeSnippet) && (
                 <section className="space-y-8 p-8 md:p-12 bg-white/[0.02] rounded-[2rem] border border-white/5 group">
