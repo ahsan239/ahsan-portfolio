@@ -36,8 +36,19 @@ export const projectType = defineType({
       of: [{ type: 'block' }],
     }),
     defineField({
-      name: 'coverImage',
-      title: 'Cover Image',
+      name: 'cardImage',
+      title: 'Card Image (Homepage)',
+      description: 'The image displayed on the project card in the portfolio grid.',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image (Case Study)',
+      description: 'The large banner image displayed at the top of the individual project page.',
       type: 'image',
       options: {
         hotspot: true,
