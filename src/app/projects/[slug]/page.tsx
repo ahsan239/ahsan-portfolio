@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Navigation } from "@/components/navigation";
@@ -19,7 +18,6 @@ export default function ProjectPage() {
   const [project, setProject] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Still use Firestore for the user profile/contact info
   const profileRef = useMemoFirebase(() => doc(db, 'users', 'ahsan'), [db]);
   const { data: profile } = useDoc(profileRef);
 
@@ -98,12 +96,12 @@ export default function ProjectPage() {
             </div>
             <div className="lg:col-span-4 flex flex-col justify-end gap-6 border-l border-white/10 pl-6">
                <div className="space-y-1">
-                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Business Value</p>
-                  <p className="text-xl md:text-2xl font-bold text-foreground">Measured Result</p>
+                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Status</p>
+                  <p className="text-xl md:text-2xl font-bold text-foreground">Production Ready</p>
                </div>
                <div className="space-y-1">
-                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Integration</p>
-                  <p className="text-xl md:text-2xl font-bold text-foreground">Production Ready</p>
+                  <p className="text-[9px] font-black text-primary uppercase tracking-widest">Environment</p>
+                  <p className="text-xl md:text-2xl font-bold text-foreground">Cloud Architecture</p>
                </div>
             </div>
           </header>
@@ -123,7 +121,7 @@ export default function ProjectPage() {
             <div className="lg:col-span-7 space-y-16 animate-fade-in-up [animation-delay:400ms]">
               <section className="space-y-6">
                 <div className="flex items-center gap-4 text-muted-foreground/50">
-                  <span className="text-[10px] font-black uppercase tracking-widest">01 // Description</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest">01 // Overview</span>
                   <div className="h-[1px] flex-1 bg-white/5" />
                 </div>
                 <div className="flex gap-4 items-start">
@@ -139,13 +137,13 @@ export default function ProjectPage() {
               {project.gallery && project.gallery.length > 0 && (
                 <section className="space-y-8">
                   <div className="flex items-center gap-4 text-muted-foreground/50">
-                    <span className="text-[10px] font-black uppercase tracking-widest">02 // Artifacts</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest">02 // Visual Artifacts</span>
                     <div className="h-[1px] flex-1 bg-white/5" />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {project.gallery.map((img: any, idx: number) => (
                       <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5">
-                        <Image src={img.url} alt={`Screenshot ${idx}`} fill className="object-cover" />
+                        <Image src={img.url} alt={`Artifact ${idx}`} fill className="object-cover" />
                       </div>
                     ))}
                   </div>
@@ -155,16 +153,16 @@ export default function ProjectPage() {
 
             <aside className="lg:col-span-5 lg:sticky lg:top-32 space-y-8 animate-fade-in-up [animation-delay:600ms]">
                <div className="space-y-6 p-8 bg-white/[0.02] rounded-[2rem] border border-white/5 shadow-xl">
-                  <h3 className="text-lg font-black uppercase tracking-tighter text-foreground">Project Resources</h3>
+                  <h3 className="text-lg font-black uppercase tracking-tighter text-foreground">External Links</h3>
                   <div className="space-y-4">
                     {project.liveLink && (
                       <Link href={project.liveLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
-                        Live Demo <ExternalLink className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                        Launch Project <ExternalLink className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
                     )}
                     {project.githubLink && (
                       <Link href={project.githubLink} target="_blank" className="flex items-center justify-between p-4 bg-white/5 hover:bg-primary hover:text-white rounded-xl transition-all font-black text-[10px] uppercase tracking-widest group">
-                        Source Code <Github className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                        Repository <Github className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       </Link>
                     )}
                   </div>
