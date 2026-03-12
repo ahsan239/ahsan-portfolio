@@ -2,23 +2,29 @@
 import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+// Use environment variable with a fallback to your specific Project ID
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '61no71y9';
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
 
 /**
  * Validates if the Sanity Project ID is a real value (not a placeholder).
+ * This now correctly identifies your project ID as "configured" even without env vars.
  */
-export const isSanityConfigured = !!(projectId && projectId !== 'your-project-id' && projectId.length > 5);
+export const isSanityConfigured = !!(projectId && projectId !== 'your-project-id' && projectId.length >= 5);
 
 export const client = createClient({
-  projectId: projectId || '61no71y9',
+  projectId: projectId,
   dataset: dataset,
   apiVersion: '2024-01-01',
+  // Use CDN in production for faster delivery
   useCdn: process.env.NODE_ENV === 'production', 
 });
 
 const builder = imageUrlBuilder(client);
 
+/**
+ * Helper to generate Sanity image URLs
+ */
 export function urlFor(source: any) {
   return builder.image(source);
 }
