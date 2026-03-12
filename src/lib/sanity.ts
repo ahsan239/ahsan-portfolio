@@ -1,14 +1,13 @@
-
 import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 
 /**
  * @fileOverview Sanity Client Configuration
- * Uses hardcoded Project ID for reliable production access.
+ * Uses hardcoded Project ID for reliable production access across all environments.
  */
 
-const projectId = '61no71y9'; // Hardcoded Project ID to ensure data loads in deployed environments
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+const projectId = '61no71y9'; 
+const dataset = 'production';
 
 export const isSanityConfigured = !!(projectId && projectId.length >= 5);
 
@@ -16,7 +15,7 @@ export const client = createClient({
   projectId: projectId,
   dataset: dataset,
   apiVersion: '2024-01-01',
-  useCdn: process.env.NODE_ENV === 'production', 
+  useCdn: false, // Set to false to bypass CDN cache and see updates immediately in production
 });
 
 const builder = imageUrlBuilder(client);

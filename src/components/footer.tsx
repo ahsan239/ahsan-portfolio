@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 
 /**
  * @fileOverview Global footer component.
- * Aligns with high-fidelity editorial design standards.
  * Conditionally hides itself on Sanity Studio routes.
  */
 export function Footer() {

@@ -1,11 +1,15 @@
-
 import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './src/sanity/schemaTypes';
 
-const projectId = '61no71y9'; // Hardcoded to match client for reliability
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+/**
+ * @fileOverview Sanity Studio Configuration
+ * Hardcoded Project ID to ensure the Studio connects correctly in deployed environments.
+ */
+
+const projectId = '61no71y9';
+const dataset = 'production';
 
 export default defineConfig({
   name: 'default',
