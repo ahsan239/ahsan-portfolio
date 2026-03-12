@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation";
 
 /**
  * @fileOverview Global footer component.
- * Conditionally hides itself on Sanity Studio routes.
+ * Conditionally hides itself on Sanity Studio routes to prevent UI overlap.
  */
 export function Footer() {
   const pathname = usePathname();
 
-  // Hide footer on studio routes to prevent UI overlap
+  // Hide footer on studio routes (including all sub-paths)
   if (pathname?.startsWith('/studio')) {
     return null;
   }
