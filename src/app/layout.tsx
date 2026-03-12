@@ -1,3 +1,4 @@
+
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -79,11 +80,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-body antialiased bg-background text-foreground selection:bg-primary/30 selection:text-white transition-colors duration-300 relative">
+      <body className="font-body antialiased bg-background text-foreground selection:bg-primary/30 selection:text-white transition-colors duration-300 relative" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
+          disableTransitionOnChange={false}
         >
           <FirebaseClientProvider>
             <div className="relative z-0">
