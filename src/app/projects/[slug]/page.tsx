@@ -6,7 +6,7 @@ import { doc } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { ChevronLeft, Github, ExternalLink, Target, Activity, AlertCircle } from "lucide-react";
-import Link from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { client, PROJECT_BY_SLUG_QUERY, isSanityConfigured } from "@/lib/sanity";
 import { Button } from "@/components/ui/button";
