@@ -7,10 +7,11 @@ import { doc } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { AIDemo } from "@/components/ai-demo";
-import { ChevronLeft, Github, ExternalLink, Code, Target, Zap, Activity } from "lucide-react";
+import { ChevronLeft, Github, ExternalLink, Code, Target, Zap, Activity, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { client, PROJECT_BY_SLUG_QUERY } from "@/lib/sanity";
+import { client, PROJECT_BY_SLUG_QUERY, isSanityConfigured } from "@/lib/sanity";
+import { Button } from "@/components/ui/button";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -25,7 +26,10 @@ export default function ProjectPage() {
 
   useEffect(() => {
     async function fetchProject() {
-      if (!slug) return;
+      if (!slug || !isSanityConfigured) {
+        setIsLoading(false);
+        return;
+      }
       try {
         const data = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
         setProject(data);
@@ -45,6 +49,23 @@ export default function ProjectPage() {
         <p className="text-muted-foreground text-xs uppercase font-black tracking-widest animate-pulse">
           Syncing with Sanity...
         </p>
+      </div>
+    );
+  }
+
+  if (!isSanityConfigured) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6 text-center space-y-6">
+        <AlertCircle className="h-16 w-16 text-yellow-500/50" />
+        <div className="space-y-2">
+          <h1 className="text-3xl font-black uppercase tracking-tight">Sanity Not Configured</h1>
+          <p className="text-muted-foreground max-w-md">
+            This project is managed via Sanity.io. Please configure your Project ID in the environment variables to view case studies.
+          </p>
+        </div>
+        <Button asChild>
+          <Link href="/">Back to Home</Link>
+        </Button>
       </div>
     );
   }

@@ -2,9 +2,15 @@
 import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+
+// Check if the project is using a placeholder ID
+export const isSanityConfigured = !!(projectId && projectId !== 'your-project-id');
+
 export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'your-project-id',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  projectId: projectId || 'your-project-id',
+  dataset: dataset,
   apiVersion: '2024-01-01',
   useCdn: false, // Set to true for production if you have high traffic
 });

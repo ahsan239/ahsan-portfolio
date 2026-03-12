@@ -6,7 +6,7 @@ import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Github, Mail, Linkedin, Code2,
   Zap, ShieldCheck, Flame, Palette,
-  Activity, Target, Terminal
+  Activity, Target, Terminal, AlertCircle
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { client, PROJECTS_QUERY } from "@/lib/sanity";
+import { client, PROJECTS_QUERY, isSanityConfigured } from "@/lib/sanity";
 
 export default function Home() {
   const db = useFirestore();
@@ -28,6 +28,11 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchProjects() {
+      if (!isSanityConfigured) {
+        setIsSanityLoading(false);
+        return;
+      }
+      
       try {
         const projects = await client.fetch(PROJECTS_QUERY);
         setSanityProjects(projects);
@@ -205,14 +210,28 @@ export default function Home() {
               Proven results in <span className="text-muted-foreground">engineering.</span>
             </h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {isSanityLoading ? (
-               <div className="col-span-full py-20 flex flex-col items-center gap-4">
-                 <Activity className="animate-spin text-primary h-8 w-8" />
-                 <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Fetching from Sanity...</p>
+          
+          {isSanityLoading ? (
+             <div className="py-20 flex flex-col items-center gap-4">
+               <Activity className="animate-spin text-primary h-8 w-8" />
+               <p className="text-muted-foreground italic text-xs uppercase tracking-widest">Fetching from Sanity...</p>
+             </div>
+          ) : !isSanityConfigured ? (
+            <div className="py-20 border border-dashed border-white/10 rounded-[2rem] text-center max-w-2xl mx-auto space-y-6">
+               <AlertCircle className="mx-auto h-12 w-12 text-yellow-500/50" />
+               <div className="space-y-2">
+                 <h4 className="text-xl font-bold uppercase tracking-tighter">Sanity Configuration Required</h4>
+                 <p className="text-muted-foreground text-sm max-w-md mx-auto">
+                    To display your projects, please update the <strong>NEXT_PUBLIC_SANITY_PROJECT_ID</strong> in your environment variables.
+                 </p>
                </div>
-            ) : sanityProjects.length > 0 ? (
-              sanityProjects.map((project, idx) => (
+               <Button asChild variant="outline" className="rounded-xl">
+                  <Link href="/cms">View Setup Guide</Link>
+               </Button>
+            </div>
+          ) : sanityProjects.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {sanityProjects.map((project, idx) => (
                 <ProjectCard 
                   key={project._id} 
                   project={{
@@ -226,13 +245,13 @@ export default function Home() {
                   }} 
                   index={idx} 
                 />
-              ))
-            ) : (
-              <div className="col-span-full py-20 border border-dashed border-white/10 rounded-[2rem] text-center">
-                <p className="text-muted-foreground italic">No projects found in Sanity. Add some to get started.</p>
-              </div>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="py-20 border border-dashed border-white/10 rounded-[2rem] text-center">
+              <p className="text-muted-foreground italic">No projects found in Sanity. Add some to get started.</p>
+            </div>
+          )}
         </div>
       </section>
 
