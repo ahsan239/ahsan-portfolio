@@ -84,7 +84,6 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
           enableSystem
-          disableTransitionOnChange
         >
           <FirebaseClientProvider>
             <div className="relative z-0">
