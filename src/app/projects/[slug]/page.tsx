@@ -5,11 +5,10 @@ import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-import { ChevronLeft, Github, ExternalLink, Target, Activity, CircleAlert } from "lucide-react";
+import { ChevronLeft, Github, ExternalLink, Target, Activity, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { client, PROJECT_BY_SLUG_QUERY, isSanityConfigured } from "@/lib/sanity";
-import { Button } from "@/components/ui/button";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -53,14 +52,17 @@ export default function ProjectPage() {
   if (!isSanityConfigured) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6 text-center space-y-6">
-        <CircleAlert className="h-16 w-16 text-yellow-500/50" />
+        <AlertTriangle className="h-16 w-16 text-yellow-500/50" />
         <div className="space-y-2">
           <h1 className="text-3xl font-black uppercase tracking-tight">Sanity Not Configured</h1>
           <p className="text-muted-foreground max-w-md">
             This project is managed via Sanity.io. Please configure your Project ID in the environment variables to view case studies.
           </p>
         </div>
-        <button className="bg-primary text-primary-foreground px-6 py-2 rounded-md font-medium" onClick={() => window.location.href = '/'}>
+        <button 
+          className="bg-primary text-primary-foreground px-6 py-2 rounded-md font-medium" 
+          onClick={() => window.location.href = '/'}
+        >
           Back to Home
         </button>
       </div>
@@ -108,7 +110,7 @@ export default function ProjectPage() {
 
           <div className="relative aspect-video w-full mb-16 md:mb-32 rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group animate-fade-in [animation-delay:200ms] bg-white/[0.02]">
             <Image
-              src={project.imageUrl || `https://picsum.photos/seed/${project._id}/1200/630`}
+              src={project.imageUrl || `https://picsum.photos/seed/${project._id || 'default'}/1200/630`}
               alt={project.title}
               fill
               className="object-contain transition-all duration-500"

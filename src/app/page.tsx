@@ -5,7 +5,7 @@ import { ProjectCard } from "@/components/project-card";
 import { 
   ArrowRight, Github, Mail, Linkedin, Code2,
   Zap, ShieldCheck, Flame, Palette,
-  Activity, Target, Terminal, CircleAlert
+  Activity, Target, Terminal, AlertTriangle
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -217,7 +217,7 @@ export default function Home() {
              </div>
           ) : !isSanityConfigured ? (
             <div className="py-20 border border-dashed border-white/10 rounded-[2rem] text-center max-w-2xl mx-auto space-y-6">
-               <CircleAlert className="mx-auto h-12 w-12 text-yellow-500/50" />
+               <AlertTriangle className="mx-auto h-12 w-12 text-yellow-500/50" />
                <div className="space-y-2">
                  <h4 className="text-xl font-bold uppercase tracking-tighter">Sanity Configuration Required</h4>
                  <p className="text-muted-foreground text-sm max-w-md mx-auto">
