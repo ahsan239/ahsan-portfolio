@@ -114,7 +114,7 @@ export default function ProjectPage() {
               src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/630`}
               alt={project.title}
               fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
+              className="object-cover transition-all duration-1000 scale-105 group-hover:scale-100"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40" />

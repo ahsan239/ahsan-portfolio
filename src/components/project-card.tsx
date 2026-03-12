@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -34,7 +33,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1200/630`}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale hover:grayscale-0"
+          className="object-cover transition-transform duration-1000 group-hover:scale-110"
           data-ai-hint="project visual"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80" />

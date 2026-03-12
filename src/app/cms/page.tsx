@@ -285,7 +285,7 @@ export default function CMSPage() {
                   <div key={p.id} className="glass-card p-6 rounded-[2rem] border-white/5 flex items-center justify-between group hover:border-primary/30 transition-all shadow-xl">
                     <div className="flex items-center gap-6">
                       <div className="h-16 w-16 rounded-2xl overflow-hidden bg-black/20 border border-white/5">
-                        <img src={p.imageUrl} alt="" className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={p.imageUrl} alt="" className="h-full w-full object-cover transition-all duration-500" />
                       </div>
                       <div>
                         <h4 className="font-bold text-lg uppercase tracking-tight">{p.title}</h4>
